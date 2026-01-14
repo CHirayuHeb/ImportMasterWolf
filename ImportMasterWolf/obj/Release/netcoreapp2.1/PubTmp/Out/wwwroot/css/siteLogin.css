@@ -1,0 +1,176 @@
+﻿@import url(../font/FontFamily.css);
+@import url(../css/GlobalVariable.css);
+body {
+    font-family: LeelawaD;
+    background-color: whitesmoke;
+}
+
+.body-content {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: ghostwhite;
+}
+
+/*#region Login */
+.layout-container {
+    display: block;
+    margin-top: auto;
+    /*grid-template-columns: repeat(2,1fr);*/
+}
+
+.login-container .login-content {
+    text-align: center;
+    line-height: 2.5rem;
+    /*height: 100vh;*/
+    min-width: 300px;
+    max-width: 1600px;
+    backdrop-filter: blur(1px);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: auto;
+}
+
+.login-container .login-content .account-info {
+    margin: auto;
+    width: 100%;
+    padding: 0 20% 0 10%;
+}
+
+    .login-container .login-content .logo {
+        /*background-color: rgb(1 160 250 / 100%);*/
+        font-family: 'ReportRg Bold';
+        position: relative;
+        display: flex;
+        color: rgba(50,120,255,1);
+        z-index: -1;
+        text-align: left;
+    }
+
+    .login-container .login-content .btn.btn-success.create-newaccount {
+        width: 80%;
+        max-width: 250px;
+        background-color: rgba(0,190,0,1);
+    }
+    .login-container .login-content .forgotten-password {
+        font-size: small;
+    }
+    .login-container .login-content .logo .sub-logo {
+        margin: auto;
+        padding: 0 30px 30px 30px;
+    }
+        .login-container .login-content .logo .title {
+            color: black;
+            font-family: ReportRg Regular;
+        }
+    .login-container .login-content .sub-accountinfo {
+        padding: 1rem 1rem 4rem 1rem;
+        border-radius: 5px;
+        background: white;
+        box-shadow: 0 5px 10px 0px darkgray;
+    }
+    .login-container .login-content .logo img {
+        width: 100%;
+    }
+
+    .login-container .login-content .status-invalid {
+        width: 100%;
+        color: red;
+        border-radius: 10px;
+        display: block;
+        clear: both
+    }
+
+    .login-container .login-content .input-boxset.username {
+        padding-top: 1rem;
+        font-size: medium;
+    }
+
+    .login-container .login-content .input-boxset.password {
+        padding-top: 1rem;
+        padding-bottom: 1.25rem;
+        font-size: medium;
+    }
+
+    .login-container .login-content h2 {
+        padding: 2rem;
+        font-weight: 900;
+    }
+
+    .login-container .login-content label {
+        float: left;
+        font-weight: bold;
+        font-size: medium;
+    }
+
+    .login-container .login-content .btn-container {
+        padding: 0 10px 0px 10px;
+    }
+
+        .login-container .login-content .btn-container .btn.btn-login {
+            width: 100%;
+            border-radius: 10px;
+            background: -webkit-linear-gradient(right,#21d4fd,#b721ff,#21d4fd,#b721ff);
+            color: white;
+            font-weight: bold;
+        }
+
+    .login-container .login-content .input-container {
+        display: block;
+        clear: both;
+    }
+
+@media only screen and (max-width: 768px ) {
+    .login-container .login-content {
+        text-align: center;
+        line-height: 2.5rem;
+        /*height: 100vh;*/
+        min-width: 300px;
+        backdrop-filter: blur(1px);
+        display: block;
+    }
+
+        .login-container .login-content .logo::before {
+            content: "";
+            display: none;
+        }
+
+        .login-container .login-content .logo:after {
+            content: "";
+            display: none;
+        }
+
+        .login-container .login-content .logo {
+            text-align: center;
+        }
+
+            .login-container .login-content .logo .title {
+                display: none;
+            }
+
+        .login-container .login-content .account-info {
+            padding: 0;
+            background-color: white;
+            /*height: 100vh;*/
+        }
+
+        .login-container .login-content .logo .sub-logo {
+            padding: 30px;
+        }
+
+        .login-container .login-content .sub-accountinfo {
+            box-shadow: none;
+        }
+
+        .login-container .login-content .input-container input[type="text"],
+        .login-container .login-content .input-container input[type="password"],
+        .login-container .login-content .btn-container .btn.btn-login,
+        .login-container .login-content .btn.btn-success.create-newaccount,
+        .login-container .login-content .forgotten-password {
+            font-size: x-large;
+            height: inherit;
+        }
+}
+
+/*#endregion */

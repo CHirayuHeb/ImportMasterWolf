@@ -1,0 +1,18 @@
+﻿@{string step = "1";}
+<div class="container flex-wrap flex-dir-col justify-center tpye-container " id="OTContent_step@(step)">
+    <div class="d-flex justify-evenly flex-wrap py-3 fs-16 type-items">
+        <div class="bg-whs item">
+            <button class="d-flex btn btn-light item-text weekday" value="weekday" type="button">
+                <span>วันธรรมดา</span>
+            </button>
+        </div>
+        <div class="bg-whs item">
+            <button class="d-flex btn btn-light item-text weekend" value="weekend" type="button">
+                <span>วันหยุด</span>
+            </button>
+        </div>
+    </div>
+</div>
+<div id="footer@(step)">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+</div>

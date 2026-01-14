@@ -1,0 +1,93 @@
+﻿@model ImportMasterWolf.Models.Table.LAMP.ViewMastRequestOT
+@{string step = "2";}
+
+<div class="container" id="OTContent_step@(step)">
+    <div class="dp-none"><input type="hidden" id="OTType" asp-for="mrOTType" /></div>
+    <div class="input-container fl">
+        <div class="inputset">
+            <div class="unit-text fs-16">
+                <label>วันที่ขอ OT</label>
+            </div>
+            <div class="form-check">
+                <label>@Model.mrDateReq</label>
+            </div>
+        </div>
+    </div>
+    <div class="input-container fl">
+        <div class="inputset">
+            <div class="unit-text fs-16">
+                <label>ลำดับที่</label>
+            </div>
+            <div class="form-check">
+                <label>@Model.mrNoReq</label>
+            </div>
+        </div>
+    </div>
+    <div class="clear-b"></div>
+    <div class="input-container fl">
+        <div class="inputset">
+            <div class="unit-text fs-16">
+                <label>รหัสพนักงาน</label>
+            </div>
+            <div class="form-check">
+                <label>@Model.mrEmpReq : @Model.mrNameReq @Model.mrLastNameReq</label>
+            </div>
+        </div>
+    </div>
+    <div class="input-container fl">
+        <div class="inputset">
+            <div class="unit-text fs-16">
+                <label>ตำแหน่ง</label>
+            </div>
+            <div class="form-check">
+                <label>@Model.mrPositionReq</label>
+            </div>
+        </div>
+    </div>
+    <div class="input-container fl">
+        <div class="inputset">
+            <div class="unit-text fs-16">
+                <label>ฝ่าย</label>
+            </div>
+            <div class="form-check">
+                <label>@Model.mrDeptReq</label>
+            </div>
+        </div>
+    </div>
+    <div class="input-container fl">
+        <div class="inputset">
+            <div class="unit-text fs-16">
+                <label>แผนก</label>
+            </div>
+            <div class="form-check">
+                <label>@Model.mrSecReq</label>
+            </div>
+        </div>
+    </div>
+    <div class="input-container fl">
+        <div class="inputset">
+            <div class="unit-text fs-16">
+                <label>กลุ่ม</label>
+            </div>
+            <div class="form-check">
+                <label>@Model.mrGrpReq</label>
+            </div>
+        </div>
+    </div>
+    <div class="input-container fl">
+        <div class="inputset">
+            <div class="unit-text fs-16">
+                <label>หน่วย</label>
+            </div>
+            <div class="form-check">
+                <label>@Model.mrUnitReq</label>
+            </div>
+        </div>
+    </div>
+    <div class="clear-b"></div>
+</div>
+<div id="footer@(step)">
+    <button type="button" class="btn btn-light w-fix-100p next@(step)">ถัดไป<span class="material-icon-symbols-outlined">arrow_forward_ios</span></button>
+</div>
+
+

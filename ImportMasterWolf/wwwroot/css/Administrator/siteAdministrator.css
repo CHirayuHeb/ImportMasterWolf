@@ -1,0 +1,30 @@
+﻿.home-content .content-box .content-text .content .new-menu .menu-item .item-category .items {
+    display: flex;
+}
+
+.home-content .content-box .content-text .content .new-menu .menu-item .item-category label {
+    border-bottom: 1px solid rgb(230, 230, 230);
+}
+
+.home-content .content-box .content-text .content .new-menu .menu-item .item-category .items .item {
+    border-radius: 8px;
+    height: 150px;
+    width: 110px;
+}
+
+    .home-content .content-box .content-text .content .new-menu .menu-item .item-category .items .item button {
+        color: cornflowerblue;
+        width: 110px;
+    }
+
+        .home-content .content-box .content-text .content .new-menu .menu-item .item-category .items .item button span {
+            padding-bottom: 5px;
+        }
+
+            .home-content .content-box .content-text .content .new-menu .menu-item .item-category .items span.material-icon-symbols-outlined {
+                font-size: 100px;
+            }
+
+        .home-content .content-box .content-text .content .new-menu .menu-item .item-category .items .item button:hover {
+            background-color: whitesmoke;
+        }

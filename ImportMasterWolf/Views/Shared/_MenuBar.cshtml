@@ -1,0 +1,293 @@
+﻿@using System.Security.Claims;
+@using ImportMasterWolf.Models.Common;
+@{
+    string _Permission = User.Claims.FirstOrDefault(s => s.Type == "Permission").Value;
+    string _NickName = User.Claims.FirstOrDefault(s => s.Type == "NICKNAME")?.Value;
+    string _Name = User.Claims.FirstOrDefault(s => s.Type == "Name")?.Value;
+    string _SurName = User.Claims.FirstOrDefault(s => s.Type == "SurName")?.Value;
+    string _Division = User.Claims.FirstOrDefault(s => s.Type == "Division")?.Value;
+    string _Section = User.Claims.FirstOrDefault(s => s.Type == "Section")?.Value;
+
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8">
+    @*<link rel="icon" type="image/x-icon" href="~/images/site/Stanley.ico" />*@
+    <link rel="icon" type="image/x-icon" href="~/images/site/wolf1.ico" />
+    <link href="~/css/_menuBar.css" rel="stylesheet" />
+    <link href="~/css/stepper.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/lib/bootstrap/js/dist/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/jquery/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/js/SweetAlert.js"></script>
+    <link href="~/css/SpinnerLoading.css" rel="stylesheet" />
+    <link href="~/css/GlobalVariable.css" rel="stylesheet" />
+    <link href="~/font/FontFamily.css" rel="stylesheet" />
+
+    @*timepicker*@
+    <script src="~/lib/js/timepicker/dayjs.js"></script>
+    <script src="~/lib/js/timepicker/timepicker-bs4.js"></script>
+
+    @*canvas*@
+    <script src="~/lib/cdn/canvas/canvas.min.js"></script>
+
+    <title>ImportMasterWolf</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; height: 48px;">
+        <div class="container-fluid px-0" style="position: absolute;">
+            <div class="navbar-nav me-auto mb-2 mb-lg-0">
+                <div class="d-flex flex-dir-row">
+                    <div class="nav-item">
+                        <div class="logo-box">
+                            <div class="logo-img">
+                                <button class="nav-link active" aria-current="page" data-bs-toggle="modal" data-bs-target="#AppLuncher" href="#">
+                                    <span class="material-icon-symbols-outlined">apps</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nav-item">
+                        <div class="program-box">
+                            <div class="program-name">
+                                <span style="color:black;font-weight:700">Import <span style="color:dodgerblue">Data WOLF</span> <img src="~/images/wolf.png" style="width:15px;" /></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="nav navbar-nav">
+                <li class="dropdown user-menu">
+                    <div class="user-box">
+                        <button type="button" data-bs-toggle="dropdown" aria-expanded="false" style="display: block;">
+                            <div class="user-img">
+                                @*<img src="~/images/profile.png" width="35" height="35" />*@
+                                <div class="user-nickname">
+                                    <div class="nickname">
+                                        <div>
+                                            @_NickName
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="user-name">
+
+                            </div>
+                        </button>
+                        <ul class="dropdown-menu replace customize py-0" id="setting">
+                            <div class="setting-box">
+                                <div class="head">
+                                    <div class="sign-out-box">
+                                        <button class="signOut">Sign out</button>
+                                    </div>
+
+                                </div>
+                                <div class="body">
+                                    <div class="account-img">
+                                        <div class="user-icon">
+                                            <div class="icon">
+                                                <div>
+                                                    @_NickName
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="account-info">
+                                        <div class="user-info">
+                                            <div class="info">
+                                                <div class="full-name">
+                                                    <label class="hidden-txt wx-100" title="@_Name @_SurName">@_Name @_SurName</label>
+                                                </div>
+                                                <div class="division">
+                                                    <label style="font-size: 9px;" class="hidden-txt wx-100" title="@_Division">@_Division</label>
+                                                </div>
+                                                <div class="section">
+                                                    <label style="font-size: 9px;" class="hidden-txt wx-100" title="@_Section">@_Section</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <div class="footer-text">
+                                        STANLEY ELECTRIC CO., LTD.
+                                    </div>
+                                </div>
+                            </div>
+                        </ul>
+                    </div>
+
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+    <div class="space-middle">
+        <div class="sidebar col-auto col-sm-12 px-0 bg-light" style=" width: 68px;">
+            <div class="d-flex flex-column align-items-center align-items-sm-start text-white min-vh-100" style="width: 100%;">
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" style="width:100%; text-align:center;" id="menu">
+                    <li class="nav-item text-gray wx-100">
+                        <div class="menu-item" tabindex="0">
+                            <button class="nav-link text-gray align-middle px-0 home">
+                                <span class="Home"><span class="material-icon-symbols-outlined fs-30">home</span>หน้าแรก</span>
+                            </button>
+                        </div>
+                        <div class="menu-item" tabindex="0">
+                            <button class="nav-link text-gray align-middle px-0 new">
+                                <span class="create"><span class="material-icon-symbols-outlined fs-30">add_circle</span>สร้าง</span>
+                            </button>
+                        </div>
+                        <div class="menu-item" tabindex="0">
+                            <button class="nav-link text-gray align-middle px-0 my-request">
+                                <span class="my-request"><span class="material-icon-symbols-outlined fs-30">send</span>คำร้องของฉัน</span>
+                            </button>
+                        </div>
+                        <div class="menu-item" tabindex="0">
+                            <button class="nav-link text-gray align-middle px-0 approval">
+                                <span class="approval"><span class="material-icon-symbols-outlined fs-30">order_approve</span>การอนุมัติ</span>
+                            </button>
+                        </div>
+                        @if (_Permission.ToUpper() == GlobalVariable.perAdmin.ToUpper())
+                        {
+                            <div class="menu-item" tabindex="0">
+                                <button class="nav-link text-gray align-middle px-0 administrator">
+                                    <span class="administrator"><span class="material-icon-symbols-outlined fs-30">settings_account_box</span>ผู้ดูแลระบบ</span>
+                                </button>
+                            </div>
+                        }
+                        <div id="selector" class="selecter"></div>
+                    </li>
+                </ul>
+                <hr>
+            </div>
+        </div>
+        <div class="content-container">
+            <div class="box box-scroller overflow-auto">
+                <div class="content-area">
+                    <div class="dashbord">
+                        <div class="transition-time-func-cubic-lnr trans-dura-1 transforms-scale-1 transition-prop-tran-opac opacity-1 banner"></div>
+                        <div class="smoke"></div>
+                    </div>
+                </div>
+                <div class="lds-ring" id="loading" style="display: none;"><div></div><div></div><div></div></div>
+                @*<div class="lds-ring" id="loadingProcess" style=""><div></div><div></div><div></div></div>*@
+                <div id="DisplayContent" class="box-wrapper">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal fade" data-bs-keyboard="false" id="AppLuncher" tabindex="-1" aria-labelledby="appLuncherLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen" style="min-width: 320px; width: 320px;">
+            <div class="modal-content">
+                <div class="modal-header" style="border: 0;">
+                    <button class="btn modal-apps" type="button" style="padding: 0;" data-bs-dismiss="modal" id="appLuncherLabel"><span class="material-icon-symbols-outlined" style="font-size: 26px">apps</span></button>
+                    <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"><span class="material-icons" style="color: gray;">arrow_back_ios</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="body-content">
+                        <div class="content">
+                            <div class="fav-menu">
+                                <a>
+                                    <div class="fav-icon">
+                                        <span style="font-size: 20px;" class="material-icon-symbols-outlined">menu</span>
+                                    </div>
+                                    <div class="fav-text">
+                                        <h6>เมนู</h6>
+                                    </div>
+                                </a>
+                                <div class="fav-content">
+                                    <div class="app">
+                                        <a class="n-underline cs-pt home" style="color: dimgray;">
+                                            <div class="program-logo">
+                                                <span style="font-size: 24px;" class="text-gray material-icon-symbols-outlined fs-30">home</span>
+                                            </div>
+                                            <div class="program-name">
+                                                <span>หน้าแรก</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="app">
+                                        <a class="n-underline cs-pt create" style="color: dimgray;">
+                                            <div class="program-logo">
+                                                <span style="font-size: 24px;" class="material-icon-symbols-outlined fs-30">add_circle</span>
+                                            </div>
+                                            <div class="program-name">
+                                                <span>สร้าง</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="app">
+                                        <a class="n-underline cs-pt my-request" style="color: dimgray;">
+                                            <div class="program-logo">
+                                                <span style="font-size: 24px;" class="material-icon-symbols-outlined fs-30">send</span>
+                                            </div>
+                                            <div class="program-name">
+                                                <span>คำร้องของฉัน</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="app">
+                                        <a class="n-underline cs-pt approval" style="color: dimgray;">
+                                            <div class="program-logo">
+                                                <span style="font-size: 24px;" class="material-icon-symbols-outlined fs-30">order_approve</span>
+                                            </div>
+                                            <div class="program-name">
+                                                <span>การอนุมัติ</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    @if (_Permission.ToUpper() == GlobalVariable.perAdmin.ToUpper())
+                                    {
+                                        <div class="app">
+                                            <a class="n-underline cs-pt administrator" style="color: dimgray;">
+                                                <div class="program-logo">
+                                                    <span style="font-size: 24px;" class="material-icon-symbols-outlined fs-30">settings_account_box</span>
+                                                </div>
+                                                <div class="program-name">
+                                                    <span>ผู้ดูแลระบบ</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    }
+                                </div>
+                                <div style="clear: both;"></div>
+                            </div>
+                            <div class="apps-menu">
+                                <a>
+                                    <div class="apps-text">
+                                        <h6>เว็บภายใน</h6>
+                                    </div>
+                                </a>
+                                <div class="apps-content">
+                                    <div class="app">
+                                        <a href="http://10.200.128.20/" class="n-underline cs-pt" style="color: dimgray;">
+                                            <div class="program-logo">
+                                                <span style="font-size: 24px;" class="material-icons">home</span>
+                                            </div>
+                                            <div class="program-name">
+                                                <span>THSWEB</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+    <script src="~/js/Shared/_MenuBar.js"></script>
+</body>
+</html>

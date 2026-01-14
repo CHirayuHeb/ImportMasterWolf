@@ -1,0 +1,134 @@
+﻿@model ImportMasterWolf.Models.Approval.MultiNewLate
+@using ImportMasterWolf.Models.Common
+
+@if (Model.docList != null)
+{
+    <div class="just-group" id="Hour">
+        @if (Model.docList.Count() > 0)
+        {
+            <div class="table-result">
+                <table id="table" class="table table-scroll table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>แผนก</th>
+                            <th>ผู้ร้องขอ</th>
+                            <th>Prodution Line</th>
+                            <th>Model</th>
+                            <th>จำนวน (คน)</th>
+                            <th>จำนวน (ชั่วโมง)</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    @foreach (string department in Model.docList.Select(s => s.requestOT.mrDeptReq).Distinct().OrderBy(o => o))
+                    {
+                        int sumWorker = 0;
+                        int calcWorker = 0;
+                        int sumOTMinute = 0;
+                        string sumHour = "";
+                        <tbody class="lamp" role="button" data-bs-toggle="collapse" data-bs-target="#collapse@(department.Substring(0, 4))" aria-expanded="false" aria-controls="collapseSub_@(department.Substring(0, 4))">
+                            <tr class="lamp">
+                                <td colspan="4" class="text-left">@department</td>
+                                @foreach (var doc in Model.docList.Where(w => w.requestOT.mrDeptReq == department).ToList())
+                                {
+                                    int minuteST = 0, minuteED = 0;
+                                    if ((doc.requestOT.mrOTTimeSt_Before != null && doc.requestOT.mrOTTimeSt_Before != "") && (doc.requestOT.mrOTTimeEd_Before != null && doc.requestOT.mrOTTimeEd_Before != ""))
+                                    {
+                                        minuteST += (int.Parse(doc.requestOT.mrOTTimeSt_Before.Split(":")[0]) * 60) + int.Parse(doc.requestOT.mrOTTimeSt_Before.Split(":")[1]);
+                                        minuteED += (int.Parse(doc.requestOT.mrOTTimeEd_Before.Split(":")[0]) * 60) + int.Parse(doc.requestOT.mrOTTimeEd_Before.Split(":")[1]);
+                                    }
+                                    if ((doc.requestOT.mrOTTimeSt_During != null && doc.requestOT.mrOTTimeSt_During != "") && (doc.requestOT.mrOTTimeEd_During != null && doc.requestOT.mrOTTimeEd_During != ""))
+                                    {
+                                        minuteST += (int.Parse(doc.requestOT.mrOTTimeSt_During.Split(":")[0]) * 60) + int.Parse(doc.requestOT.mrOTTimeSt_During.Split(":")[1]);
+                                        minuteED += (int.Parse(doc.requestOT.mrOTTimeEd_During.Split(":")[0]) * 60) + int.Parse(doc.requestOT.mrOTTimeEd_During.Split(":")[1]);
+                                    }
+                                    if ((doc.requestOT.mrOTTimeSt_After != null && doc.requestOT.mrOTTimeSt_After != "") && (doc.requestOT.mrOTTimeEd_After != null && doc.requestOT.mrOTTimeEd_After != ""))
+                                    {
+                                        minuteST += (int.Parse(doc.requestOT.mrOTTimeSt_After.Split(":")[0]) * 60) + int.Parse(doc.requestOT.mrOTTimeSt_After.Split(":")[1]);
+                                        minuteED += (int.Parse(doc.requestOT.mrOTTimeEd_After.Split(":")[0]) * 60) + int.Parse(doc.requestOT.mrOTTimeEd_After.Split(":")[1]);
+                                    }
+
+                                    calcWorker = doc.workerList.Where(w => !w.drStatus.StartsWith(GlobalVariable.StatusRejected)).Count();
+                                    sumWorker = sumWorker + calcWorker;
+                                    if (minuteED < minuteST){
+                                        sumOTMinute += ((((24*60) - minuteST) + minuteED) * calcWorker);
+                                    }
+                                    else{
+                                        sumOTMinute += ((minuteED - minuteST) * calcWorker);
+                                    }
+                                    string minuteString = sumOTMinute % 60 == 0 ? "" : (sumOTMinute % 60).ToString() + " นาที";
+                                    sumHour = (sumOTMinute / 60).ToString() + " ชั่วโมง " + minuteString;
+                                }
+                                <td class="lamp-sum">@sumWorker</td>
+                                <td class="lamp-sum">@sumHour</td>
+                                <td>
+                                    <button type="button" class="lamp-more" role="button" data-bs-toggle="collapse" data-bs-target="#collapseLE1" aria-expanded="false" aria-controls="collapseSub_le1">
+                                        <span class="material-icon-symbols-outlined fs-16 cs-pt">expand_more</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                        <tbody class="collapse" id="collapse@(department.Substring(0, 4))">
+                            @{int count = 1;}
+                            @foreach (string partSection in Model.docList.Where(w => w.requestOT.mrDeptReq == department).Select(s => s.requestOT.mrSecReq).Distinct())
+                            {
+                                <tr class="section">
+                                    <td colspan="8" class="text-left">@partSection</td>
+                                </tr>
+                                @foreach (var issueby in (Model.docList.Where(w => w.requestOT.mrDeptReq == department && w.requestOT.mrSecReq == partSection).Select(s => new { s.requestOT.mrNameReq, s.requestOT.mrPositionReq, s.requestOT.mrEmpReq, s.requestOT.mrLastNameReq }).GroupBy(g=>new { g.mrEmpReq, g.mrNameReq, g.mrPositionReq, g.mrLastNameReq }).Select(s=>s.FirstOrDefault())))
+                                {
+                                    <tr class="issue-by text-left">
+                                        <td></td>
+                                        <td colspan="7" class="text-left">@(issueby.mrPositionReq+"("+ issueby.mrEmpReq + " " + issueby.mrNameReq + " " + issueby.mrLastNameReq + ")")</td>
+                                    </tr>
+
+                                    foreach (var doc in Model.docList.Where(w => w.requestOT.mrDeptReq == department && w.requestOT.mrSecReq == partSection && w.requestOT.mrPositionReq == issueby.mrPositionReq && w.requestOT.mrEmpReq == issueby.mrEmpReq))
+                                    {
+                                        int minuteST = 0, minuteED = 0;
+                                        if ((doc.requestOT.mrOTTimeSt_Before != null && doc.requestOT.mrOTTimeSt_Before != "") && (doc.requestOT.mrOTTimeEd_Before != null && doc.requestOT.mrOTTimeEd_Before != ""))
+                                        {
+                                            minuteST += (int.Parse(doc.requestOT.mrOTTimeSt_Before.Split(":")[0]) * 60) + int.Parse(doc.requestOT.mrOTTimeSt_Before.Split(":")[1]);
+                                            minuteED += (int.Parse(doc.requestOT.mrOTTimeEd_Before.Split(":")[0]) * 60) + int.Parse(doc.requestOT.mrOTTimeEd_Before.Split(":")[1]);
+                                        }
+                                        if ((doc.requestOT.mrOTTimeSt_During != null && doc.requestOT.mrOTTimeSt_During != "") && (doc.requestOT.mrOTTimeEd_During != null && doc.requestOT.mrOTTimeEd_During != ""))
+                                        {
+                                            minuteST += (int.Parse(doc.requestOT.mrOTTimeSt_During.Split(":")[0]) * 60) + int.Parse(doc.requestOT.mrOTTimeSt_During.Split(":")[1]);
+                                            minuteED += (int.Parse(doc.requestOT.mrOTTimeEd_During.Split(":")[0]) * 60) + int.Parse(doc.requestOT.mrOTTimeEd_During.Split(":")[1]);
+                                        }
+                                        if ((doc.requestOT.mrOTTimeSt_After != null && doc.requestOT.mrOTTimeSt_After != "") && (doc.requestOT.mrOTTimeEd_After != null && doc.requestOT.mrOTTimeEd_After != ""))
+                                        {
+                                            minuteST += (int.Parse(doc.requestOT.mrOTTimeSt_After.Split(":")[0]) * 60) + int.Parse(doc.requestOT.mrOTTimeSt_After.Split(":")[1]);
+                                            minuteED += (int.Parse(doc.requestOT.mrOTTimeEd_After.Split(":")[0]) * 60) + int.Parse(doc.requestOT.mrOTTimeEd_After.Split(":")[1]);
+                                        }
+
+                                        sumWorker = doc.workerList.Where(w => !w.drStatus.StartsWith(GlobalVariable.StatusRejected)).Count();
+                                        if (minuteED < minuteST)
+                                        {
+                                            sumOTMinute = ((((24 * 60) - minuteST) + minuteED) * sumWorker);
+                                        }
+                                        else
+                                        {
+                                            sumOTMinute = ((minuteED - minuteST) * sumWorker);
+                                        }
+                                        string minuteString = sumOTMinute % 60 == 0 ? "" : (sumOTMinute % 60).ToString() + " นาที";
+                                        sumHour = (sumOTMinute / 60).ToString() + " ชั่วโมง " + minuteString;
+                                        <tr class="le1-detail-1 cs-pt">
+                                            <td></td>
+                                            <td>@(count++)</td>
+                                            <td>@doc.requestOT.mrProductionLine</td>
+                                            <td>@doc.requestOT.mrModel</td>
+                                            <td>@sumWorker</td>
+                                            <td>@sumHour </td>
+                                            <td></td>
+                                        </tr>
+                                    }
+                                }
+
+                            }
+                        </tbody>
+                    }
+                </table>
+            </div>
+        }
+    </div>
+}

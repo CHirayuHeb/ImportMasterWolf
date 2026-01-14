@@ -1,0 +1,173 @@
+﻿@model ImportMasterWolf.Models.New.multiModelOTForm
+@{string step = "3";}
+<link href="~/lib/mobiscroll/css/mobiscroll.javascript.min.css" rel="stylesheet" />
+<div class="container" id="OTContent_step@(step)">
+    @*need id='step+Number'*@
+    <div class="input-container flex-dir-col px-1">
+        <div class="inputset">
+            <div class="unit-text  fs-12">
+                <label>วันที่ขอ O.T.</label>
+            </div>
+            <div class="form-check">
+                <input type="date" asp-for="mastRequestOT.mrOTDate" disabled class="form-control h-fix-30p " />
+            </div>
+        </div>
+    </div>
+
+    <div class="flex-dir-row px-1">
+        @*<input type="time" class="form-control h-fix-30p text-center wx-100" />*@
+        <fieldset class="p-1">
+            <legend class="w-auto fs-12 fw-800 m-0">ก่อนเวลางาน</legend>
+            <div class="d-flex m-dp-block">
+                <div class="w-md-50">
+                    <div class="inputset">
+                        <div class="unit-text fs-12">
+                            <label>ตั้งแต่เวลา</label>
+                        </div>
+                        <div class="form-check ps-0 pe-1">
+
+                            <input type="text" class="form-control h-fix-30p text-center wx-100 timepicker" asp-for="mastRequestOT.mrOTTimeSt_Before" placeholder="HH:mm" pattern="(([01][0-9]|2[0-3]):[0-5][0-9])?" maxlength="5" data-format="HH:mm" disabled />
+                        </div>
+                    </div>
+                </div>
+                <div class="w-md-50 ">
+                    <div class="inputset">
+                        <div class="unit-text fs-12">
+                            <label>ถึงเวลา</label>
+                        </div>
+                        <div class="form-check ps-0  pw-1">
+                            <input type="text" class="form-control h-fix-30p text-center wx-100 timepicker" asp-for="mastRequestOT.mrOTTimeEd_Before" placeholder="HH:mm" pattern="(([01][0-9]|2[0-3]):[0-5][0-9])?" maxlength="5" data-format="HH:mm" disabled />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend class="w-auto fs-12 fw-800 m-0">ระหว่างเวลางาน</legend>
+            <div class="d-flex m-dp-block">
+                <div class="w-md-50">
+                    <div class="inputset">
+                        <div class="unit-text fs-12">
+                            <label>ตั้งแต่เวลา</label>
+                        </div>
+                        <div class="form-check ps-0 pe-1">
+                            @*<input type="time" class="form-control h-fix-30p text-center w-fix-100p" asp-for="mastRequestOT.mrOTTimeSt" />*@
+                            <input type="text" class="form-control h-fix-30p text-center wx-100 timepicker" asp-for="mastRequestOT.mrOTTimeSt_During" placeholder="HH:mm" pattern="(([01][0-9]|2[0-3]):[0-5][0-9])?" maxlength="5" data-format="HH:mm" disabled />
+                        </div>
+                    </div>
+                </div>
+                <div class="w-md-50 ">
+                    <div class="inputset">
+                        <div class="unit-text fs-12">
+                            <label>ถึงเวลา</label>
+                        </div>
+                        <div class="form-check ps-0 pw-1">
+                            @*<input type="time" class="form-control h-fix-30p text-center w-fix-100p"  asp-for="mastRequestOT.mrOTTimeEd" />*@
+                            <input type="text" class="form-control h-fix-30p text-center wx-100 timepicker" asp-for="mastRequestOT.mrOTTimeEd_During" placeholder="HH:mm" pattern="(([01][0-9]|2[0-3]):[0-5][0-9])?" maxlength="5" data-format="HH:mm" disabled />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="p-1">
+            <legend class="w-auto fs-12 fw-800 m-0">หลังเวลางาน</legend>
+            <div class="d-flex m-dp-block">
+                <div class="w-md-50">
+                    <div class="inputset">
+                        <div class="unit-text fs-12">
+                            <label>ตั้งแต่เวลา</label>
+                        </div>
+                        <div class="form-check ps-0 pe-1">
+                            <input type="text" class="form-control h-fix-30p text-center wx-100 timepicker" asp-for="mastRequestOT.mrOTTimeSt_After" placeholder="HH:mm" pattern="(([01][0-9]|2[0-3]):[0-5][0-9])?" maxlength="5" data-format="HH:mm" disabled />
+                        </div>
+                    </div>
+                </div>
+                <div class="w-md-50 ">
+                    <div class="inputset">
+                        <div class="unit-text fs-12">
+                            <label>ถึงเวลา</label>
+                        </div>
+                        <div class="form-check ps-0 pw-1">
+                            <input type="text" class="form-control h-fix-30p text-center wx-100 timepicker" asp-for="mastRequestOT.mrOTTimeEd_After" placeholder="HH:mm" pattern="(([01][0-9]|2[0-3]):[0-5][0-9])?" maxlength="5" data-format="HH:mm" disabled />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+    <div class="clear-b"></div>
+    <div class="input-container flex-dir-col px-1 fl">
+        <div class="inputset">
+            <div class="unit-text fs-12">
+                <label>Production Line</label>
+            </div>
+            <div class="form-check">
+                <select class="form-control h-fix-30p text-left" asp-for="mastRequestOT.mrProductionLine" disabled>
+                    @foreach (var item in Model.prodLines)
+                    {
+                        <option value="@item.Name">@item.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="input-container flex-dir-col px-1">
+        <div class="inputset">
+            <div class="unit-text fs-12">
+                <label>Model</label>
+            </div>
+            <div class="form-check">
+                <select class="form-control h-fix-30p text-left" asp-for="mastRequestOT.mrModel" disabled>
+                    @foreach (var item in Model.models)
+                    {
+                        <option value="@item.Name">@item.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="clear-b"></div>
+    <div class="flex-dir-col px-1">
+        <div class="inputset w-fix-100p fl">
+            <div class="unit-text  fs-12">
+                <label>สาเหตุการขอ</label>
+            </div>
+            <div class="form-check px-0">
+                <select class="form-control h-fix-30p py-0 w-fix-100p" asp-for="mastRequestOT.mrReason" disabled>
+                    @foreach (var item in Model.reasons)
+                    {
+                        <option title="@item.Caption" value="@item.Code">@item.Code</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="inputset w100-100p pl-3 px-3 fl">
+            <div class="unit-text fs-12">
+                <label>คำอธบิาย</label>
+            </div>
+            <div class="form-check px-0">
+                <label id="lbReasonTitle">แสดงหลังจากเลือก สาเหตุการขอ</label>
+            </div>
+        </div>
+    </div>
+    <div class="clear-b"></div>
+    <div class="input-container flex-dir-col px-1">
+        <div class="inputset">
+            <div class="unit-text  fs-12">
+                <label>หมายเหตุ</label>
+            </div>
+            <div class="form-check">
+                <input class="form-control h-fix-30p" value="มีคนเพิ่มภายหลัง" asp-for="mastRequestOT.mrRemark" disabled />
+            </div>
+        </div>
+    </div>
+    <div class="clear-b"></div>
+</div>
+
+<div id="footer@(step)">
+    <button type="button" class="btn btn-secondary w-fix-100p previos@(step)"><span class="material-icon-symbols-outlined">arrow_back_ios</span>ย้อนกลับ</button>
+    <button type="button" class="btn btn-light w-fix-100p next@(step)">ถัดไป<span class="material-icon-symbols-outlined">arrow_forward_ios</span></button>
+</div>
+

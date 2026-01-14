@@ -1,0 +1,30 @@
+﻿@model ImportMasterWolf.Models.Approval.MultiNewLate
+@using ImportMasterWolf.Models.Common
+
+<div class="just-group" id="Document">
+    @using (Html.BeginForm("Search", "SearchTHS", FormMethod.Post))
+    {
+        <div class="container d-md-flex justify-beetween item-center">
+            <div class="input-container">
+                <div class="inputset">
+                    <div class="unit-text">
+                        <label>วันที่ขอ OT</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="w-rem-1-5 h-rem-1-5" type="checkbox" onclick="cbOTReqClick()" id="cbOTReq">
+                        <input class="form-control" type="date" placeholder="วันที่เริ่ม" id="dateOTStart" value="@DateTime.Today.ToString("yyyy-MM-dd")" disabled="disabled" autocomplete="off" />
+                        <input class="form-control" type="date" placeholder="ถึงวันที่" id="dateOTEnd" min="@DateTime.Today.ToString("yyyy-MM-dd")" value="@DateTime.Today.ToString("yyyy-MM-dd")" disabled="disabled" autocomplete="off" />
+                    </div>
+                </div>
+            </div>
+            <div class="d-md-flex justify-center item-center">
+                <div class="d-flex flex-dir-row hy-100 py-0 item-center">
+                    <button class="border-rad p-2 bg-white text-gray fs-14 w-auto" role="button" type="button" id="btnToXlsmSeleted"><span>นำข้อมูลออก</span></button>
+                </div>
+            </div>
+        </div>
+    }
+        <div class="search-box">
+            @await Html.PartialAsync("Result/_Document", Model)
+        </div>
+</div>

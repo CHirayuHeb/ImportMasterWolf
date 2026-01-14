@@ -1,0 +1,80 @@
+﻿
+@model ImportMasterWolf.Models.Approval.MultiNewLate
+@using ImportMasterWolf.Models.Common
+
+@if (Model.docList != null)
+{
+    <div class="just-group" id="Document">
+        @if (Model.docList.Count() > 0)
+        {
+        <div class="table-result">
+            <table id="table" class="table table-scroll table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>ลำดับที่</th>
+                        <th>หมายเลขรายการ</th>
+                        <th>ดาวน์โหลด</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                @foreach (string department in Model.docList.Select(s => s.requestOT.mrDeptReq).Distinct().OrderBy(o => o))
+                {
+                    <tbody class="lamp">
+                        <tr class="lamp">
+                            <td colspan="2" class="text-left">
+                                <div class="d-md-flex flex-dir-row">
+                                    <div class="px-1">
+                                        <input type="checkbox" onclick="CheckedMyChildren(this)" value="collapse@(department.Substring(0, 4))" class="h-rem-1 w-rem-1" />
+                                    </div>
+                                    <div class="px-1">
+                                        @department
+                                    </div>
+                                </div>
+                            </td>
+                            <td>@(Model.docList.Where(w=>w.requestOT.mrDeptReq == department).Count())</td>
+                            <td>
+                                <button type="button" class="lamp-more" role="button" data-bs-toggle="collapse" data-bs-target="#collapse@(department.Substring(0, 4))" aria-expanded="false" aria-controls="collapseSub_@department.Substring(0, 4)">
+                                    <span class="material-icon-symbols-outlined fs-16 cs-pt">expand_more</span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                    <tbody class="collapse" id="collapse@(department.Substring(0, 4))">
+                        @{int count = 1;}
+                        @foreach (string line in Model.docList.Where(w => w.requestOT.mrDeptReq == department).Select(s => s.requestOT.mrProductionLine).Distinct())
+                        {
+                            <tr class="line">
+                                <td colspan="4" class="text-left">@line</td>
+                            </tr>
+                            foreach (var doc in Model.docList.Where(w => w.requestOT.mrDeptReq == department && w.requestOT.mrProductionLine == line))
+                            {
+                                <tr class="le1-detail-1 cs-pt">
+                                    <td>
+                                        <div class="d-md-flex flex-dir-row justify-center">
+                                            <div class="px-1">
+                                                <input type="checkbox" class="h-rem-1 w-rem-1 target-no" value="@doc.requestOT.mrNoReq" />
+                                            </div>
+                                            <div class="px-1 w-fix-30p">
+                                                @(count++)
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>@doc.requestOT.mrNoReq</td>
+                                    <td class="px-0 py-0">
+                                        <div class="d-md-flex justify-center flex-wrap flex-dir-col align-center td-approve">
+                                            <button class="btn btn-light px-0 py-0 text-gray border-rad bd-0 xlsx" type="button" role="button" onclick="ToXlsm(this)" value="@doc.requestOT.mrNoReq"></button>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            }
+
+                        }
+                    </tbody>
+                }
+            </table>
+        </div>
+        }
+    </div>
+}

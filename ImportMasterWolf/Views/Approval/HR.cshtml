@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewData["Title"] = "HR";
+    Layout = "~/Views/Shared/_MenuBar.cshtml";
+}
+
+<link href="~/css/Approval/siteApproval.css" rel="stylesheet" />
+<link href="~/css/Approval/mApproval.css" rel="stylesheet" />
+<script type="text/javascript">document.onreadystatechange = () => { if (document.readyState === "interactive") { PositionY("Approval"); } }</script>
+
+<div class="home-content">
+    <div id="DisplayContent" class="content-box">
+        <nav class="navbar navbar-expand-lg" style="width: 100%;">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#RequestControl" aria-controls="RequestControl" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="RequestControl">
+                <div class="navbar-nav">
+                    <div class="d-flex flex-wrap flex-dir-col content-control">
+                        <h2 class="control-title">การอนุมัติ</h2>
+                        <p class="control-title fw-800">จัดเรียง</p>
+                        <div class="control-header">
+                            <span class="header-title bg-active item filter">
+                                <div class="title-text">
+                                    <div class="header-icon">
+                                        <span class="material-icon-symbols-outlined text-orange">bolt</span>
+                                    </div>
+                                    ล่าสุด
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="content-text">
+            <div class="content">
+                <div class="search-box result-container wx-100 px-3">
+                    @await Html.PartialAsync("_DisplayHRRead")
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

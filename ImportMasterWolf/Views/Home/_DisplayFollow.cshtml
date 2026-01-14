@@ -1,0 +1,23 @@
+﻿@model ImportMasterWolf.Models.Approval.MultiNewLate
+<div class="just-group" id="Follow">
+    @using (Html.BeginForm("Search", "SearchTHS", FormMethod.Post))
+    {
+        <div class="container d-md-flex">
+            <div class="input-container" style="float: left;">
+                <div class="inputset">
+                    <div class="unit-text">
+                        <label>วันที่ขอ OT</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="w-rem-1-5 h-rem-1-5"  type="checkbox" onclick="cbOTReqClick()" id="cbOTReq">
+                        <input class="form-control" type="date" placeholder="วันที่เริ่ม" id="dateOTStart" value="@DateTime.Today.ToString("yyyy-MM-dd")" disabled="disabled" autocomplete="off" />
+                        <input class="form-control" type="date" placeholder="ถึงวันที่" id="dateOTEnd" min="@DateTime.Today.ToString("yyyy-MM-dd")" value="@DateTime.Today.ToString("yyyy-MM-dd")" disabled="disabled" autocomplete="off" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="search-box">
+        @await Html.PartialAsync("Result/_Follow", Model)
+    </div>
+</div>

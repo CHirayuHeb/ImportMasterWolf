@@ -1,0 +1,105 @@
+﻿@model ImportMasterWolf.Models.MyRequest.MultiDocMast
+@using ImportMasterWolf.Models.Common
+<div class="just-group">
+    <div class="table-result wx-100 fs-16">
+        <div class="container wx-100 d-flex flex-dir-col">
+            <div>
+                @foreach (var item in Model.docList)
+                {
+                    <div class="docno">
+                        <div class="px-3 py-3">
+                            <div class="d-flex dropend">
+                                <span>เลขอ้างอิง @item.requestOT.mrNoReq</span>
+                                <button type="button" data-bs-toggle="dropdown" class="bd-0 bg-trans text-blue" aria-expanded="false" style="display: block;"><span class="material-icon-symbols-outlined">more_vert</span></button>
+                                <ul class="w-fix-100p manage dropdown-menu">
+                                    @*<li class="my-1 manage border-rad bd-0"><button class="bd-0 bg-trans wx-100 text-left text-gray edit" value="@item.requestOT.mrNoReq" data-bs-toggle="modal" data-bs-target="#modalNewOT"><span class="pe-1 text-blue material-icon-symbols-outlined">edit_square</span>แก้ไข</button></li>*@
+                                    <li class="my-1 manage border-rad bd-0"><button class="bd-0 bg-trans wx-100 text-left text-gray delete" value="@item.requestOT.mrNoReq"><span class="pe-1 text-blue material-icon-symbols-outlined">delete</span>ลบ</button></li>
+                                </ul>
+                            </div>
+
+                            <div class="card mb-3">
+                                <div class="card-body" role="button" data-bs-toggle="collapse" data-bs-target="#collapse@(item.requestOT.mrNoReq)" aria-expanded="false" aria-controls="collapseSub_@item.requestOT.mrNoReq">
+                                    <div class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x py-3 padding-bottom-1x">
+                                        @foreach (var step in Model.mastFlow.Where(w => w.mfFlowNo == item.requestOT.mrFlow))
+                                        {
+                                            string[] capture = step.mfSubject.Split("_");
+                                            string rejected = item.stepHistory.Where(w => w.htStep == step.mfStep.Value).FirstOrDefault() is null ? "" : item.stepHistory.Where(w => w.htStep == step.mfStep.Value).FirstOrDefault().htStatus;
+                                            string hisFromName = item.stepHistory.Where(w => w.htStep == step.mfStep).FirstOrDefault() is null ? "" : item.stepHistory.Where(w => w.htStep == step.mfStep).FirstOrDefault().htFrom;
+                                            <div class="step @(item.requestOT.mrStep.Value >= step.mfStep.Value ? "completed" : rejected.StartsWith(GlobalVariable.StatusRejected) ? "rejected": "")">
+                                                <div class="step-icon-wrap fs-12">
+                                                    <div class="step-icon"><span>@step.mfStep</span></div>
+                                                </div>
+                                                <h4 class="step-title">
+                                                    @capture[0]
+                                                    <div class="fs-10">@((item.requestOT.mrStep.Value + 1) == step.mfStep.Value ? "โดย คุณ" + item.requestOT.mrNameApp : hisFromName != "" ? hisFromName : capture.Length > 1 ? capture[1] : "")</div>
+                                                </h4>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="category">
+                                    <div class="border-rad bg-white px-3 py-3 collapse" id="collapse@(item.requestOT.mrNoReq)">
+                                        <div class="d-flex flex-dir-row flex-wrap">
+                                            @foreach (var worker in item.workerList.Where(w => w.drNoReq == item.requestOT.mrNoReq))
+                                            {
+                                                string status = worker.drStatus is null ? "" : worker.drStatus;
+                                                if (!(status.StartsWith(GlobalVariable.StatusRejected)))
+                                                {
+                                                    <button class="btn btn-light d-flex flex-dir-row border-rad py-2 w-fix-260p" onclick="LoadEmpPic(this)">
+                                                        <div class="worker-img">
+                                                            @if (item.workerImages.Where(w => w.empcode == worker.drEmpCode) != null)
+                                                            {
+                                                                @foreach (var image in item.workerImages.Where(w => w.empcode == worker.drEmpCode))
+                                                                {
+                                                                    <div class="img"><span class="fs-10 text-blue">ดูรูปพนักงาน</span></div>
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="img"><span class="material-icon-symbols-outlined">image</span></div>
+                                                            }
+                                                        </div>
+                                                        <div class="d-flex flex-dir-col fs-12 text-left h-fix-75p w-fix-130p hidden-txt worker-details">
+                                                            <div class="px-2 empcode" >@worker.drEmpCode</div>
+                                                            <div class="px-2 name">@worker.drPriName @worker.drName @worker.drLastName</div>
+                                                            <div class="px-2 job">@worker.drJobCode</div>
+                                                        </div>
+                                                    </button>
+                                                }
+                                                else
+                                                {
+                                                    <button class="btn btn-light d-flex flex-dir-row border-rad bd-c-red text-gray py-2 w-fix-260p" onclick="LoadEmpPic(this)">
+                                                        <div class="opacity-dot-7 worker-img">
+                                                            @if (item.workerImages.Where(w => w.empcode == worker.drEmpCode) != null)
+                                                            {
+                                                                @foreach (var image in item.workerImages.Where(w => w.empcode == worker.drEmpCode))
+                                                                {
+                                                                    <div class="img"><span class="fs-10 text-blue">ดูรูปพนักงาน</span></div>
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="img"><span class="material-icon-symbols-outlined">image</span></div>
+                                                            }
+                                                        </div>
+                                                        <div class="d-flex flex-dir-col fs-12 text-left h-fix-75p hidden-txt w-fix-130p worker-details">
+                                                            <div class="px-2 empcode">@worker.drEmpCode</div>
+                                                            <div class="px-2 name">@worker.drPriName @worker.drName @worker.drLastName</div>
+                                                            <div class="px-2 job">@worker.drJobCode</div>
+                                                        </div>
+
+                                                    </button>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,60 @@
+﻿@model ImportMasterWolf.Models.Common.Class;
+@using ImportMasterWolf.Models.Common;
+@{
+    Layout = "_Login";
+    ViewData["Title"] = "Login | Thai Stanley";
+}
+
+<div class="layout-container">
+    <div></div>
+    @using (Html.BeginForm("Autherize", "Login", FormMethod.Post))
+    {
+        <div class="login-container">
+            <div><input type="hidden" asp-for="param"></div>
+          
+            <div class="login-content" style=" ">
+
+                <div class="logo">
+                    <div class="sub-logo">
+                        <span style="font-size:60px">DATA WOLF</span>
+                        <div class="title">
+                            <h5>
+                                Welcome To : Program Import Data WOLF
+                                <img src="~/images/wolf.png" style="width:35px;padding-left:10px" />
+                            </h5>
+                            @*<img src="~/images/wolf.png" style="width:35px;padding-left:10px" />*@
+                        </div>
+                    </div>
+                </div>
+                <div class="account-info" style="">
+                    <div class="sub-accountinfo" style=" text-align: center;">
+                        <div class="input-boxset">
+                            @Html.ValidationMessageFor(model => model._Error.validation)
+                            <label class="status-invalid">@Html.DisplayFor(model => model._Error.validation)</label>
+                        </div>
+                        <div class="input-boxset username">
+                            <div class="input-container">
+                                <input asp-for="_ViewLoginPgm.UserId" type="text" class="form-control username" placeholder="Enter your username" required style="font-size:13px" />
+                            </div>
+                        </div>
+                        <div class="input-boxset password">
+                            <div class="input-container">
+                                <input asp-for="_ViewLoginPgm.Password" type="password" class="form-control password" placeholder="Enter your password" required style="font-size:13px" />
+                            </div>
+                        </div>
+                       
+                        <div class="btn-container">
+                            <input type="submit" class="btn btn-login" value="LOGIN" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<footer style="width: 100%; margin-top: auto; position: relative; bottom: 0; font-size: x-small;">
+    <p style="padding-left:10px;font-weight:600">&copy; Thai Stanley 2026 - ImportMasterWolf  : Last update : This Year</p>
+</footer>
+
+
+

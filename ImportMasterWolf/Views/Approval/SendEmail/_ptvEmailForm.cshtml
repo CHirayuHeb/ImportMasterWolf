@@ -1,0 +1,81 @@
+﻿@*EventOTEmailForm.js*@
+
+@model ImportMasterWolf.Models.Approval.MultiSendEmail
+<link href="~/lib/mobiscroll/css/mobiscroll.javascript.min.css" rel="stylesheet" />
+<div class="container" id="OTContent_mail">
+    @*need id='step+Number'*@
+    <input type="hidden" asp-for="mastRequestOT.mrNoReq" />
+    <input type="hidden" asp-for="mastRequestOT.mrEmpApp" />
+    <div class="input-container flex-dir-col px-1">
+        <div class="inputset">
+            <div class="unit-text fs-12">
+                <label class="dp-none lbpermiss">@Model.nextStep.mfPermission</label>
+                <label class="lbmailbypermiss"></label>
+            </div>
+            <div class="dp-block mb-2">
+                <label class="py-0 pst-abs dp-block txt-right z-0 w-mailname" id="lbDisplayMailName">@Model.FullNameMailTo</label>
+                <input type="text" id="txtMail" asp-for="historyApproveds.htTo" placeholder="รหัสพนักงาน (ex.012345)" class="form-control pst-rela z-0 bg-trans-dot3 px-1 mb-1 h-fix-30p 
+                       autocomplete="off" />
+                <div class="z-1 autocompleteEMail"></div>
+            </div>
+        </div>
+    </div>
+    <div class="input-container flex-dir-col px-1 fl">
+        <div class="inputset">
+            <div class="unit-text fs-12">
+                <label>Mail CC</label>
+            </div>
+            <div class="form-check">
+                <div class="dp-block">
+                    <input type="text" id="txtMailCC" placeholder="mail_cc@stanley.co.th" class="form-control px-1 mb-1 h-fix-30p" autocomplete="off" />
+                    <div class="autocompleteEMailCC"></div>
+                </div>
+                <button class="btn btn-light d-flex flex-wrap justify-center border-rad mx-1 addcc" type="button">
+                    <span class="fs-16 material-icon-symbols-outlined ">person_add</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="clear-b"></div>
+    <div class="mail-cc-list ps-2 ovf-auto-y">
+        <div class="mx-0">
+            <div id="divCountMailCC"><span id="spanPersonCount"></span></div>
+            <div class="dp-block mh-75p ovf-auto-y" id="CCMailContent">
+                @{ string[] arrMail = Model.historyApproveds.htCC.Split(","); }
+                @if (arrMail != null)
+                {
+                    if (arrMail.Length > 1)
+                    {
+                        foreach (string email in arrMail)
+                        {
+                            if (email.Trim() != "")
+                            {
+                            <div class='d-flex flex-dir-row py-1 cc-box'>
+                                <label class='cc'>@email</label>
+                                <button class='bd-0 bg-trans cc-delete' type='button'><span class='material-icon-symbols-outlined fs-16'>close</span></button>
+                            </div>
+                            }
+                        }
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    <div class="input-container flex-dir-col px-1">
+        <div class="inputset">
+            <div class="unit-text  fs-12">
+                <label>หมายเหตุ</label>
+            </div>
+            <div class="form-check">
+                <input class="form-control h-fix-30p" asp-for="historyApproveds.htRemark" />
+            </div>
+        </div>
+    </div>
+    <div class="clear-b"></div>
+</div>
+
+<div id="footermail">
+    <button type="button" class="btn btn-secondary w-fix-100p" data-bs-dismiss="modal">ยกเลิก</button>
+    <button type="button" class="btn btn-light w-fix-100p btnSend">ส่ง</button>
+</div>
+

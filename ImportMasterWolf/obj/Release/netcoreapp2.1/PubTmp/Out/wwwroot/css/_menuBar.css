@@ -1,0 +1,411 @@
+﻿:root {
+    --userbox-setting-head-height: 50px;
+    --userbox-setting-body-height: 130px;
+    --account-img-width: 130px;
+}
+
+@media only screen and (max-width: 500px) {
+    .space-middle div.content-container {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        max-width: calc(100vw);
+        height: 100%;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+        background-color: whitesmoke;
+    }
+}
+
+body {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    font-family: LeelawaD;
+}
+
+.space-middle {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    font-size: 12px;
+    color: #323130;
+    line-height: 18px;
+    letter-spacing: .01em;
+    text-align: left;
+    font-weight: 400;
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    top: 48px;
+}
+
+    .space-middle .content-container {
+        position: absolute;
+        left: 68px;
+        top: 0;
+        width: 100%;
+        max-width: calc(100vw - 68px);
+        height: 100%;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+        background-color: whitesmoke;
+    }
+
+.content-container .box {
+    display: flex;
+    flex-direction: column;
+    z-index: 0;
+    height: 100%;
+}
+
+    .content-container .box.box-scroller {
+        will-change: transform;
+        transform: translateZ(0);
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .content-container .box .box-wrapper {
+        flex: 1 0 auto;
+        min-width: 300px;
+        position: relative;
+    }
+
+.space-middle .sidebar {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 68px;
+    left: 0;
+}
+
+.space-middle .home-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.user-menu .user-box {
+    display: flex;
+    line-height: 48px;
+}
+
+    .user-menu .user-box .user-name, .user-box .user-img {
+        margin: 0 5px;
+    }
+
+    .user-menu .user-box .user-nickname {
+        margin: 7px;
+        vertical-align: middle;
+        display: table-cell;
+        height: 48px;
+    }
+
+        .user-menu .user-box .user-nickname div.nickname {
+            border: 1px solid gray;
+            border-radius: 50%;
+            position: static;
+            width: 35px;
+            height: 35px;
+        }
+
+            .user-menu .user-box .user-nickname div.nickname div {
+                line-height: 35px;
+            }
+
+    .user-menu .user-box ul div.setting-box {
+        display: block;
+        height: 100%;
+    }
+
+        .user-menu .user-box ul div.setting-box div.head {
+            height: var(--userbox-setting-head-height);
+            min-height: var(--userbox-setting-head-height);
+            vertical-align: middle;
+            line-height: 35px;
+        }
+
+        .user-menu .user-box ul div.setting-box div.body {
+            display: flex;
+            flex-direction: row;
+            height: var(--userbox-setting-body-height);
+        }
+
+            .user-menu .user-box ul div.setting-box div.body .account-info,
+            .user-menu .user-box ul div.setting-box div.body .account-img {
+                width: var(--account-img-width);
+                height: var(--userbox-setting-body-height);
+                min-height: var(--userbox-setting-body-height);
+                min-width: var(--account-img-width);
+            }
+
+            .user-menu .user-box ul div.setting-box div.body .account-img {
+                padding: 1rem;
+            }
+
+                .user-menu .user-box ul div.setting-box div.body .account-img div.user-icon {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border: 1px solid lightgray;
+                    border-radius: 50%;
+                }
+
+                    .user-menu .user-box ul div.setting-box div.body .account-img div.user-icon div.icon {
+                        border: 1px solid lightgray;
+                        border-radius: 50%;
+                        width: 100%;
+                        height: 100%;
+                        text-align: center;
+                        vertical-align: middle;
+                        display: contents;
+                    }
+
+                        .user-menu .user-box ul div.setting-box div.body .account-img div.user-icon div.icon div {
+                            font-size: xx-large;
+                        }
+
+            .user-menu .user-box ul div.setting-box div.body .account-info {
+                width: calc(100% - var(--account-img-width));
+                display: block;
+                padding: 1rem 1rem 1rem 0;
+            }
+
+                .user-menu .user-box ul div.setting-box div.body .account-info div.user-info {
+                    box-sizing: border-box;
+                    height: 100%;
+                }
+
+                    .user-menu .user-box ul div.setting-box div.body .account-info div.user-info div.info {
+                        display: flex;
+                        flex-direction: column;
+                        line-height: 29px;
+                    }
+
+                        .user-menu .user-box ul div.setting-box div.body .account-info div.user-info div.info div.full-name {
+                            font-size: x-large;
+                            overflow: hidden;
+                            font-weight: 800;
+                            text-wrap: nowrap;
+                            text-overflow: ellipsis;
+                        }
+
+        .user-menu .user-box ul div.setting-box div.footer {
+            height: calc(100% - (var(--userbox-setting-head-height) + var(--userbox-setting-body-height)));
+            background-color: whitesmoke;
+            border-top: 1px solid rgb(230,230,230);
+        }
+
+            .user-menu .user-box ul div.setting-box div.footer .footer-text {
+                text-align: left;
+                padding: 6px 6px 6px 1rem;
+                font-size: x-small;
+            }
+
+        .user-menu .user-box ul div.setting-box div.head div.sign-out-box {
+            right: 0;
+            position: absolute;
+            height: var(--userbox-setting-head-height);
+        }
+
+            .user-menu .user-box ul div.setting-box div.head div.sign-out-box button.signOut {
+                width: 80px;
+                height: var(--userbox-setting-head-height);
+                font-weight: normal;
+                font-size: 16px;
+                color: dimgray;
+            }
+
+                .user-menu .user-box ul div.setting-box div.head div.sign-out-box button.signOut:hover {
+                    background-color: whitesmoke;
+                    border-top-right-radius: 5px;
+                }
+
+    .user-menu .user-box .dropdown-menu.replace.customize {
+        width: 320px;
+        height: 240px;
+    }
+
+    .user-menu .user-box .user-img {
+    }
+
+.navbar-expand-lg .navbar-nav .user-menu button {
+    border: 0;
+    background-color: transparent;
+}
+
+.navbar-expand-lg .navbar-nav .user-menu ul.dropdown-menu {
+    position: absolute;
+    left: -300px;
+}
+
+.logo-box {
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    height: 100%;
+    user-select: none;
+}
+
+    .logo-box .logo-img button:hover, .user-menu .user-box button:hover {
+        background-color: orange;
+    }
+
+    .logo-box .logo-img {
+        height: 100%;
+        line-height: 48px;
+        display: flex;
+    }
+
+        .logo-box .logo-img button {
+            line-height: 48px;
+            height: 48px;
+            min-width: 68px;
+            padding: 0;
+            font-size: x-large;
+            border: 0;
+            border-top-left-radius: 12px;
+        }
+
+.program-box {
+    height: 100%;
+    line-height: 48px;
+    display: flex;
+    cursor: pointer;
+}
+
+    .program-box .program-name {
+        display: flex;
+        vertical-align: middle;
+        outline-offset: -1px;
+        padding: 0 12px 0 8px;
+        text-decoration: none
+    }
+
+        .program-box .program-name span {
+            padding: 0;
+        }
+
+.program-name .name {
+    color: orange;
+    font-size: 16px;
+    font-family: 'LeelawaD Bold';
+    line-height: 48px;
+}
+
+ul li div.menu-item {
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    touch-action: none;
+    user-select: none;
+}
+
+    ul li div.menu-item:hover {
+        background-color: #FFFFFF;
+    }
+
+.nav-item button span.Home,
+.nav-item button span.create,
+.nav-item button span.my-request,
+.nav-item button span.approval,
+.nav-item button span.administrator {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+    .nav-item button span.Home span,
+    .nav-item button span.create span,
+    .nav-item button span.my-request span,
+    .nav-item button span.approval span,
+    .nav-item button span.administrator {
+        padding: 5px 0;
+    }
+
+ul li div.selecter {
+    position: absolute;
+    margin-top: 6px;
+    background-color: orange;
+    height: 48px;
+    width: 2px;
+    top: 0;
+    transform: translate(0px, 0px);
+    transition-duration: 0.26s;
+    transition-property: all;
+}
+    ul li div.selecter.active {
+        transform: translate(0px, 63px);
+    }
+
+    div.modal-backdrop.show {
+        opacity: 0;
+        z-index: -1;
+    }
+
+.modal-header .btn.modal-apps:hover {
+    padding: 0;
+    background: lightgray;
+    line-height: normal;
+    display: flex;
+}
+
+.modal-body .body-content .content .fav-menu .fav-content,
+.modal-body .body-content .content .apps-menu .apps-content {
+    display: inline-block;
+    padding: 10px 0 20px 10px;
+}
+
+.modal-body .body-content .content a {
+    color: dimgrey;
+    font-weight: 800;
+    display: flex;
+}
+
+    .modal-body .body-content .content a div.fav-icon,
+    .modal-body .body-content .content a div.apps-icon {
+        font-size: 20px;
+        padding: 0 5px;
+        line-height: 26px;
+    }
+
+    .modal-body .body-content .content a div.fav-text h6,
+    .modal-body .body-content .content a div.apps-text h6 {
+        font-size: 22px;
+        font-weight: 800;
+    }
+
+.modal-body .body-content .content .fav-content .app {
+    float: left;
+    width: 136px;
+}
+
+    .modal-body .body-content .content .fav-content .app a {
+        display: inline-flex;
+    }
+
+        .modal-body .body-content .content .fav-content .app a div.program-logo,
+        .modal-body .body-content .content .fav-content .app a div.program-name,
+        .modal-body .body-content .content .apps-content .app a div.program-logo,
+        .modal-body .body-content .content .apps-content .app a div.program-name {
+            padding: 2.5px;
+        }
+
+            .modal-body .body-content .content .fav-content .app a div.program-logo span,
+            .modal-body .body-content .content .apps-content .app a div.program-logo span {
+                /*color: black;*/
+            }
+
+            .modal-body .body-content .content .fav-content .app a div.program-name span,
+            .modal-body .body-content .content .apps-content .app a div.program-name span {
+                line-height: 26px;
+                font-weight: normal;
+            }
+.nav-link.text-gray{
+    color: gray;
+}

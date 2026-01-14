@@ -1,0 +1,55 @@
+﻿@model ImportMasterWolf.Models.MyRequest.MultiDocMast
+@using ImportMasterWolf.Models.Common
+
+<div class="just-group">
+    <div class="table-result wx-100 fs-12 bg-trans">
+        <div class="d-flex">
+            <div class="d-flex flex-dir-row hy-100 py-0">
+                <input class="w-rem-1 h-rem-1 chck-all-manage" id="CheckAllItem"  type="checkbox" />
+                <label for="CheckAllItem" class="text-gray fs-16 w-fix-30p h-fix-30p form-check-label mx-1">ทั้งหมด</label>
+            </div>
+            <div class="d-flex flex-dir-row hy-100 py-0">
+                <button class="bd-0 bg-trans ms-3 px-2 w-fix-70p fw-800 text-gray">ลบ</button>
+            </div>
+        </div>
+        <hr />
+        <div class="wx-100 d-flex flex-dir-col item-center">
+            @if (Model.docList.Count > 0)
+            {
+                foreach (var doc in Model.docList)
+                {
+                    <div class="w-100 d-flex flex-dir-row item-center">
+                        <div class="d-flex flex-dir-row hy-100 py-0">
+                            <input type="checkbox" class="w-rem-1 h-rem-1 chck-manage" value="@doc.requestOT.mrNoReq" />
+                        </div>
+                        <div class="table-result bg-trans wx-100">
+                            <div class="dp-table px-4 wx-100">
+                                <div class="dp-block wx-100">
+                                    <div class="d-flex border-rad p-2 m-1 bg-white text-gray">
+                                        <div class="dp-block wx-100 mx-2 fl">
+                                            <span class="fw-800">หมายเลขเอกสาร</span>
+                                            <span class="text-black">@doc.requestOT.mrNoReq</span>
+                                        </div>
+                                        <div class="dp-block wx-100 mx-2 fl">
+                                            <span class="fw-800">ฉบับร่างเมื่อวันที่</span>
+                                            <span class="text-black">@doc.requestOT.mrDateReq</span>
+                                        </div>
+                                        <div class="clear-b"></div>
+                                        <div class="d-flex justify-center align-center mx-2 fr">
+                                            <button class="bg-trans fw-800 bd-0 mx-1 text-blue draft" data-bs-toggle="modal" data-bs-target="#modalViewDetail" value="@doc.requestOT.mrNoReq">เปิด</button>
+                                            <button class="bg-trans fw-800 bd-0 mx-1 text-gray delete" value="@doc.requestOT.mrNoReq">ลบ</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+             <h6 class="bg-trans">สามารถส่งคำร้องขอทำงานล่วงเวลาได้ที่เมนู "สร้าง"</h6>
+            }
+        </div>
+    </div>
+</div>

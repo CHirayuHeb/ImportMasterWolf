@@ -1,0 +1,94 @@
+﻿@model ImportMasterWolf.Models.Approval.MultiNewLate
+@using ImportMasterWolf.Models.Common
+
+<div class="just-group">
+    <div class="table-result bg-trans">
+        <div class="d-flex">
+            <div class="d-flex flex-dir-row hy-100 py-0">
+                <input class="w-rem-1 h-rem-1 chck-all-manage" id="CheckAllItem" type="checkbox" />
+                <label for="CheckAllItem" class="text-gray fs-16 w-fix-30p h-fix-30p form-check-label mx-1">ทั้งหมด</label>
+            </div>
+            <div class="d-flex flex-dir-row hy-100 py-0">
+                <button class="bd-0 bg-trans ms-3 px-2 w-fix-70p fw-800 text-gray acceptseleted" data-bs-target="#modalEmailForm" data-bs-toggle="modal" title="อนุมัติ">รับทราบ</button>
+            </div>
+        </div>
+        <hr />
+        @if (Model.docList.Count > 0)
+        {
+
+        <table id="table" class="table table-scroll table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>ลำดับที่</th>
+                    <th>หมายเลขรายการ</th>
+                    <th>รับทราบ (รายการ)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            @foreach (string department in Model.docList.Select(s => s.requestOT.mrDeptReq).Distinct().OrderBy(o => o))
+            {
+                <tbody class="lamp" role="button" data-bs-toggle="collapse" data-bs-target="#collapse@(department.Substring(0, 4))" aria-expanded="false" aria-controls="collapseSub_@department.Substring(0, 4)">
+                    <tr class="lamp">
+                        <td colspan="2" class="text-left">@department</td>
+                        <td>@(Model.docList.Where(w => w.requestOT.mrStatus.StartsWith(GlobalVariable.StatusFinishedST)).Count() + "/" + Model.docList.Where(w => w.requestOT.mrDeptReq == department).Count())</td>
+                        <td>
+                            <button type="button" class="lamp-more" role="button" data-bs-toggle="collapse" data-bs-target="#collapseLE1" aria-expanded="false" aria-controls="collapseSub_le1">
+                                <span class="material-icon-symbols-outlined fs-16 cs-pt">expand_more</span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+                @foreach (string stringDate in Model.docList.Where(w => w.requestOT.mrDeptReq == department).Select(s => s.requestOT.mrDateReq).Distinct())
+                {
+                    <tbody class="collapse" id="collapse@(department.Substring(0, 4))">
+
+                        <tr class="text-left fw-800 text-blue">
+                            <td colspan="4">
+                                <div class="d-flex">
+                                    <input type="checkbox" class="w-rem-1 h-rem-1 chck-section" value="@(department.Substring(0, 4) + stringDate.Replace("/",""))" />
+                                    <div class="hy-100 ps-3 py-0 wx-100" data-bs-toggle="collapse" data-bs-target="#collapse@(department.Substring(0, 4) + stringDate.Replace("/",""))" aria-expanded="false" aria-controls="collapseSub_@department.Substring(0, 4)">
+                                        <label class="ps-3">@stringDate</label>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody class="collapse" id="collapse@(department.Substring(0, 4) + stringDate.Replace("/",""))">
+                        @{int count = 1;}
+                        @foreach (string line in Model.docList.Where(w => w.requestOT.mrDeptReq == department && w.requestOT.mrDateReq == stringDate).Select(s => s.requestOT.mrProductionLine).Distinct())
+                        {
+                            <tr class="line text-gray">
+                                <td colspan="4" class="text-left">@line</td>
+                            </tr>
+                            foreach (var doc in Model.docList.Where(w => w.requestOT.mrProductionLine == line && w.requestOT.mrDeptReq == department && w.requestOT.mrDateReq == stringDate))
+                            {
+                            <tr class="le1-detail-1 cs-pt">
+                                <td>
+                                    <div class="d-flex justify-center flex-dir-row hy-100 py-0">
+                                        <input type="checkbox" class="w-rem-1 h-rem-1 chck-doc" value="@doc.requestOT.mrNoReq" />
+                                        <label class="ps-3">@(count++)</label>
+                                    </div>
+                                </td>
+                                <td>@doc.requestOT.mrNoReq</td>
+                                <td class="px-0 py-0">
+                                    <div class="d-md-flex justify-center flex-wrap flex-dir-col td-approve">
+                                        <button class="btn btn-light px-0 py-0 text-gray border-circle btnHRApprove" title="รับทราบ" value="@doc.requestOT.mrNoReq" @(doc.requestOT.mrStatus.StartsWith(GlobalVariable.StatusFinishedST) ? "disabled" : "")><span class="@(doc.requestOT.mrStatus.StartsWith(GlobalVariable.StatusFinishedST) ? "text-lightgreen" : "") material-icon-symbols-outlined">check</span></button>
+                                    </div>
+                                </td>
+                                <td></td>
+                            </tr>
+                            }
+
+                        }
+                    </tbody>
+                }
+            }
+        </table>
+
+        }
+        else
+        {
+            <h6 class="bg-trans">ยังไม่มีรายการใดมาถึงขั้นตอนของคุณ</h6>
+        }
+    </div>
+</div>

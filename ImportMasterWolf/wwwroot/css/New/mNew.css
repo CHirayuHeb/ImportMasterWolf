@@ -1,0 +1,8 @@
+﻿@media only screen and (max-width: 1000px) {
+    .container div.input-container {
+        width: 100%;
+        line-height: 35px;
+        display: block;
+        min-width: unset;
+    }
+}

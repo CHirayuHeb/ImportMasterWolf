@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ImportMasterWolf.Models.New.multiModelCateWorker>
+@{string step = "4";}
+<div class="container" id="OTContent_step@(step)">
+    @*need id='step+Number'*@
+    <div class="input-container flex-dir-col px-1">
+        <div class="inputset">
+            <div class="unit-text  fs-12">
+                <label>รหัสพนักงาน</label>
+            </div>
+            <div class="form-check">
+                <div>
+                    <input class="form-control h-fix-30p my-1" id="txtEmpCode" type="text" autocomplete="off" />
+                    <div class="z-1 autocomplete"></div>
+                </div>
+                <button class="btn btn-light d-flex flex-wrap justify-center border-rad mx-2 my-1 add-worker" type="button">
+                    <span class="fs-16 material-icon-symbols-outlined ">person_add</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="worker-list py-2 ovf-auto-y">
+        <div class="mx-0">
+            <div id="divCountTitle"><span id="spanPersonCount"></span></div>
+            <div class="d-flex flex-dir-row flex-wrap" id="WorkerContent">
+                
+                @if (Model != null) { foreach (var EmpDetail in Model)
+                    {
+                    @await Html.PartialAsync("~/Views/New/OTAddWorkerResult/_CateWorker.cshtml", EmpDetail)
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div id="footer@(step)">
+    <button type="button" class="btn btn-secondary w-fix-100p previos@(step)"><span class="material-icon-symbols-outlined">arrow_back_ios</span>ย้อนกลับ</button>
+    <button type="button" class="btn btn-light w-fix-100p next@(step)">ถัดไป</button>
+</div>
+

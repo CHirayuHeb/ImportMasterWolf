@@ -1,0 +1,239 @@
+﻿@import url(mMyRequest.css);
+:root {
+    --font-global-page-size: 12px;
+}
+
+.title-box .title ul li.nav-item:hover {
+    background-color: transparent;
+}
+
+.home-content .content-box {
+    height: 100%;
+    z-index: 0;
+}
+
+.content-control {
+    box-sizing: border-box;
+    /*height: calc(100% - 108px);*/
+    height: calc(100%);
+    overflow-y: auto;
+    position: fixed;
+    z-index: 6;
+    background-color: white;
+    width: 252px;
+    padding: 48px 32px 20px;
+    border-right: 1px solid #e0e0e0;
+}
+
+    .content-control h2 {
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 28px;
+        color: #242424;
+        margin-bottom: 26px;
+        font-size: 20px;
+    }
+
+    .content-control .control-header {
+        display: block;
+        height: fit-content;
+        text-size-adjust: 100%;
+        width: 100%;
+        line-height: 30px;
+    }
+
+        .content-control .control-header .header-title {
+            display: block;
+            font-size: 14px;
+            line-height: 30px;
+            color: #242424;
+            border-radius: 4px;
+            padding: 3px 8px;
+        }
+
+            .content-control .control-header .header-title:hover {
+                background-color: #ffffff;
+            }
+
+            .content-control .control-header .header-title .title-text {
+                font-size: 14px;
+                line-height: 30px;
+                color: #242424;
+                cursor: pointer;
+            }
+
+                .content-control .control-header .header-title .title-text .header-icon {
+                    font-size: 16px;
+                    display: inline-flex;
+                    vertical-align: middle;
+                    margin-right: 5px;
+                    cursor: pointer;
+                }
+
+                    .content-control .control-header .header-title .title-text .header-icon span {
+                        font-size: 20px;
+                    }
+
+.home-content .content-box .content-text {
+    height: 100%;
+}
+
+    .home-content .content-box .content-text .content {
+        position: relative;
+        top: 20px;
+        height: 100%;
+    }
+
+.home-content .content-box .content-text .content .ph-container {
+    padding: 0.75rem 0;
+}
+
+    .home-content .content-box .content-text .content .ph-container .ph-box,
+    .home-content .content-box .content-text .content .ph-container .ph-box .ph-item {
+        display: flex;
+    }
+
+.home-content .content-box .content-text .content .myrequest-menu .menu-item .item-category {
+    flex-direction: column;
+    padding: 3px;
+}
+
+    .home-content .content-box .content-text .content .myrequest-menu .menu-item .item-category .items {
+        display: flex;
+    }
+
+    .home-content .content-box .content-text .content .myrequest-menu .menu-item .item-category label {
+        border-bottom: 1px solid rgb(230, 230, 230);
+    }
+
+    .home-content .content-box .content-text .content .myrequest-menu .menu-item .item-category .items .item {
+        border-radius: 8px;
+    }
+
+        .home-content .content-box .content-text .content .myrequest-menu .menu-item .item-category .items .item button {
+            color: cornflowerblue;
+        }
+
+            .home-content .content-box .content-text .content .myrequest-menu .menu-item .item-category .items .item button span {
+                padding-bottom: 5px;
+            }
+
+            .home-content .content-box .content-text .content .myrequest-menu .menu-item .item-category .items .item button:hover {
+                background-color: whitesmoke;
+            }
+
+.home-content .content-box .content-text .content div.result-container {
+    position: absolute;
+}
+
+    .home-content .content-box .content-text .content div.result-containerle-result,
+    .home-content .content-box .content-text .content div.result-container .table-result,
+    .home-content .content-box .content-text .content div.result-container .table-result table,
+    .home-content .content-box .content-text .content div.result-container .table-result table tr:first-child,
+    .home-content .content-box .content-text .content div.result-container .table-result table tr:last-child {
+        border-radius: 10px;
+    }
+
+    .home-content .content-box .content-text .content div.result-container .table-result {
+        display: block;
+        position: relative;
+        /*top: 10px;*/
+    }
+
+    .home-content .content-box .content-text .content div.result-container .table-result {
+        display: block;
+        position: relative;
+        /*top: 10px;*/
+    }
+
+.container .input-container {
+    width: 100%;
+    line-height: 35px;
+    display: flex;
+    flex-wrap: wrap;
+    min-width: 230px;
+    width: 50%;
+}
+
+.inputset {
+    display: block;
+}
+
+    .inputset div.unit-text {
+        line-height: 20px;
+        font-weight: normal;
+        color: dimgray;
+        /*padding-left: 35px;*/
+    }
+
+.container .input-container input:not([type=checkbox]) {
+    padding-left: 150px;
+}
+
+.container .input-container input[type=checkbox] {
+    /*padding: 3%;*/
+    margin: 5px;
+}
+
+.container .input-container .inputset .form-check {
+    display: flex;
+    padding-left: 0px;
+}
+
+    .container .input-container .inputset .form-check select {
+        line-height: 1;
+    }
+
+    .container .input-container .inputset .form-check .form-control {
+        padding-left: 5px;
+    }
+
+.container .input-container select {
+    padding-left: 150px;
+}
+
+.worker-list {
+    max-height: 260px;
+}
+
+.add-worker {
+    height: 30px;
+    align-items: center;
+    width: 30px;
+    line-height: 10px;
+}
+
+.worker-img,
+.worker-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.worker-img {
+    width: 75px;
+    height: 75px;
+}
+
+    .worker-img .img {
+        text-align: center;
+        padding: 8px;
+    }
+
+div.modal-new-content div.type-items div.item {
+    width: 200px;
+    height: 150px;
+    line-height: 40px;
+    border: 1px solid rgb(230, 230, 230);
+    border-radius: 8px
+}
+
+    div.modal-new-content div.type-items div.item .item-text {
+        vertical-align: middle;
+        height: 100%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }

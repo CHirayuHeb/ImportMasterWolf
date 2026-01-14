@@ -1,0 +1,167 @@
+﻿
+:root {
+    --shadow4: 0 0 2px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.14);
+}
+
+body {
+}
+
+.content-box .white-space {
+    height: 48px;
+}
+
+.content-box .content-text {
+    padding: 0 48px;
+    position: relative;
+    z-index: 1;
+}
+
+    .content-box .content-text .title-box {
+        padding: 2rem 0;
+        font-weight: bolder;
+    }
+
+        .content-box .content-text .title-box .title{
+            font-family: 'LeelawaD Bold';
+        }
+        .content-box .content-text .content {
+            padding: 2rem 0 0 0;
+        }
+            .content-box .content-text .content .content-title h5{
+                font-weight: 800;
+            }
+
+            .content-box .content-text .content .container .input-container {
+                width: 100%;
+                line-height: 35px;
+                display: flex;
+                flex-direction: column;
+                clear: both;
+                max-width: 400px;
+            }
+
+
+        .content-box .content-text .content .search-box {
+            margin-top: 20px;
+        }
+
+            .content-box .content-text .content .search-box .inputset {
+                display: block;
+            }
+
+                .content-box .content-text .content .search-box .inputset div.unit-text {
+                    line-height: 20px;
+                    font-weight: normal;
+                    color: dimgray;
+                    padding-left: 35px;
+                }
+
+            .content-box .content-text .content .search-box .container .input-container input:not([type=checkbox]) {
+                padding-left: 150px;
+            }
+
+            .content-box .content-text .content .search-box .container .input-container input[type=checkbox] {
+                /*padding: 3%;*/
+                margin: 5px;
+            }
+
+            .content-box .content-text .content .search-box .container .input-container .inputset .form-check {
+                display: flex;
+                padding-left: 0px;
+            }
+
+                .content-box .content-text .content .search-box .container .input-container .inputset .form-check .form-control {
+                    padding-left: 5px;
+                }
+
+            .content-box .content-text .content .search-box .container .input-container select {
+                padding-left: 150px;
+            }
+
+div.table-result,
+div.table-result table,
+div.table-result table tr:first-child,
+div.table-result table tr:last-child {
+    border-radius: 8px;
+}
+
+div.table-result {
+    width: 100%;
+    margin: auto;
+    margin-top: .75rem;
+    margin-bottom: 3.75rem;
+    overflow-y: auto;
+    background: white;
+    box-shadow: var(--shadow4);
+}
+
+    .table-result table {
+        background: white;
+        text-align: center;
+        margin: 0;
+    }
+
+        .table-result table tr.lamp,
+        .table-result table tr.line,
+        .table-result table tr.section
+        .table-result table tr td.issue-by {
+            font-weight: 800;
+        }
+
+        .table-result table tr.lamp {
+            background: rgba(255,255,255,1);
+        }
+
+            .table-result table tr.lamp button.lamp-more{
+                border: 0;
+                background-color: transparent;
+            }
+
+        .table-result table tr.line,
+        .table-result table tr.section {
+            background: rgba(215, 215, 215, 0.5);
+        }
+
+        .table-result table tr td.issue-by {
+            background: rgba(220, 220, 220, 0.3);
+        }
+        .table-result table tr td.lamp-sum {
+            background-color: rgb(255, 206, 206);
+        }
+        .table-result table tr td.issued-sum {
+            background-color: rgb(255, 232, 195);
+        }
+
+.home-content .content-box .content-text .content .new-menu .menu-item .item-category .items {
+    display: flex;
+}
+
+.home-content .content-box .content-text .content .new-menu .menu-item .item-category label {
+    border-bottom: 1px solid rgb(230, 230, 230);
+}
+
+.home-content .content-box .content-text .content .new-menu .menu-item .item-category .items .item {
+    border-radius: 8px;
+}
+
+    .home-content .content-box .content-text .content .new-menu .menu-item .item-category .items .item button {
+        color: cornflowerblue;
+    }
+
+        .home-content .content-box .content-text .content .new-menu .menu-item .item-category .items .item button span {
+            padding-bottom: 5px;
+        }
+
+        .home-content .content-box .content-text .content .new-menu .menu-item .item-category .items .item button:hover {
+            background-color: whitesmoke;
+        }
+
+table tr td .td-approve {
+    height: 38px;
+}
+    table tr td .td-approve button {
+        width: 30px;
+        height: 30px;
+        font-size: 20px;
+        color: dimgray;
+    }

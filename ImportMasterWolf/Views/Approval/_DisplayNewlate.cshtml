@@ -1,0 +1,263 @@
+﻿@model ImportMasterWolf.Models.Approval.MultiNewLate
+@using ImportMasterWolf.Models.Common
+@{string permission = User.Claims.FirstOrDefault(s => s.Type == "Permission").Value;
+    string position = User.Claims.FirstOrDefault(s => s.Type == "Position").Value;}
+<div class="just-group">
+    <div class="table-result wx-100 fs-16 bg-trans">
+        @*<div><label class="fs-10 text-red">#เปิดใช้งาน "อนุมัติทั้งหมด" ชั่วคราวสำหรับ CS (จนถึง 23 MAY 2024 12:00 น.) </label></div>*@
+        @if (permission.ToUpper() == GlobalVariable.perAdmin.ToUpper() || position.ToUpper() == GlobalVariable.spDM)
+        {
+            <div class="d-flex">
+                <div class="d-flex flex-dir-row hy-100 py-0">
+                    <input class="w-rem-1 h-rem-1 chck-all-manage" id="CheckAllItem" type="checkbox" />
+                    <label for="CheckAllItem" class="text-gray fs-16 w-fix-30p h-fix-30p form-check-label mx-1">ทั้งหมด</label>
+                </div>
+                <div class="d-flex flex-dir-row hy-100 py-0">
+                    <button class="bd-0 bg-trans ms-3 px-2 w-fix-70p fw-800 text-gray approveseleted" data-bs-target="#modalEmailForm" data-bs-toggle="modal" title="อนุมัติ">อนุมัติ</button>
+                </div>
+            </div>
+            <hr />
+        }
+
+        <div class="container wx-100 d-flex flex-dir-col">
+            <div>
+                @if (Model.docList.Count > 0)
+                {
+                    foreach (string OTDate in Model.docList.Select(s => s.requestOT.mrOTDate).Distinct().OrderBy(o => o))
+                    {
+                        string collpaseID = OTDate.Split("/")[2] + OTDate.Split("/")[1] + OTDate.Split("/")[0];
+                <div class="striped">
+                    <div class="d-flex item-center py-2 text-gray bg-white my-1 border-rad">
+                        <div class="wx-100" role="button" data-bs-toggle="collapse" data-bs-target="#collapse@(collpaseID)" aria-expanded="false" aria-controls="collapseSub_@collpaseID">
+                            <div class="dp-block fw-800">
+                                <div class="px-2 fl">@OTDate</div>
+                                @*<div class="px-2 pe-5 text-blue fs-12 d-flex justify-center item-center fr">กำลังดึงข้อมูล 
+                                    <div class="d-flex w-fix-9p">
+                                        <label class="loadActing">...</label>
+                                    </div>
+                                </div>*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fs-14 col-test collapse" id="collapse@(collpaseID)">
+                        @foreach (string partSection in Model.docList.Where(w => w.requestOT.mrOTDate == OTDate).Select(s => s.requestOT.mrSecReq).Distinct().OrderBy(o => o))
+                        {
+                            int calcWorker = 0, sumOTMinute = 0;
+                            string sumHour = "";
+                            @foreach (var doc in Model.docList.Where(w => w.requestOT.mrSecReq == partSection && w.requestOT.mrOTDate == OTDate))
+                            {
+                                int minuteST = 0, minuteED = 0;
+
+                                if ((doc.requestOT.mrOTTimeSt_Before != null && doc.requestOT.mrOTTimeSt_Before != "") && (doc.requestOT.mrOTTimeEd_Before != null && doc.requestOT.mrOTTimeEd_Before != ""))
+                                {
+                                    minuteST += (int.Parse(doc.requestOT.mrOTTimeSt_Before.Split(":")[0]) * 60) + int.Parse(doc.requestOT.mrOTTimeSt_Before.Split(":")[1]);
+                                    minuteED += (int.Parse(doc.requestOT.mrOTTimeEd_Before.Split(":")[0]) * 60) + int.Parse(doc.requestOT.mrOTTimeEd_Before.Split(":")[1]);
+                                }
+                                if ((doc.requestOT.mrOTTimeSt_During != null && doc.requestOT.mrOTTimeSt_During != "") && (doc.requestOT.mrOTTimeEd_During != null && doc.requestOT.mrOTTimeEd_During != ""))
+                                {
+                                    minuteST += (int.Parse(doc.requestOT.mrOTTimeSt_During.Split(":")[0]) * 60) + int.Parse(doc.requestOT.mrOTTimeSt_During.Split(":")[1]);
+                                    minuteED += (int.Parse(doc.requestOT.mrOTTimeEd_During.Split(":")[0]) * 60) + int.Parse(doc.requestOT.mrOTTimeEd_During.Split(":")[1]);
+                                }
+                                if ((doc.requestOT.mrOTTimeSt_After != null && doc.requestOT.mrOTTimeSt_After != "") && (doc.requestOT.mrOTTimeEd_After != null && doc.requestOT.mrOTTimeEd_After != ""))
+                                {
+                                    minuteST += (int.Parse(doc.requestOT.mrOTTimeSt_After.Split(":")[0]) * 60) + int.Parse(doc.requestOT.mrOTTimeSt_After.Split(":")[1]);
+                                    minuteED += (int.Parse(doc.requestOT.mrOTTimeEd_After.Split(":")[0]) * 60) + int.Parse(doc.requestOT.mrOTTimeEd_After.Split(":")[1]);
+                                }
+
+                                calcWorker = doc.workerList.Where(w => w.drStatus == null || !w.drStatus.StartsWith(GlobalVariable.StatusRejected)).Count();
+                                if (minuteED < minuteST)
+                                {
+                                    sumOTMinute += ((((24 * 60) - minuteST) + minuteED) * calcWorker);
+                                }
+                                else
+                                {
+                                    sumOTMinute += ((minuteED - minuteST) * calcWorker);
+                                }
+                                string minuteString = sumOTMinute % 60 == 0 ? "" : (sumOTMinute % 60).ToString() + " นาที";
+                                sumHour = (sumOTMinute / 60).ToString() + " ชั่วโมง " + minuteString;
+                            }
+
+                            <div class="d-flex item-center py-2 bg-white text-gray my-1 border-rad section-header">
+                                <div class="d-flex flex-dir-row hy-100 ps-3 py-0">
+                                    @if (permission.ToUpper() == GlobalVariable.perAdmin.ToUpper() || position.ToUpper() == GlobalVariable.spDM)
+                                    {
+                                        <input type="checkbox" class="w-rem-1 h-rem-1 chck-section" value="@(collpaseID+partSection)" />
+                                    }
+
+                                </div>
+                                <div class="wx-100" role="button" data-bs-toggle="collapse" data-bs-target="#collapse@(collpaseID+partSection)" aria-expanded="false" aria-controls="collapseSub_@(collpaseID+partSection)">
+                                    <div class="dp-block">
+                                        <div class="px-2 fl">@partSection</div>
+                                        <div class="px-2 fr">@sumHour</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white border-rad text-gray px-3 py-3 collapse" id="collapse@(collpaseID+partSection)">
+                                @foreach (var issueby in Model.docList.Where(w => w.requestOT.mrSecReq == partSection && w.requestOT.mrOTDate == OTDate).Select(s => new { s.requestOT.mrNameReq, s.requestOT.mrPositionReq, s.requestOT.mrEmpReq, s.requestOT.mrLastNameReq }).GroupBy(g => new { g.mrEmpReq, g.mrNameReq, g.mrPositionReq, g.mrLastNameReq }).Select(s => s.FirstOrDefault()))
+                                {
+                                    int calcGLWorker = 0;
+                                    int sumGLOTMinute = 0;
+                                    string sumGLHour = "";
+                                    @foreach (var doc in Model.docList.Where(w => w.requestOT.mrEmpReq == issueby.mrEmpReq && w.requestOT.mrOTDate == OTDate))
+                                    {
+                                        int minuteST = 0, minuteED = 0;
+                                        if ((doc.requestOT.mrOTTimeSt_Before != null && doc.requestOT.mrOTTimeSt_Before != "") && (doc.requestOT.mrOTTimeEd_Before != null && doc.requestOT.mrOTTimeEd_Before != ""))
+                                        {
+                                            minuteST += (int.Parse(doc.requestOT.mrOTTimeSt_Before.Split(":")[0]) * 60) + int.Parse(doc.requestOT.mrOTTimeSt_Before.Split(":")[1]);
+                                            minuteED += (int.Parse(doc.requestOT.mrOTTimeEd_Before.Split(":")[0]) * 60) + int.Parse(doc.requestOT.mrOTTimeEd_Before.Split(":")[1]);
+                                        }
+                                        if ((doc.requestOT.mrOTTimeSt_During != null && doc.requestOT.mrOTTimeSt_During != "") && (doc.requestOT.mrOTTimeEd_During != null && doc.requestOT.mrOTTimeEd_During != ""))
+                                        {
+                                            minuteST += (int.Parse(doc.requestOT.mrOTTimeSt_During.Split(":")[0]) * 60) + int.Parse(doc.requestOT.mrOTTimeSt_During.Split(":")[1]);
+                                            minuteED += (int.Parse(doc.requestOT.mrOTTimeEd_During.Split(":")[0]) * 60) + int.Parse(doc.requestOT.mrOTTimeEd_During.Split(":")[1]);
+                                        }
+                                        if ((doc.requestOT.mrOTTimeSt_After != null && doc.requestOT.mrOTTimeSt_After != "") && (doc.requestOT.mrOTTimeEd_After != null && doc.requestOT.mrOTTimeEd_After != ""))
+                                        {
+                                            minuteST += (int.Parse(doc.requestOT.mrOTTimeSt_After.Split(":")[0]) * 60) + int.Parse(doc.requestOT.mrOTTimeSt_After.Split(":")[1]);
+                                            minuteED += (int.Parse(doc.requestOT.mrOTTimeEd_After.Split(":")[0]) * 60) + int.Parse(doc.requestOT.mrOTTimeEd_After.Split(":")[1]);
+                                        }
+                                        calcGLWorker = doc.workerList.Where(w => w.drStatus == null || !w.drStatus.StartsWith(GlobalVariable.StatusRejected)).Count();
+                                        if (minuteED < minuteST)
+                                        {
+                                            sumGLOTMinute += ((((24 * 60) - minuteST) + minuteED) * calcGLWorker);
+                                        }
+                                        else
+                                        {
+                                            sumGLOTMinute += ((minuteED - minuteST) * calcGLWorker);
+                                        }
+                                        string minuteString = sumGLOTMinute % 60 == 0 ? "" : (sumGLOTMinute % 60).ToString() + " นาที";
+                                        sumGLHour = (sumGLOTMinute / 60).ToString() + " ชั่วโมง " + minuteString;
+                                    }
+                                    <div class="ps-mb-2 fs-16 border-rad bg-whs dp-grid">
+                                        <div class="dp-block ">
+                                            <div class="px-1 fl hidden-txt">@(issueby.mrPositionReq + "(" + issueby.mrEmpReq + " " + issueby.mrNameReq + " " + issueby.mrLastNameReq + ")")</div>
+                                            <div class="px-1 fr">@sumGLHour</div>
+                                        </div>
+                                    </div>
+                                    <div class="clear-b"></div>
+                                    @foreach (var item in Model.docList.Where(w => w.requestOT.mrSecReq == partSection && w.requestOT.mrEmpReq == issueby.mrEmpReq && w.requestOT.mrOTDate == OTDate))
+                                    {
+
+                                        int calcThisDocWorker = 0, sumThisDocOTMinute = 0, minuteST = 0, minuteED = 0;
+                                        string sumThisDocHour = "";
+                                        if ((item.requestOT.mrOTTimeSt_Before != null && item.requestOT.mrOTTimeSt_Before != "") && (item.requestOT.mrOTTimeEd_Before != null && item.requestOT.mrOTTimeEd_Before != ""))
+                                        {
+                                            minuteST += (int.Parse(item.requestOT.mrOTTimeSt_Before.Split(":")[0]) * 60) + int.Parse(item.requestOT.mrOTTimeSt_Before.Split(":")[1]);
+                                            minuteED += (int.Parse(item.requestOT.mrOTTimeEd_Before.Split(":")[0]) * 60) + int.Parse(item.requestOT.mrOTTimeEd_Before.Split(":")[1]);
+                                        }
+                                        if ((item.requestOT.mrOTTimeSt_During != null && item.requestOT.mrOTTimeSt_During != "") && (item.requestOT.mrOTTimeEd_During != null && item.requestOT.mrOTTimeEd_During != ""))
+                                        {
+                                            minuteST += (int.Parse(item.requestOT.mrOTTimeSt_During.Split(":")[0]) * 60) + int.Parse(item.requestOT.mrOTTimeSt_During.Split(":")[1]);
+                                            minuteED += (int.Parse(item.requestOT.mrOTTimeEd_During.Split(":")[0]) * 60) + int.Parse(item.requestOT.mrOTTimeEd_During.Split(":")[1]);
+                                        }
+                                        if ((item.requestOT.mrOTTimeSt_After != null && item.requestOT.mrOTTimeSt_After != "") && (item.requestOT.mrOTTimeEd_After != null && item.requestOT.mrOTTimeEd_After != ""))
+                                        {
+                                            minuteST += (int.Parse(item.requestOT.mrOTTimeSt_After.Split(":")[0]) * 60) + int.Parse(item.requestOT.mrOTTimeSt_After.Split(":")[1]);
+                                            minuteED += (int.Parse(item.requestOT.mrOTTimeEd_After.Split(":")[0]) * 60) + int.Parse(item.requestOT.mrOTTimeEd_After.Split(":")[1]);
+                                        }
+                                        calcThisDocWorker = item.workerList.Where(w => w.drStatus is null || !w.drStatus.StartsWith(GlobalVariable.StatusRejected)).Count();
+                                        if (minuteED < minuteST)
+                                        {
+                                            sumThisDocOTMinute = ((((24 * 60) - minuteST) + minuteED) * calcThisDocWorker);
+                                        }
+                                        else
+                                        {
+                                            sumThisDocOTMinute = ((minuteED - minuteST) * calcThisDocWorker);
+                                        }
+                                        string minuteString = sumThisDocOTMinute % 60 == 0 ? "" : (sumThisDocOTMinute % 60).ToString() + " นาที";
+                                        sumThisDocHour = (sumThisDocOTMinute / 60).ToString() + " ชั่วโมง " + minuteString;
+
+                                        <div class="d-flex fs-14 item-center docno">
+                                            @if (permission.ToUpper() == GlobalVariable.perAdmin.ToUpper() || position.ToUpper() == GlobalVariable.spDM)
+                                            {
+                                                <div class="d-flex flex-dir-row hy-100 py-0 ms-4">
+                                                    <input type="checkbox" class="w-rem-1 h-rem-1 chck-doc" value="@item.requestOT.mrNoReq" />
+                                                </div>
+                                            }
+                                            <div class="wx-100 px-3 py-2">
+                                                <div class="d-flex dropend text-gray">
+                                                    <span>เลขอ้างอิง @item.requestOT.mrNoReq</span>
+                                                    <button type="button" data-bs-toggle="dropdown" class="bd-0 bg-trans text-blue" aria-expanded="false" style="display: block;"><span class="material-icon-symbols-outlined">more_vert</span></button>
+                                                    <ul class="w-fix-100p manage dropdown-menu">
+                                                        <li class="my-1 manage border-rad bd-0"><button class="bd-0 bg-trans wx-100 text-left text-gray view" value="@item.requestOT.mrNoReq" data-bs-toggle="modal" data-bs-target="#modalViewDetail"><span class="pe-1 text-blue material-icon-symbols-outlined">info</span>รายละเอียด</button></li>
+                                                        @if (permission.ToUpper() == GlobalVariable.perAdmin.ToUpper())
+                                                        {
+                                                            <li class="my-1 manage border-rad bd-0"><button class="bd-0 bg-trans wx-100 text-left text-gray edit" value="@item.requestOT.mrNoReq" data-bs-toggle="modal" data-bs-target="#modalViewDetail"><span class="pe-1 text-blue material-icon-symbols-outlined">edit_square</span>แก้ไข</button></li>
+                                                        }
+                                                    </ul>
+                                                </div>
+
+
+                                                <div class="card mb-3">
+                                                    <div class="card-body" role="button" data-bs-toggle="collapse" data-bs-target="#collapse@(item.requestOT.mrNoReq)" aria-expanded="false" aria-controls="collapseSub_@item.requestOT.mrNoReq">
+                                                        <div class="d-flex flex-dir-row flex-wrap fs-10 text-gray justify-beetween">
+                                                            <div class="px-1">
+                                                                <label class="px-1">OT : @item.requestOT.mrOTDate</label>
+                                                                <label class="px-1">ไลน์การผลิต : @item.requestOT.mrProductionLine</label>
+                                                            </div>
+                                                            <div class="px-1">
+                                                                <label>@sumThisDocHour</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x py-3 padding-bottom-1x">
+                                                            @foreach (var step in Model.mastFlow.Where(w => w.mfFlowNo == item.requestOT.mrFlow))
+                                                            {
+                                                                string[] capture = step.mfSubject.Split("_");
+                                                                string rejected = item.stepHistory.Where(w => w.htStep == step.mfStep.Value).FirstOrDefault() is null ? "" : item.stepHistory.Where(w => w.htStep == step.mfStep.Value).FirstOrDefault().htStatus;
+                                                                string hisFromName = item.stepHistory.Where(w => w.htStep == step.mfStep).FirstOrDefault() is null ? "" : item.stepHistory.Where(w => w.htStep == step.mfStep).FirstOrDefault().htFrom;
+                                                                <div class="step @(item.requestOT.mrStep.Value >= step.mfStep.Value ? "completed" : rejected.StartsWith(GlobalVariable.StatusRejected) ? "rejected": "")">
+                                                                    <div class="step-icon-wrap fs-12">
+                                                                        <div class="step-icon"><span>@step.mfStep</span></div>
+                                                                    </div>
+                                                                    <h4 class="step-title">
+                                                                        @capture[0]
+                                                                        <div class="fs-10">@((item.requestOT.mrStep.Value + 1) == step.mfStep.Value ? "โดย คุณ" + item.requestOT.mrNameApp : hisFromName != "" ? hisFromName : capture.Length > 1 ? capture[1] : "")</div>
+                                                                    </h4>
+                                                                </div>
+                                                            }
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="category">
+                                                        <div class="border-rad bg-white px-3 py-3 collapse" id="collapse@(item.requestOT.mrNoReq)">
+                                                            <div class="d-flex justify-beetween">
+                                                                <div class="d-flex flex-dir-row flex-wrap my-1 worker-control">
+                                                                    <div class="d-flex flex-dir-row justify-center mx-2">
+                                                                        <input type="radio" id="rdoA_@item.requestOT.mrNoReq" name="rdo_@item.requestOT.mrNoReq" class="form-check-input my-0 checked" />
+                                                                        <label class="text-gray fs-16 form-check-label mx-1" for="rdoA_@item.requestOT.mrNoReq">ทั้งหมด</label>
+                                                                    </div>
+                                                                    <div class="d-flex flex-dir-row justify-center mx-2">
+                                                                        <input type="radio" id="rdoRA_@item.requestOT.mrNoReq" name="rdo_@item.requestOT.mrNoReq" class="form-check-input my-0 uncheck" />
+                                                                        <label class="text-gray fs-16 form-check-label mx-1" for="rdoRA_@item.requestOT.mrNoReq">ยกเลิกทั้งหมด</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="worker-manage">
+                                                                    <button class="btn btn-light px-0 py-0 gray-sm text-gray border-circle btnApprove" data-bs-target="#modalEmailForm" data-bs-toggle="modal" title="อนุมัติ"><span class="material-icon-symbols-outlined">check</span></button>
+                                                                    <button class="btn btn-light px-0 py-0 gray-sm text-black border-circle btnReject" data-bs-target="#modalEmailForm" data-bs-toggle="modal" title="ไม่อนุมัติ"><span class="material-icon-symbols-outlined">close</span></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="d-flex flex-dir-row flex-wrap pt-1 workers-category">
+                                                                @await Html.PartialAsync("Category/_CateWorker", item)
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        }
+                    </div>
+                    </div>
+                    }
+                }
+                else
+                {
+                    <h6 class="bg-trans">ยังไม่มีรายการใดมาถึงขั้นตอนของคุณ</h6>
+                }
+            </div>
+        </div>
+    </div>
+</div>

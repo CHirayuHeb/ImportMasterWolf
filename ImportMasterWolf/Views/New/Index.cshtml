@@ -1,0 +1,126 @@
+﻿@model ImportMasterWolf.Models.MyRequest.MultiDocMast
+@{
+    ViewData["Title"] = "New | ThaiStanley";
+    Layout = "~/Views/Shared/_MenuBar.cshtml";
+}
+<link href="~/css/New/siteNew.css" rel="stylesheet" />
+@*after document ready*@
+<script type="text/javascript">document.onreadystatechange = () => { if (document.readyState === "interactive") { PositionY("New"); } }</script>
+<div class="home-content">
+    <div id="DisplayContent" class="content-box">
+        <div class="content-text">
+            <div class="title-box">
+                <div class="title">
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-sm-start">
+                        <li class="nav-item">
+                            <div class="menu-item">
+                                <div class="item-action">
+                                    <button type="button" class="btn add" data-bs-toggle="modal" data-bs-target="#modalNewOT">
+                                        <span class="material-icon-symbols-outlined text-blue fw-800 add">add</span>
+                                        <span>เพิ่ม</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="content">
+                <div class="new-menu d-sm-flex fs-16 px-3">
+                    <div class="menu-item d-flex">
+                        <div class="item-category d-md-flex text-center">
+                            <label class="fw-800">ของฉัน</label>
+                            <div class="items">
+                                <div class="item my-today mx-1 bg-active">
+                                    <button type="button" class="btn filter" value="my-today">
+                                        <span class="fs-12 text-black">วันนี้</span>
+                                    </button>
+                                </div>
+                                <div class="item my-yesterday mx-1 bg-trans">
+                                    <button type="button" class="btn filter" value="my-yesterday">
+                                        <span class="fs-12 text-black">เมื่อวาน</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-category d-md-flex text-center">
+                            <label class="fw-800">ทั้งหมด</label>
+                            <div class="items">
+                                <div class="item all-today mx-1 bg-trans">
+                                    <button type="button" class="btn filter" value="all-today">
+                                        <span class="fs-12 text-black">วันนี้</span>
+                                    </button>
+                                </div>
+                                <div class="item all-yesterday mx-1 bg-trans">
+                                    <button type="button" class="btn filter" value="all-yesterday">
+                                        <span class="fs-12 text-black">เมื่อวาน</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal New // Edit -->
+                <div  class="px-0-im border-rad modal fade" id="modalNewOT" aria-labelledby="exampleModalLabel"  data-bs-backdrop="static" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="bd-be-none-rd bd-bw-none-rd modal-content" id="OTModal">
+                            <div class="modal-pst-abs-imp px-0-im wx-100 modal-header">
+                                <div class="ph-container bg-trans fs-12">
+                                    <div class="ph-box px-3">
+                                        <div class="ph-item text-gray istep">
+                                            <label class="nav-link">
+                                                <span>เลือกวันทำงาน</span>
+                                            </label>
+                                        </div>
+                                        <div class="ph-item text-gray istep" style="display: none;">
+                                            <span class="material-icon-symbols-outlined">chevron_right</span>
+                                            <label href="" class="nav-link">
+                                                <span id="DaySelected">สร้างคำร้องขอ</span>
+                                            </label>
+                                        </div>
+                                        <div class="ph-item text-gray istep" style="display: none;">
+                                            <span class="material-icon-symbols-outlined">chevron_right</span>
+                                            <label href="" class="nav-link">
+                                                <span>รายละเอียด</span>
+                                            </label>
+                                        </div>
+                                        <div class="ph-item text-gray istep" style="display: none;">
+                                            <span class="material-icon-symbols-outlined">chevron_right</span>
+                                            <label href="" class="nav-link">
+                                                <span>เลือกพนักงาน</span>
+                                            </label>
+                                        </div>
+                                        <div class="ph-item text-gray istep" style="display: none;">
+                                            <span class="material-icon-symbols-outlined">chevron_right</span>
+                                            <label href="" class="nav-link">
+                                                <span>ส่งถึง</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                @*fake for handheld scaned double enter this foucus*@
+                                <button type="button" class="bd-0 bg-trans" aria-label="Close"></button>
+                                <button type="button" class="pst-abs right-25px btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="top-75p modal-body">
+                                @using (Html.BeginForm("CreateNew", "New", FormMethod.Post, new { id = "formCreateNew" }))
+                                {
+                                    <div id="modal-new-content" class="modal-new-content">
+                                    </div>
+                                }
+                            </div>
+                            <div class="top-72p bg-white bd-ligray bd-be-rd bd-bw-rd modal-pst-inh-imp modal-footer" id="FooterContent"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="search-box result-container wx-100 px-3">
+                    @await Html.PartialAsync("_DisplayMyToday", Model)
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

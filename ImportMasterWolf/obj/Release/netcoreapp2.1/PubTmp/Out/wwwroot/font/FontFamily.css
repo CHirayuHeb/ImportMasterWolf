@@ -1,0 +1,55 @@
+﻿@font-face {
+    font-family: ReportRg Regular;
+    src: url('../font/ReportRg Regular.ttf');
+}
+
+@font-face {
+    font-family: ReportRg Bold;
+    src: url('../font/ReportRg Bold.ttf');
+}
+
+@font-face {
+    font-family: LeelawaD;
+    src: url('../font/leelawad.ttf');
+}
+
+@font-face {
+    font-family: LeelawaD Bold;
+    src: url('../font/leelawdb.ttf');
+}
+
+@font-face {
+    font-family: Material Icons;
+    src: url('../font/Material Icons.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: Material Symbols-Outlined;
+    src: url('../font/material-symbols-outlined.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: Material Symbols-Rounded;
+    src: url('../font/material-symbols-rounded.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: Material Symbols-Sharp;
+    src: url('../font/material-symbols-sharp.woff2') format('woff2');
+}
+
+.material-icon-symbols-outlined {
+    font-family: 'Material Symbols-Outlined';
+}
+.material-icon-symbols-rounded {
+    font-family: 'Material Symbols-Rounded';
+}
+.material-icon-symbols-sharp {
+    font-family: 'Material Symbols-Sharp';
+}
+.material-icons {
+    font-family: 'Material Icons';
+}
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24
+}

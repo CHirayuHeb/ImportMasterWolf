@@ -1,0 +1,79 @@
+﻿@*EventOTEmailForm.js*@
+
+@model ImportMasterWolf.Models.New.multiOTEmailForm
+@{string step = "5";}
+<link href="~/lib/mobiscroll/css/mobiscroll.javascript.min.css" rel="stylesheet" />
+<div class="container" id="OTContent_step@(step)">
+    @*need id='step+Number'*@
+    <input type="hidden" id="OTDateRequest" />
+    <input type="hidden" asp-for="EFMastRequestOT.mrEmpApp" />
+    <div class="input-container flex-dir-col px-1">
+        <div class="inputset">
+            <div class="unit-text fs-12">
+                <label class="dp-none lbpst">@Model.positionNext</label>
+                <label class="lbmail">@Model.positionNext</label>
+            </div>
+            <div class="dp-block mb-2">
+                <input type="text" id="txtMail" asp-for="historyApproveds.htTo" placeholder="mail_to@stanley.co.th" class="form-control px-1 mb-1 h-fix-30p " autocomplete="off" disabled />
+                <div class="z-1 autocompleteEMail"></div>
+            </div>
+        </div>
+    </div>
+    <div class="input-container flex-dir-col px-1 fl">
+        <div class="inputset">
+            <div class="unit-text fs-12">
+                <label>Mail CC</label>
+            </div>
+            <div class="form-check">
+                <div class="dp-block">
+                    <input type="text" id="txtMailCC" placeholder="mail_cc@stanley.co.th" class="form-control px-1 mb-1 h-fix-30p" autocomplete="off" disabled />
+                    <div class="z-1 autocompleteEMailCC"></div>
+                </div>
+                <button class="btn btn-light d-flex flex-wrap justify-center border-rad mx-1 addcc" type="button">
+                    <span class="fs-16 material-icon-symbols-outlined ">person_add</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="clear-b"></div>
+    <div class="mail-cc-list ps-2 ovf-auto-y">
+        <div class="mx-0">
+            <div id="divCountMailCC"><span id="spanPersonCount"></span></div>
+            <div class="dp-block mh-75p ovf-auto-y" id="CCMailContent">
+                @if (Model.historyApproveds != null)
+                {
+                    if (Model.historyApproveds.htCC != null)
+                    {
+                        string[] arrMail = Model.historyApproveds.htCC.Split(",");
+                        if (arrMail.Length > 0)
+                        {
+                            foreach (string email in arrMail)
+                            {
+                                <div class='d-flex flex-dir-row py-1 cc-box'>
+                                    <label class='cc'>@email</label>
+                                </div>
+                            }
+                        }
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+    <div class="input-container flex-dir-col px-1">
+        <div class="inputset">
+            <div class="unit-text  fs-12">
+                <label>หมายเหตุ</label>
+            </div>
+            <div class="form-check">
+                <input class="form-control h-fix-30p" asp-for="historyApproveds.htRemark" disabled />
+            </div>
+        </div>
+    </div>
+    <div class="clear-b"></div>
+</div>
+
+<div id="footer@(step)">
+    <button type="button" class="btn btn-secondary w-fix-100p previos@(step)"><span class="material-icon-symbols-outlined">arrow_back_ios</span>ย้อนกลับ</button>
+</div>
+

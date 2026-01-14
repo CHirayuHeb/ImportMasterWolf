@@ -1,0 +1,63 @@
+﻿@model ImportMasterWolf.Models.Approval.MultiNewLate
+@using ImportMasterWolf.Models.Common
+
+@if (Model.docList != null)
+{
+    <div class="just-group" id="Follow">
+        @if (Model.docList.Count() > 0)
+        {
+            <div class="table-result">
+                <table id="table" class="table table-scroll table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>ลำดับที่</th>
+                            <th>ผู้ร้องขอ</th>
+                            <th>หมายเลขรายการ</th>
+                            <th>จำนวน (รายการ)</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    @foreach (string department in Model.docList.Select(s => s.requestOT.mrDeptReq).Distinct().OrderBy(o => o))
+                    {
+                        <tbody class="lamp" role="button" data-bs-toggle="collapse" data-bs-target="#collapse@(department.Substring(0, 4))" aria-expanded="false" aria-controls="collapseSub_@department.Substring(0, 4)">
+                            <tr class="lamp">
+                                <td colspan="3" class="text-left">@department</td>
+                                <td>@(Model.docList.Where(w => w.requestOT.mrDeptReq == department).Count())</td>
+                                <td>
+                                    <button type="button" class="lamp-more" role="button" data-bs-toggle="collapse" data-bs-target="#collapseLE1" aria-expanded="false" aria-controls="collapseSub_le1">
+                                        <span class="material-icon-symbols-outlined fs-16 cs-pt">expand_more</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                        <tbody class="collapse" id="collapse@(department.Substring(0, 4))">
+                            @{int count = 1;}
+                            @foreach (string line in Model.docList.Where(w => w.requestOT.mrDeptReq == department).Select(s => s.requestOT.mrProductionLine).Distinct())
+                            {
+                                <tr class="section">
+                                    <td colspan="5" class="text-left">@line</td>
+                                </tr>
+                                foreach (var doc in Model.docList.Where(w => w.requestOT.mrDeptReq == department && w.requestOT.mrProductionLine == line))
+                                {
+                                    <tr class="le1-detail-1">
+                                        <td>@(count++)</td>
+                                        <td class="text-left">@(doc.requestOT.mrEmpReq+ " "+doc.requestOT.mrNameReq + " " + doc.requestOT.mrLastNameReq)</td>
+                                        <td>@doc.requestOT.mrNoReq</td>
+                                        <td class="ps-2 py-0">
+                                            <div class="d-md-flex justify-center flex-wrap flex-dir-col align-left td-approve">
+                                                <a class="@(doc.requestOT.mrStatus.StartsWith(GlobalVariable.StatusFinishedST) ? "text-lightseagreen" : "text-blue") n-underline">@(doc.requestOT.mrStatus + " (คุณ"+ doc.requestOT.mrNameApp + ")")</a>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                }
+
+                            }
+                        </tbody>
+                    }
+                </table>
+            </div>
+        }
+    </div>
+}

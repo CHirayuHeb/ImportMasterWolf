@@ -1,0 +1,61 @@
+﻿@model ImportMasterWolf.Models.Approval.MultiDocDetails
+@using ImportMasterWolf.Models.Common
+
+@foreach (var worker in Model.workerList.Where(w => w.drNoReq == Model.requestOT.mrNoReq))
+{
+    string status = worker.drStatus is null ? "" : worker.drStatus;
+    if (!(status.StartsWith(GlobalVariable.StatusRejected)))
+    {
+        <button class="btn btn-light d-flex flex-dir-row justify-evenly border-rad py-2 w-fix-260p"  onclick="LoadEmpPic(this)">
+            <div class="px-2 py-2 worker-img">
+                @if (Model.workerImages.Where(w => w.empcode == worker.drEmpCode) != null)
+                {
+                    @foreach (var image in Model.workerImages.Where(w => w.empcode == worker.drEmpCode))
+                    {
+                        <div class="img"><span class="fs-10 text-blue">ดูรูปพนักงาน</span></div>
+                    }
+                }
+                else
+                {
+                    <div class="img"><span class="material-icon-symbols-outlined">image</span></div>
+                }
+            </div>
+            <div class="d-flex flex-dir-col fs-12 text-left h-fix-75p w-fix-130p hidden-txt worker-details">
+                <div class="px-2 empcode">@worker.drEmpCode</div>
+                <div class="px-2 name">@worker.drPriName @worker.drName @worker.drLastName</div>
+                <div class="px-2 job">@worker.drJobCode</div>
+            </div>
+            <div class="d-flex flex-dir-col justify-center hy-100 py-0">
+                <input type="checkbox" class="w-rem-1-2 h-rem-1-2 z-1 chck-app" value="@worker.drEmpCode" checked />
+            </div>
+        </button>
+    }
+    else
+    {
+        <button class="btn btn-light d-flex flex-dir-row justify-evenly border-rad bd-c-red text-gray py-2 w-fix-260p" onclick="LoadEmpPic(this)">
+            <div class="px-2 py-2 opacity-dot-7 worker-img">
+                @if (Model.workerImages.Where(w => w.empcode == worker.drEmpCode) != null)
+                {
+                    @foreach (var image in Model.workerImages.Where(w => w.empcode == worker.drEmpCode))
+                    {
+                        <div class="img"><span class="fs-10 text-blue">ดูรูปพนักงาน</span></div>
+                        @*<div class="img"><img class="wx-100 border-rad" src="@image.image" /></div>*@
+                    }
+                }
+                else
+                {
+                    <div class="img"><span class="material-icon-symbols-outlined">image</span></div>
+                }
+            </div>
+            <div class="d-flex flex-dir-col fs-12 text-left h-fix-75p hidden-txt w-fix-130p worker-details">
+                <div class="px-2">@worker.drEmpCode</div>
+                <div class="px-2">@worker.drPriName @worker.drName @worker.drLastName</div>
+                <div class="px-2">@worker.drJobCode</div>
+            </div>
+            <div class="d-flex flex-dir-col justify-center hy-100 py-0">
+                <input type="checkbox" class="w-rem-1-2 h-rem-1-2 z-1 chck-app" value="@worker.drEmpCode" />
+            </div>
+
+        </button>
+    }
+}

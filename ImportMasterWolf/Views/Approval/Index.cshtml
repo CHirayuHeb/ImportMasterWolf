@@ -1,0 +1,133 @@
+﻿@model ImportMasterWolf.Models.Approval.MultiNewLate
+@using ImportMasterWolf.Models.Common;
+@{
+    ViewData["Title"] = "Approval | ThaiStanley";
+    Layout = "~/Views/Shared/_MenuBar.cshtml";
+}
+
+<link href="~/css/Approval/siteApproval.css" rel="stylesheet" />
+<link href="~/css/Approval/mApproval.css" rel="stylesheet" />
+<script type="text/javascript">document.onreadystatechange = () => { if (document.readyState === "interactive") { PositionY("Approval"); } }</script>
+
+<div class="home-content">
+    <div id="DisplayContent" class="content-box">
+        <nav class="navbar navbar-expand-lg" style="width: 100%;">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#RequestControl" aria-controls="RequestControl" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="RequestControl">
+                <div class="navbar-nav">
+                    <div class="d-flex flex-wrap flex-dir-col content-control">
+                        <h2 class="control-title">การอนุมัติ</h2>
+                        <p class="control-title fw-800">จัดเรียง</p>
+                        <div class="control-header">
+                            <span class="header-title bg-active item filter">
+                                <div class="title-text">
+                                    <div class="header-icon">
+                                        <span class="material-icon-symbols-outlined text-orange">bolt</span>
+                                    </div>
+                                    ล่าสุด
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="content-text">
+            <div class="content">
+                <div class="search-box result-container wx-100 px-3 ovf-auto-y">
+                    @if (ViewBag.PermissionThisPage == GlobalVariable.PermissionHCM){
+                        @await Html.PartialAsync("_DisplayHRRead", Model)
+                    }
+                    else{
+                        @await Html.PartialAsync("_DisplayNewlate", Model)
+                    }
+
+                </div>
+                <!-- Modal ViewDetail -->
+                <div  class="px-0-im border-rad modal fade" id="modalViewDetail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="bd-be-none-rd bd-bw-none-rd modal-content" id="OTModal">
+                            <div class="modal-pst-abs-imp px-0-im wx-100 modal-header">
+                                <div class="ph-container bg-trans fs-12">
+                                    <div class="ph-box px-3">
+                                        <div class="ph-item text-gray istep">
+                                            <label class="nav-link">
+                                                <span>เลือกวันทำงาน</span>
+                                            </label>
+                                        </div>
+                                        <div class="ph-item text-gray istep" style="display: none;">
+                                            <span class="material-icon-symbols-outlined">chevron_right</span>
+                                            <label href="" class="nav-link">
+                                                <span id="DaySelected">สร้างคำร้องขอ</span>
+                                            </label>
+                                        </div>
+                                        <div class="ph-item text-gray istep" style="display: none;">
+                                            <span class="material-icon-symbols-outlined">chevron_right</span>
+                                            <label href="" class="nav-link">
+                                                <span>รายละเอียด</span>
+                                            </label>
+                                        </div>
+                                        <div class="ph-item text-gray istep" style="display: none;">
+                                            <span class="material-icon-symbols-outlined">chevron_right</span>
+                                            <label href="" class="nav-link">
+                                                <span>เลือกพนักงาน</span>
+                                            </label>
+                                        </div>
+                                        <div class="ph-item text-gray istep" style="display: none;">
+                                            <span class="material-icon-symbols-outlined">chevron_right</span>
+                                            <label href="" class="nav-link">
+                                                <span>ส่งถึง</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @*fake for handheld scaned double enter this foucus*@
+                                <button type="button" class="bd-0 bg-trans" aria-label="Close"></button>
+                                <button type="button" class="pst-abs right-25px btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="top-75p modal-body">
+                                @using (Html.BeginForm("CreateNew", "New", FormMethod.Post, new { id = "formCreateNew" }))
+                                {
+                                    <div id="modal-new-content" class="modal-new-content">
+                                    </div>
+                                }
+                            </div>
+                            <div class="top-72p bg-white bd-ligray bd-be-rd bd-bw-rd modal-pst-inh-imp modal-footer" id="FooterContent"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal mail -->
+                <div class="modal fade" id="modalEmailForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content" id="EmailModal">
+                            <div class="modal-header">
+                                <div class="ph-container bg-trans fs-12">
+                                    <div class="ph-box px-3">
+                                        <div class="ph-item text-black fw-800" >
+                                            <label href="" class="nav-link">
+                                                <span id="roadApprov">ส่งถึง</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div id="modal-email-content" class="modal-email-content">
+                                </div>
+                            </div>
+                            <div class="modal-footer" id="FooterEmailContent"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+

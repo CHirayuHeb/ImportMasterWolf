@@ -1,0 +1,6 @@
+﻿@model ImportMasterWolf.Models.New.multiEditModel
+@await Html.PartialAsync("~/Views/Shared/OTViewDetail/_OTType.cshtml")
+@await Html.PartialAsync("~/Views/Shared/OTViewDetail/_OTMyData.cshtml", Model.ViewMastRequestOT)
+@await Html.PartialAsync("~/Views/Shared/OTViewDetail/_OTForm.cshtml", Model.multiModelOTForm)
+@await Html.PartialAsync("~/Views/Shared/OTViewDetail/_OTAddWorker.cshtml", Model.multiModelCateWorker)
+@await Html.PartialAsync("~/Views/Shared/OTViewDetail/_OTEmailForm.cshtml", Model.multiOTEmailForm)

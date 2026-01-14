@@ -1,0 +1,205 @@
+﻿@import url(mNew.css);
+:root{
+    --font-global-page-size: 12px;
+}
+
+.title-box .title ul li.nav-item:hover {
+    background-color: transparent;
+}
+
+.title-box .title ul li div.menu-item div.item-action button.btn.add {
+    background-color: #FFFFFF;
+    border: 1px solid rgb(230, 230, 230);
+    font-size: var(--font-global-size);
+}
+
+    .title-box .title ul li div.menu-item div.item-action button.btn.add:hover {
+        background-color: whitesmoke;
+    }
+
+    .home-content .content-box {
+        height: 100%;
+        z-index: 0;
+
+    }
+    .home-content .content-box .content-text{
+        height: 100%;
+    }
+    .home-content .content-box .content-text .content {
+        position: relative;
+        top: 20px;
+        height: 100%;
+    }
+        .home-content .content-box .content-text .content .ph-container{
+            padding: 0.75rem 0;
+        }
+        .home-content .content-box .content-text .content .ph-container .ph-box,
+        .home-content .content-box .content-text .content .ph-container .ph-box .ph-item {
+            display: flex;
+        }
+
+        .home-content .content-box .content-text .content .new-menu .menu-item .item-category{
+            flex-direction: column;
+            padding: 3px;
+        }
+            .home-content .content-box .content-text .content .new-menu .menu-item .item-category .items{
+                display: flex;
+            }
+                .home-content .content-box .content-text .content .new-menu .menu-item .item-category label {
+                    border-bottom: 1px solid rgb(230, 230, 230);
+                }
+
+            .home-content .content-box .content-text .content .new-menu .menu-item .item-category .items .item {
+                border-radius: 8px;
+                border-radius: 8px;
+            }
+            .home-content .content-box .content-text .content .new-menu .menu-item .item-category .items .item button {
+                color: cornflowerblue;
+            }
+            .home-content .content-box .content-text .content .new-menu .menu-item .item-category .items .item button span{
+                padding-bottom: 5px;
+            }
+            .home-content .content-box .content-text .content .new-menu .menu-item .item-category .items .item button:hover {
+                background-color: whitesmoke;
+            }
+        .home-content .content-box .content-text .content div.result-container {
+            position: absolute;
+        }
+            .home-content .content-box .content-text .content div.result-containerle-result,
+            .home-content .content-box .content-text .content div.result-container .table-result,
+            .home-content .content-box .content-text .content div.result-container .table-result table,
+            .home-content .content-box .content-text .content div.result-container .table-result table tr:first-child,
+            .home-content .content-box .content-text .content div.result-container .table-result table tr:last-child {
+                border-radius: 10px;
+            }
+
+            .home-content .content-box .content-text .content div.result-container .table-result {
+                display: block;
+                position: relative;
+                top: 10px;
+            }
+            .home-content .content-box .content-text .content div.result-container .table-result {
+                display: block;
+                position: relative;
+                top: 10px;
+            }
+div.modal-new-content div.type-items{
+}
+    div.modal-new-content div.type-items div.item {
+        width: 200px;
+        height: 150px;
+        line-height: 40px;
+        border: 1px solid rgb(230, 230, 230);
+        border-radius: 8px
+    }
+
+        div.modal-new-content div.type-items div.item .item-text {
+            vertical-align: middle;
+            height: 100%;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+.container .input-container {
+    width: 100%;
+    line-height: 35px;
+    display: flex;
+    flex-wrap: wrap;
+    min-width: 230px;
+    width: 50%;
+}
+
+.inputset {
+    display: block;
+}
+
+    .inputset div.unit-text {
+        line-height: 20px;
+        font-weight: normal;
+        color: dimgray;
+        /*padding-left: 35px;*/
+    }
+
+.container .input-container input:not([type=checkbox]) {
+    padding-left: 150px;
+}
+
+.container .input-container input[type=checkbox] {
+    /*padding: 3%;*/
+    margin: 5px;
+}
+
+.container .input-container .inputset .form-check {
+    display: flex;
+    padding-left: 0px;
+}
+
+.container .input-container .inputset .form-check select {
+    line-height: 1;
+}
+
+.container .input-container .inputset .form-check .form-control {
+        padding-left: 5px;
+    }
+
+.container .input-container select {
+    padding-left: 150px;
+}
+
+.modal .modal-dialog .modal-content{
+    min-height: 410px;
+}
+
+.worker-list,
+.email-by-position,
+.email-cc {
+    max-height: 260px;
+}
+
+.worker-img,
+.worker-details,
+.worker-newot-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+.worker-img{
+    width: 75px;
+    height: 75px;
+}
+    .worker-img .img {
+        text-align: center;
+        padding: 8px;
+    }
+
+/*autocomplete search*/
+.autocomplete,
+.autocompleteEMail,
+.autocompleteEMailCC {
+    padding: 3px;
+    position: absolute;
+    width: -webkit-fill-available;
+}
+
+    .autocomplete ul,
+    .autocompleteEMail ul,
+    .autocompleteEMailCC ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        background: white;
+    }
+
+        .autocomplete ul li,
+        .autocompleteEMail ul li,
+        .autocompleteEMailCC ul li{
+            padding: 5px 10px;
+        }
+
+            .autocomplete ul li:hover
+            .autocompleteEMail ul li:hover,
+            .autocompleteEMailCC ul li:hover {
+                background: #eee;
+            }

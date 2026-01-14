@@ -1,0 +1,23 @@
+﻿@model IEnumerable<ImportMasterWolf.Models.Canvas.DataPoint>
+<div class="just-group" id="Graph">
+    @using (Html.BeginForm("Search", "SearchTHS", FormMethod.Post))
+    {
+        <div class="container d-md-flex">
+            <div class="input-container" style="float: left;">
+                <div class="inputset">
+                    <div class="unit-text">
+                        <label>เดือน</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="w-rem-1-5 h-rem-1-5" type="checkbox" onclick="cbOTReqClick()" id="cbOTReq">
+                        <input class="form-control" type="month" placeholder="เดือนที่เริ่ม" id="dateOTStart" value="@DateTime.Today.ToString("yyyy-01")" disabled="disabled" autocomplete="off" />
+                        <input class="form-control" type="month" placeholder="ถึงเดือนที่" id="dateOTEnd" min="@DateTime.Today.ToString("yyyy-01")" value="@DateTime.Today.ToString("yyyy-12")" disabled="disabled" autocomplete="off" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="search-box">
+        @await Html.PartialAsync("Result/_Graph", Model)
+    </div>
+</div>

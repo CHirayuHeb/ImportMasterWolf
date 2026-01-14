@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewData["Title"] = "Adminitrator";
+    Layout = "~/Views/Shared/_MenuBar.cshtml";
+}
+<link href="~/css/Administrator/siteAdministrator.css" rel="stylesheet" />
+<script type="text/javascript">document.onreadystatechange = () => { if (document.readyState === "interactive") { PositionY("Administrator"); } }</script>
+<div class="home-content">
+    <div id="DisplayContent" class="content-box">
+        <div class="white-space"></div>
+        <div class="container content-text">
+            <div class="content">
+                <div class="fw-800">
+                    <h5 class="fw-800">ตั้งค่า</h5>
+                </div>
+                <div class="new-menu d-sm-flex fs-16 px-3">
+                    <div class="menu-item d-flex">
+                        <div class="item-category d-md-flex text-center">
+                            <div class="items">
+                                <div class="item mx-3">
+                                    <button type="button" class="btn btn-light px-0 py-0" id="btnApproverSetting" data-bs-toggle="modal" data-bs-target="#modalForm" value="my-today">
+                                        <span class="material-icon-symbols-outlined text-lightgrey">background_replace</span>
+                                    </button>
+                                    <div class="text-left">
+                                        <span class="fs-12 text-black fw-800">การอนุมัติ</span>
+                                        <div>
+                                            <span class="fs-12 text-gray">มอบสิทธิอนุมัติ</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item mx-3">
+                                    <button type="button" class="btn btn-light px-0 py-0" data-bs-toggle="modal" data-bs-target="#modalForm" value="my-yesterday">
+                                        <span class="material-icon-symbols-outlined text-burlywood opacity-dot-5">speaker_notes</span>
+                                    </button>
+                                    <div class="text-left">
+                                        <span class="fs-12 text-black fw-800">เหตุผล OT</span>
+                                        <div>
+                                            <span class="fs-12 text-gray">สร้าง, แก้ไข</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="item mx-3">
+                                    <button type="button" class="btn btn-light px-0 py-0" data-bs-toggle="modal" data-bs-target="#modalForm" value="my-yesterday">
+                                        <span class="material-icon-symbols-outlined text-cornflowerblue opacity-dot-5">model_training</span>
+                                    </button>
+                                    <div class="text-left">
+                                        <span class="fs-12 text-black fw-800">โมเดล OT</span>
+                                        <div>
+                                            <span class="fs-12 text-gray">สร้าง, แก้ไข</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="search-box">
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="modalForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content" id="OTModal">
+                            <div class="modal-header">
+                                <div class="ph-container bg-trans fs-12">
+                                    <div class="ph-box px-3">
+                                        <div class="ph-item text-gray istep">
+                                            <label class="nav-link">
+                                                <span id="HeadTitle">รายละเอียด</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div id="modal-setting-content" class="modal-new-content">
+                                </div>
+                            </div>
+                            <div class="modal-footer" id="FooterContent"></div>
+                        </div>
+                    </div>
+                </div>
+
+                @*@if (ViewBag.NData == "NData")
+        {
+            <div class="container notFound">
+                <h2 class="notFound">Data not found</h2>
+            </div>
+        }*@
+            </div>
+        </div>
+    </div>
+</div>

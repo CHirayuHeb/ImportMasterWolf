@@ -1,0 +1,26 @@
+﻿@*EventOTEmailForm.js*@
+
+@model ImportMasterWolf.Models.Approval.MultiSendEmail
+<link href="~/lib/mobiscroll/css/mobiscroll.javascript.min.css" rel="stylesheet" />
+<div class="container" id="OTContent_mail">
+    @*need id='step+Number'*@
+    <input type="hidden" id="RequestNo" />
+    <input type="hidden" asp-for="mastRequestOT.mrEmpApp" />
+    <div class="input-container flex-dir-col px-1">
+        <div class="inputset">
+            <div class="unit-text  fs-12">
+                <label>หมายเหตุ</label>
+            </div>
+            <div class="form-check">
+                <input class="form-control h-fix-30p" asp-for="historyApproveds.htRemark" />
+            </div>
+        </div>
+    </div>
+    <div class="clear-b"></div>
+</div>
+
+<div id="footermail">
+    <button type="button" class="btn btn-secondary w-fix-100p" data-bs-dismiss="modal">ยกเลิก</button>
+    <button type="button" class="btn btn-light w-fix-100p btnSend">ยืนยัน</button>
+</div>
+
