@@ -4,6 +4,14 @@
     Layout = "_Login";
     ViewData["Title"] = "Login | Thai Stanley";
 }
+@{
+    string _UserId = User.Claims.FirstOrDefault(s => s.Type == "UserId")?.Value;
+    string _NickName = User.Claims.FirstOrDefault(s => s.Type == "NICKNAME")?.Value;
+    string _Name = User.Claims.FirstOrDefault(s => s.Type == "Name")?.Value;
+    string _SurName = User.Claims.FirstOrDefault(s => s.Type == "SurName")?.Value;
+    string _Division = User.Claims.FirstOrDefault(s => s.Type == "Division")?.Value;
+    string _Section = User.Claims.FirstOrDefault(s => s.Type == "Section")?.Value;
+}
 
 <div class="layout-container">
     <div></div>
@@ -11,7 +19,7 @@
     {
         <div class="login-container">
             <div><input type="hidden" asp-for="param"></div>
-          
+
             <div class="login-content" style=" ">
 
                 <div class="logo">
@@ -29,8 +37,9 @@
                 <div class="account-info" style="">
                     <div class="sub-accountinfo" style=" text-align: center;">
                         <div class="input-boxset">
+                            @*<span style="font-size:30px">Login</span>*@
                             @Html.ValidationMessageFor(model => model._Error.validation)
-                            <label class="status-invalid">@Html.DisplayFor(model => model._Error.validation)</label>
+                            <span class="status-invalid" style="font-size:14px;font-weight:600">@Html.DisplayFor(model => model._Error.validation)</span>
                         </div>
                         <div class="input-boxset username">
                             <div class="input-container">
@@ -42,7 +51,7 @@
                                 <input asp-for="_ViewLoginPgm.Password" type="password" class="form-control password" placeholder="Enter your password" required style="font-size:13px" />
                             </div>
                         </div>
-                       
+
                         <div class="btn-container">
                             <input type="submit" class="btn btn-login" value="LOGIN" />
                         </div>
@@ -53,7 +62,7 @@
     }
 </div>
 <footer style="width: 100%; margin-top: auto; position: relative; bottom: 0; font-size: x-small;">
-    <p style="padding-left:10px;font-weight:600">&copy; Thai Stanley 2026 - ImportMasterWolf  : Last update : This Year</p>
+    <p style="padding-left:10px;font-weight:600">&copy; Thai Stanley 2026 - ImportMasterWolf  : Last update : 23/02/2026 11:30</p>
 </footer>
 
 

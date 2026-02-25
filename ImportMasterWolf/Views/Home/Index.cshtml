@@ -3,7 +3,9 @@
     ViewData["Title"] = "Home | Thai Stanley";
     Layout = "~/Views/Shared/_MenuBar.cshtml";
 }
+<script src="~/js/Shared/_MenuBar.js"></script>
 <link href="~/css/Home/siteHome.css" rel="stylesheet" />
+<link href="~/css/cssTable.css" rel="stylesheet" />
 <script type="text/javascript">document.onreadystatechange = () => { if (document.readyState === "interactive") { PositionY("Home"); } }</script>
 <div class="home-content">
     <div id="DisplayContent" class="content-box">
@@ -12,10 +14,20 @@
             <div class="title-box">
                 <div class="title">
                     <h2>ยินดีต้อนรับ</h2>
+
                 </div>
             </div>
             <div class="content">
-              
+                <div>
+
+                    <button class="btn btnOrange" onclick="GoNewRequest('Div')">Master Organizational</button>
+                    <button class="btn btn-success" onclick="GoNewRequest('Accemployee')">Master Employee</button>
+                </div>
+
+                @*
+        MSTATACCEmployee,MSTATEmployee,MSTEmployee
+        <input type="text" class="input-with-image datepicker  form-control center" style="width:20%;font-size:12px;" autocomplete="off">*@
+
             </div>
         </div>
     </div>

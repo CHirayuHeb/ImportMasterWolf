@@ -1,0 +1,100 @@
+﻿@model ImportMasterWolf.Models.Common.Class
+
+<link href="~/css/New/siteNew.css" rel="stylesheet" />
+<link href="~/css/cssTable.css" rel="stylesheet" />
+<div>
+    <span style="font-size:13px;font-weight:600">Data Table : MSTATACCEmployee  จำนวน :  @Model._ListViewMSTATACCEmployee.Count() แถว</span>
+    <div class="wrapperTB" style="margin-top:10px">
+        <table class="TbGreen">
+            <tr>
+                <th>No.​</th>
+                <th style="font-size:8px">EMPCODE​</th>
+                <th>Name</th>
+                <th>NameTH​</th>
+                <th style="font-size:8px">JOB​</th>
+                <th>Position Name​</th>
+                <th>Division Name</th>
+                <th>Department Name</th>
+                <th>SEC Name​</th>
+                <th>GRP Name​</th>
+                <th>UNT Name</th>
+                <th>DIRECT INDIRECT CODE</th>
+                <th style="font-size:8px">INTERCOM NO​</th>
+                <th>NICKNAME​</th>
+            </tr>
+            <tbody id="tbodyMSTATACCEmployee">
+                @{
+                    var row = 0;
+                    var i = 0;
+                    @foreach (var item in @Model._ListViewMSTATACCEmployee)
+                    {
+
+                        <tr id='trMSTATACCEmployee' style="@(item.EMPID == 99999 ? "background-color: greenyellow;" : null)">
+                            <td>
+                                @item.EMPID
+                                <input asp-for="_ListViewMSTATACCEmployee[row].EMPID" value="@item.EMPID" autocomplete="off" style="display:none" type="text" class="txtEMPID" />
+                                @*<input asp-for="_ListViewMSTATACCEmployee[i].EMPID" />*@
+                                @*<span style="font:10px"> @(row += 1)</span>*@
+                            </td>
+                            <td>
+                                @item.EMPCODE
+                                <input asp-for="_ListViewMSTATACCEmployee[row].EMPCODE" value="@item.EMPCODE" autocomplete="off" style="display:none" type="text" class="txtEMPCODE"/>
+                            </td>
+                            <td>
+                                @item.Name
+                                <input asp-for="_ListViewMSTATACCEmployee[row].Name" value="@item.Name" autocomplete="off" style="display:none" type="text" class="txtName"/>
+                            </td>
+                            <td>
+                                @item.NameTH
+                                <input asp-for="_ListViewMSTATACCEmployee[row].NameTH" value="@item.NameTH" autocomplete="off" style="display:none" type="text" class="txtNameTH"/>
+                            </td>
+                            <td>
+                                @item.JOB_NAME
+                                <input asp-for="_ListViewMSTATACCEmployee[row].JOB_NAME" value="@item.JOB_NAME" autocomplete="off" style="display:none" type="text"  class="txtJOB_NAME" />
+                            </td>
+                            <td>
+                                @item.PositionName
+                                <input asp-for="_ListViewMSTATACCEmployee[row].PositionName" value="@item.PositionName" autocomplete="off" style="display:none" type="text" class="txtPositionName" />
+                            </td>
+                            <td>
+                                @item.DivisionName
+                                <input asp-for="_ListViewMSTATACCEmployee[row].DivisionName"  value="@item.DivisionName" autocomplete="off" style="display:none" type="text"  class="txtDivisionName" />
+                            </td>
+                            <td>
+                                @item.DepartmentName
+                                <input asp-for="_ListViewMSTATACCEmployee[row].DepartmentName"  value="@item.DepartmentName"  autocomplete="off" style="display:none" type="text"class="txtDepartmentName"  />
+                            </td>
+                            <td>
+                                @item.SECName
+                                <input asp-for="_ListViewMSTATACCEmployee[row].SECName" value="@item.SECName" autocomplete="off" style="display:none" type="text" class="txtSECName"  />
+                            </td>
+                            <td>
+                                @item.GRPName
+                                <input asp-for="_ListViewMSTATACCEmployee[row].GRPName"  value="@item.GRPName" autocomplete="off" style="display:none" type="text" class="txtGRPName"  />
+                            </td>
+                            <td>
+                                @item.UNTName
+                                <input asp-for="_ListViewMSTATACCEmployee[row].UNTName" value="@item.UNTName" autocomplete="off" style="display:none" type="text" class="txtUNTName"/>
+                            </td>
+                            <td>
+                                @item.DIRECT_INDIRECT_CODE
+                                <input asp-for="_ListViewMSTATACCEmployee[row].DIRECT_INDIRECT_CODE" value="@item.DIRECT_INDIRECT_CODE" autocomplete="off" style="display:none" type="text"class="txtDIRECT_INDIRECT_CODE" />
+                            </td>
+                            <td>
+                                @item.INTERCOMNO
+                                <input asp-for="_ListViewMSTATACCEmployee[row].INTERCOMNO" value="@item.INTERCOMNO" autocomplete="off" style="display:none" type="text"  class="txtINTERCOMNO" />
+                            </td>
+                            <td>
+                                @item.NICKNAME
+                                <input asp-for="_ListViewMSTATACCEmployee[row].NICKNAME" value="@item.NICKNAME" autocomplete="off" style="display:none" type="text" class="txtNICKNAME" />
+                            </td>
+                        </tr>
+                        <span style="font:10px;display:none"> @(i += 1)</span>
+                    }
+                }
+            </tbody>
+              
+
+        </table>
+    </div>
+</div>

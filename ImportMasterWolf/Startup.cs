@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using ImportMasterWolf.Models.Common;
 using ImportMasterWolf.Models.DBConnect;
+using Microsoft.AspNetCore.Http.Features;
 
 namespace ImportMasterWolf
 {
@@ -37,6 +38,15 @@ namespace ImportMasterWolf
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            // แก้ตรงนี้
+            services.Configure<FormOptions>(options =>
+            {
+                options.ValueCountLimit = int.MaxValue;           // จำนวนฟิลด์สูงสุด
+                options.MultipartBodyLengthLimit = int.MaxValue; ;//104857600; // 100 MB สำหรับไฟล์ใหญ่
+            });
+      
+
+
             services.AddMvc().AddControllersAsServices();
             services.AddDbContext<HRMS>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("HRMS")));
@@ -48,6 +58,13 @@ namespace ImportMasterWolf
                 options.UseSqlServer(Configuration.GetConnectionString("PrdInvBf_Prd")));
             services.AddDbContext<WolfApproveCore_thaistanley>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("WolfApproveCore.thaistanley")));
+            services.AddDbContext<WolfApproveCore_Center>(options =>
+             options.UseSqlServer(Configuration.GetConnectionString("WolfApproveCore.Center")));
+
+
+            services.AddDbContext<WolfApproveCore_thaistanley_PRD>(options =>
+           options.UseSqlServer(Configuration.GetConnectionString("WolfApproveCore.thaistanley_PRD")));
+
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(x => {

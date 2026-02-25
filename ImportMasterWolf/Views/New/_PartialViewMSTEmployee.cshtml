@@ -1,0 +1,157 @@
+﻿@model ImportMasterWolf.Models.Common.Class;
+
+<link href="~/css/New/siteNew.css" rel="stylesheet" />
+<link href="~/css/cssTable.css" rel="stylesheet" />
+<div>
+    <span style="font-size:13px;font-weight:600">Data Table : MSTEmployee  จำนวน :  @Model._ListViewMSTEmployee.Count() แถว</span>
+    <div class="wrapperTB" style="margin-top:10px">
+        <table class="TbGreen">
+            <tr>
+                <th>Status</th>
+                <th>EmployeeId     </th>
+                <th>EmployeeCode   </th>
+                <th>Username	   </th>
+                <th>NameTh		   </th>
+                <th>NameEn		   </th>
+                <th>Email		   </th>
+                <th>IsActive	   </th>
+                <th>PositionId	   </th>
+                <th>DepartmentId   </th>
+                <th>ReportToEmpCode</th>
+                <th>SignPicPath</th>
+                <th>Lang		   </th>
+                <th>AccountId	   </th>
+                <th>CreatedDate	   </th>
+                <th>CreatedBy	   </th>
+                <th>ModifiedDate   </th>
+                <th>ModifiedBy	   </th>
+                <th>ADTitle		   </th>
+                <th>DivisionId	   </th>
+                <th>EmpLevel	   </th>
+                <th>EMPL_RCD	   </th>
+                <th>EmployeeLevel  </th>
+                <th>EffectiveDate  </th>
+                <th>Userid_Line	   </th>
+            </tr>
+            <tbody id="tbodyMSTEmployee">
+                @{
+
+                    var rowE = 0;
+                    foreach (var item in Model._ListViewMSTEmployee)
+                    {
+                        <tr id='trMSTEmployee' style="@(item.Userid_Line == "New" ? "background-color: greenyellow;" : null)">
+                            <td>
+                                <span style="font-size:13px;font-weight:700;">@item.Userid_Line</span>
+                            </td>
+                            <td>
+                                @item.EmployeeId
+                                <input class="txtEmployeeId" value="@item.EmployeeId" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.EmployeeCode
+                                <input class="txtEmployeeCode" value="@item.EmployeeCode" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.Username
+                                <input class="txtUsername" value="@item.Username" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.NameTh
+                                <input class="txtNameTh" value="@item.NameTh" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.NameEn
+                                <input class="txtNameEn" value="@item.NameEn" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.Email
+                                <input class="txtEmail" value="@item.Email" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.IsActive
+                                <input asp-for="_ListViewMSTEmployee[rowE].IsActive" class="txtIsActive" value="@item.IsActive" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.PositionId
+                                <input class="txtPositionId" value="@item.PositionId" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.DepartmentId
+                                <input class="txtDepartmentId" value="@item.DepartmentId" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.ReportToEmpCode
+                                <input class="txtReportToEmpCode" value="@item.ReportToEmpCode" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.SignPicPath
+                                <input class="txtSignPicPath" value="@item.SignPicPath" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.Lang
+                                <input class="txtLang" value="@item.Lang" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.AccountId
+                                <input class="txtAccountId" value="@item.AccountId" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.CreatedDate
+                                <input class="txtCreatedDate" value="@item.CreatedDate" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.CreatedBy
+                                <input class="txtCreatedBy" value="@item.CreatedBy" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.ModifiedDate
+                                <input class="txtModifiedDate" value="@item.ModifiedDate" autocomplete="off" style="display:none" type="text" />
+
+                            </td>
+                            <td>
+                                @item.ModifiedBy
+                                <input class="txtModifiedBy" value="@item.ModifiedBy" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.ADTitle
+                                <input class="txtADTitle" value="@item.ADTitle" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.DivisionId
+                                <input class="txtDivisionId" value="@item.DivisionId" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.EmpLevel
+                                <input class="txtEmpLevel" value="@item.EmpLevel" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.EMPL_RCD
+                                <input class="txtEMPL_RCD" value="@item.EMPL_RCD" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.EmployeeLevel
+                                <input class="txtEmployeeLevel" value="@item.EmployeeLevel" autocomplete="off" style="display:none" type="text" />
+
+                            </td>
+                            <td>
+                                @item.EffectiveDate
+                                <input autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.Userid_Line
+                                <input class="txtUserid_Line" value="@item.Userid_Line" autocomplete="off" style="display:none" type="text" />
+
+                            </td>
+                        </tr>
+                        <span style="font:10px;display:none"> @(rowE += 1)</span>
+                    }
+                }
+
+
+            </tbody>
+
+
+
+        </table>
+    </div>
+</div>

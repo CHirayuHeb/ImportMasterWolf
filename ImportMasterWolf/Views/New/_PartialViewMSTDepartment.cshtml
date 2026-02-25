@@ -1,0 +1,103 @@
+﻿@model ImportMasterWolf.Models.Common.Class;
+
+<link href="~/css/New/siteNew.css" rel="stylesheet" />
+<link href="~/css/cssTable.css" rel="stylesheet" />
+<div>
+    <span style="font-size:13px;font-weight:600">Data Table : MSTDepartment  จำนวน : @Model._ListViewMSTDepartment.Count()  แถว</span>
+    <div class="wrapperTB" style="margin-top:10px">
+        <div class="wrapperTB" style="margin-top:10px">
+            <table class="TbGreen">
+                <tr>
+                    <th>DepartmentId</th>
+                    <th>ParentId</th>
+                    <th>DivisionId</th>
+                    <th>DepartmentCode</th>
+                    <th>NameTh</th>
+                    <th>NameEn</th>
+                    <th>CreatedDate</th>
+                    <th>CreatedBy</th>
+                    <th>ModifiedDate</th>
+                    <th>ModifiedBy</th>
+                    <th>IsActive</th>
+                    <th>AccountId</th>
+                    <th>LeaderId</th>
+                    <th>CompanyCode</th>
+                </tr>
+                <tbody id="tbodyMSTDepartment">
+                    @{
+                        foreach (var item in Model._ListViewMSTDepartment)
+                        {
+                            <tr id='trMSTDepartment'>
+                                <td>
+                                    @item.DepartmentId
+                                    <input class="txtDepartmentId" value="@item.DepartmentId" autocomplete="off" style="display:none" type="text" />
+                                </td>
+                                <td>
+                                    @item.ParentId
+                                    <input class="txtParentId" value="@item.ParentId" autocomplete="off" style="display:none" type="text" />
+                                </td>
+                                <td>
+                                    @item.DivisionId
+                                    <input class="txtDivisionId" value="@item.DivisionId" autocomplete="off" style="display:none" type="text" />
+                                </td>
+                                <td>
+                                    @item.DepartmentCode
+                                    <input class="txtDepartmentCode" value="@item.DepartmentCode" autocomplete="off" style="display:none" type="text" />
+
+                                </td>
+                                <td>
+                                    @item.NameTh
+                                    <input class="txtNameTh" value="@item.NameTh" autocomplete="off" style="display:none" type="text" />
+
+                                </td>
+                                <td>
+                                    @item.NameEn
+                                    <input class="txtNameEn" value="@item.NameEn" autocomplete="off" style="display:none" type="text" />
+                                </td>
+                                <td>
+                                    @item.CreatedDate
+                                    <input class="txtCreatedDate" value="@item.CreatedDate" autocomplete="off" style="display:none" type="text" />
+
+                                </td>
+                                <td>
+                                    @item.CreatedBy
+                                    <input class="txtCreatedBy" value="@item.CreatedBy" autocomplete="off" style="display:none" type="text" />
+
+                                </td>
+                                <td>
+                                    @item.ModifiedDate
+                                    <input class="txtModifiedDate" value="@item.ModifiedDate" autocomplete="off" style="display:none" type="text" />
+                                </td>
+                                <td>
+                                    @item.ModifiedBy
+                                    <input class="txtModifiedBy" value="@item.ModifiedBy" autocomplete="off" style="display:none" type="text" />
+
+                                </td>
+                                <td>
+                                    @item.IsActive
+                                    <input class="txtIsActive" value="@item.IsActive.ToString()" autocomplete="off" style="display:none" type="text" />
+                                </td>
+                                <td>
+                                    @item.AccountId
+                                    <input class="txtAccountId" value="@item.AccountId" autocomplete="off" style="display:none" type="text" />
+                                </td>
+                                <td>
+                                    @item.LeaderId
+                                    <input class="txtLeaderId" value="@item.LeaderId" autocomplete="off" style="display:none" type="text" />
+
+                                </td>
+                                <td>
+                                    @item.CompanyCode
+                                    <input class="txtCompanyCode" value="@item.CompanyCode" autocomplete="off" style="display:none" type="text" />
+                                </td>
+                            </tr>
+                        }
+                    }
+
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>

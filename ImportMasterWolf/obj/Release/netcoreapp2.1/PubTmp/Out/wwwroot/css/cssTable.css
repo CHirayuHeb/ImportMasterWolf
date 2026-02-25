@@ -1,0 +1,268 @@
+﻿
+.TbGreen {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 10px;
+    /*table-layout: fixed;*/
+    table-layout: auto;
+   
+}
+
+    .TbGreen td,
+    .TbGreen th {
+        border: 1px solid #ddd;
+        padding: 2px;
+      
+    }
+
+    .TbGreen td {
+        vertical-align: top; /* จัดเนื้อหาให้ชิดขอบบนสุด */
+        padding-left:2px;
+        padding-right:2px;
+    }
+
+    .TbGreen tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .TbGreen tr:hover {
+        background-color: #ddd;
+    }
+
+    .TbGreen th {
+        padding-top: 3px;
+        padding-bottom: 3px;
+        text-align: center;
+        background-color: #04AA6D;
+        color: white;
+    }
+
+    .TbGreen th {
+        position: sticky;
+        top: 0;
+        background-color: #04AA6D; /* ต้องใส่ ไม่งั้นจะโปร่ง */
+        color: white;
+        z-index: 10; /* กันโดน td ทับ */
+    }
+
+.wrapperTB {
+    max-height: 400px; /* กำหนดความสูงเพื่อให้ scroll */
+    overflow-y: auto;
+}
+
+.accordion-item {
+    background: #fff;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.accordion-header {
+    padding: 15px 15px;
+    background: #e0e0e0;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px
+}
+
+    .accordion-header:hover {
+        background: #eeeeee;
+    }
+
+.accordion-content {
+    display: none;
+    padding: 20px;
+}
+
+
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.col-5 {
+    float: left;
+    width: 5%;
+    margin-top: 6px;
+}
+
+.col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+
+.col-20 {
+    float: left;
+    width: 20%;
+    margin-top: 6px;
+}
+
+.col-30 {
+    float: left;
+    width: 30%;
+    margin-top: 6px;
+}
+
+.col-35 {
+    float: left;
+    width: 35%;
+    margin-top: 6px;
+}
+
+.col-40 {
+    float: left;
+    width: 40%;
+    margin-top: 6px;
+}
+
+.col-45 {
+    float: left;
+    width: 45%;
+    margin-top: 6px;
+}
+
+.col-20 {
+    float: left;
+    width: 20%;
+    margin-top: 6px;
+    align-items: flex-end
+}
+
+.col-10 {
+    float: left;
+    width: 10%;
+    margin-top: 6px;
+}
+
+.col-15 {
+    float: left;
+    width: 15%;
+    margin-top: 6px;
+}
+
+
+.col-50 {
+    float: left;
+    width: 50%;
+    margin-top: 6px;
+}
+
+.col-60 {
+    float: left;
+    width: 60%;
+    margin-top: 6px;
+}
+
+.col-70 {
+    float: left;
+    width: 70%;
+    margin-top: 6px;
+}
+
+.col-80 {
+    float: left;
+    width: 80%;
+    margin-top: 6px;
+}
+
+.col-85 {
+    float: left;
+    width: 85%;
+    margin-top: 6px;
+}
+
+.col-30 {
+    float: left;
+    width: 30%;
+    margin-top: 6px;
+}
+
+col-100 {
+    float: left;
+    width: 100%;
+    margin-top: 6px;
+}
+/* Clear floats after the columns */
+.row:after {
+    background-color: #f2f2f2;
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.button {
+    background-color: #208b3a; /* Green */
+    border: none;
+    color: white;
+    padding: 1px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+    margin: 3px 0px 3px 0px;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 2px;
+    /*height: 30%;*/
+}
+
+    .button:hover {
+        background-color: #f0e9d5; /*  */
+        color: black;
+    }
+
+.btnBlue {
+    background-color: #008CBA;
+}
+/* Blue */
+.btnRed {
+    background-color: #f44336;
+}
+/* Red */
+.btnGray {
+    background-color: #e7e7e7;
+    color: black;
+    font-weight: 800;
+}
+/* Gray */
+.btnBlack {
+    background-color: #555555;
+}
+/* Black */
+
+.btnOrange {
+    background-color: #f78e31;
+}
+/* Orange */
+.btnYellow {
+    color: black;
+    background-color: #fcec52;
+}
+
+.btnBrown {
+    background-color: #e88f4f;
+    font-weight: 600;
+}
+
+
+
+
+.btnNone {
+    /*width: auto;*/
+    background-color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+    width: 100%;
+    margin-right: 5px;
+}

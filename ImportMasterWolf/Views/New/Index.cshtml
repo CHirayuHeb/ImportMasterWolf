@@ -1,126 +1,148 @@
-﻿@model ImportMasterWolf.Models.MyRequest.MultiDocMast
+﻿@model ImportMasterWolf.Models.Common.Class
 @{
     ViewData["Title"] = "New | ThaiStanley";
     Layout = "~/Views/Shared/_MenuBar.cshtml";
 }
 <link href="~/css/New/siteNew.css" rel="stylesheet" />
+<link href="~/css/cssTable.css" rel="stylesheet" />
 @*after document ready*@
 <script type="text/javascript">document.onreadystatechange = () => { if (document.readyState === "interactive") { PositionY("New"); } }</script>
 <div class="home-content">
     <div id="DisplayContent" class="content-box">
-        <div class="content-text">
-            <div class="title-box">
-                <div class="title">
-                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-sm-start">
-                        <li class="nav-item">
-                            <div class="menu-item">
-                                <div class="item-action">
-                                    <button type="button" class="btn add" data-bs-toggle="modal" data-bs-target="#modalNewOT">
-                                        <span class="material-icon-symbols-outlined text-blue fw-800 add">add</span>
-                                        <span>เพิ่ม</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+        <div style="text-align:center;margin-top:8px">
+            <span style="font-size:26px; font-weight:800; color:dimgray; line-height:1.4;">
+                WOLF MASTER
+            </span>
+        </div>
+
+        <br />
+        <div class="row" style="margin-bottom:10px">
+            <div class="col-10">
+
             </div>
-            <div class="content">
-                <div class="new-menu d-sm-flex fs-16 px-3">
-                    <div class="menu-item d-flex">
-                        <div class="item-category d-md-flex text-center">
-                            <label class="fw-800">ของฉัน</label>
-                            <div class="items">
-                                <div class="item my-today mx-1 bg-active">
-                                    <button type="button" class="btn filter" value="my-today">
-                                        <span class="fs-12 text-black">วันนี้</span>
-                                    </button>
-                                </div>
-                                <div class="item my-yesterday mx-1 bg-trans">
-                                    <button type="button" class="btn filter" value="my-yesterday">
-                                        <span class="fs-12 text-black">เมื่อวาน</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item-category d-md-flex text-center">
-                            <label class="fw-800">ทั้งหมด</label>
-                            <div class="items">
-                                <div class="item all-today mx-1 bg-trans">
-                                    <button type="button" class="btn filter" value="all-today">
-                                        <span class="fs-12 text-black">วันนี้</span>
-                                    </button>
-                                </div>
-                                <div class="item all-yesterday mx-1 bg-trans">
-                                    <button type="button" class="btn filter" value="all-yesterday">
-                                        <span class="fs-12 text-black">เมื่อวาน</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-50" style="padding-left:10px">
+                <span style="font-weight:800;font-size:16px">
+                    Update Data :
+                    <span id="lType" style="color:green">@Model._vType</span>
+                </span>
 
-                <!-- Modal New // Edit -->
-                <div  class="px-0-im border-rad modal fade" id="modalNewOT" aria-labelledby="exampleModalLabel"  data-bs-backdrop="static" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="bd-be-none-rd bd-bw-none-rd modal-content" id="OTModal">
-                            <div class="modal-pst-abs-imp px-0-im wx-100 modal-header">
-                                <div class="ph-container bg-trans fs-12">
-                                    <div class="ph-box px-3">
-                                        <div class="ph-item text-gray istep">
-                                            <label class="nav-link">
-                                                <span>เลือกวันทำงาน</span>
-                                            </label>
-                                        </div>
-                                        <div class="ph-item text-gray istep" style="display: none;">
-                                            <span class="material-icon-symbols-outlined">chevron_right</span>
-                                            <label href="" class="nav-link">
-                                                <span id="DaySelected">สร้างคำร้องขอ</span>
-                                            </label>
-                                        </div>
-                                        <div class="ph-item text-gray istep" style="display: none;">
-                                            <span class="material-icon-symbols-outlined">chevron_right</span>
-                                            <label href="" class="nav-link">
-                                                <span>รายละเอียด</span>
-                                            </label>
-                                        </div>
-                                        <div class="ph-item text-gray istep" style="display: none;">
-                                            <span class="material-icon-symbols-outlined">chevron_right</span>
-                                            <label href="" class="nav-link">
-                                                <span>เลือกพนักงาน</span>
-                                            </label>
-                                        </div>
-                                        <div class="ph-item text-gray istep" style="display: none;">
-                                            <span class="material-icon-symbols-outlined">chevron_right</span>
-                                            <label href="" class="nav-link">
-                                                <span>ส่งถึง</span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                @*fake for handheld scaned double enter this foucus*@
-                                <button type="button" class="bd-0 bg-trans" aria-label="Close"></button>
-                                <button type="button" class="pst-abs right-25px btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="top-75p modal-body">
-                                @using (Html.BeginForm("CreateNew", "New", FormMethod.Post, new { id = "formCreateNew" }))
-                                {
-                                    <div id="modal-new-content" class="modal-new-content">
-                                    </div>
-                                }
-                            </div>
-                            <div class="top-72p bg-white bd-ligray bd-be-rd bd-bw-rd modal-pst-inh-imp modal-footer" id="FooterContent"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="search-box result-container wx-100 px-3">
-                    @await Html.PartialAsync("_DisplayMyToday", Model)
-                </div>
-
+            </div>
+            <div class="col-20" style="text-align:right">
+                <button class="button btnGray" style="width:auto; " type="submit"
+                        onclick="Menubar_SaveData('@Url.Action("CheckData", "New")','Append')">
+                    <img src="~/images/savey.png" style="width:30px;height:24px;padding-right:5px;margin-right:8px;margin-top: 2px;margin-bottom: 2px;" />
+                    Added Data
+                </button>
+            </div>
+            <div class="col-20" style="text-align:center">
+                <button class="button btnGray" style="width:auto; " type="submit"
+                        onclick="Menubar_SaveData('@Url.Action("CheckData", "New")','Update')">
+                    <img src="~/images/save.png" style="width:30px;height:24px;padding-right:5px;margin-right:8px;margin-top: 2px;margin-bottom: 2px;" />
+                    Update ALL
+                </button>
             </div>
         </div>
+        <form id="formNewimport" name="formNewimport">
+            @*enctype="multipart/form-data" method="POST">*@
+
+
+
+
+            <div style="margin-left:10px;margin-right:10px">
+                @if (Model._vType == "Accemployee")
+                {
+                    <div class="accordion-item">
+                        <div class="accordion-header " style="display:flex; justify-content:space-between; align-items:center;">
+                            <div>
+                                <span style="color:black;font-size:15px">MSTATACCEmployee</span>
+                            </div>
+                            <span class="toggle-icon" style="color:black;font-size:15px">+</span>
+                        </div>
+                        <div class="accordion-content">
+                            @await Html.PartialAsync("_PartialViewAccemployee.cshtml", Model)
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header " style="display:flex; justify-content:space-between; align-items:center;">
+                            <div>
+                                <span style="color:black;font-size:15px">MSTATEmployee</span>
+                            </div>
+                            <span class="toggle-icon" style="color:black;font-size:15px">+</span>
+                        </div>
+                        <div class="accordion-content">
+                            @await Html.PartialAsync("_PartialViewMSTATEmployee.cshtml", Model)
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header " style="display:flex; justify-content:space-between; align-items:center;">
+                            <div>
+                                <span style="color:black;font-size:15px">MSTEmployee</span>
+                            </div>
+                            <span class="toggle-icon" style="color:black;font-size:15px">+</span>
+                        </div>
+                        <div class="accordion-content">
+                            @await Html.PartialAsync("_PartialViewMSTEmployee.cshtml", Model)
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header " style="display:flex; justify-content:space-between; align-items:center;">
+                            <div>
+                                <span style="color:black;font-size:15px">WOLF Account</span>
+                            </div>
+                            <span class="toggle-icon" style="color:black;font-size:15px">+</span>
+                        </div>
+                        <div class="accordion-content">
+                            @await Html.PartialAsync("_PartialViewWOLFAccount.cshtml", Model)
+                        </div>
+                    </div>
+                }
+                else if (Model._vType == "Div")
+                {
+                    <div class="accordion-item">
+                        <div class="accordion-header " style="display:flex; justify-content:space-between; align-items:center;">
+                            <div>
+                                <span style="color:black;font-size:15px">MSTDivision</span>
+                            </div>
+                            <span class="toggle-icon" style="color:black;font-size:15px">+</span>
+                        </div>
+                        <div class="accordion-content">
+                            @await Html.PartialAsync("_PartialViewMSTDivision.cshtml", Model)
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header " style="display:flex; justify-content:space-between; align-items:center;">
+                            <div>
+                                <span style="color:black;font-size:15px">MSTDepartment</span>
+                            </div>
+                            <span class="toggle-icon" style="color:black;font-size:15px">+</span>
+                        </div>
+                        <div class="accordion-content">
+                            @await Html.PartialAsync("_PartialViewMSTDepartment.cshtml", Model)
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header " style="display:flex; justify-content:space-between; align-items:center;">
+                            <div>
+                                <span style="color:black;font-size:15px">MSTPosition</span>
+                            </div>
+                            <span class="toggle-icon" style="color:black;font-size:15px">+</span>
+                        </div>
+                        <div class="accordion-content">
+                            @await Html.PartialAsync("_PartialViewMSTPosition.cshtml", Model)
+                        </div>
+                    </div>
+                }
+
+
+            </div>
+        </form>
+
+
+
+
+
+
+
     </div>
 </div>
 

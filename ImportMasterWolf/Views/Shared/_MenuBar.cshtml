@@ -27,13 +27,20 @@
     <link href="~/css/SpinnerLoading.css" rel="stylesheet" />
     <link href="~/css/GlobalVariable.css" rel="stylesheet" />
     <link href="~/font/FontFamily.css" rel="stylesheet" />
+    <link href="~/css/Home/siteHome.css" rel="stylesheet" />
 
     @*timepicker*@
     <script src="~/lib/js/timepicker/dayjs.js"></script>
     <script src="~/lib/js/timepicker/timepicker-bs4.js"></script>
 
+
     @*canvas*@
     <script src="~/lib/cdn/canvas/canvas.min.js"></script>
+
+    @*datepicker*@
+    <link href="~/lib/datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <script src="~/lib/datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/js/site.min.js"></script>
 
     <title>ImportMasterWolf</title>
 </head>
@@ -55,6 +62,7 @@
                         <div class="program-box">
                             <div class="program-name">
                                 <span style="color:black;font-weight:700">Import <span style="color:dodgerblue">Data WOLF</span> <img src="~/images/wolf.png" style="width:15px;" /></span>
+                                <span style="margin-left:20px;font-size:14px">ยินดีต้อนรับสู่ดินแดนของหมาป่า ผู้ล่าแห่งรัตติกาล</span>
                             </div>
                         </div>
                     </div>
@@ -105,6 +113,7 @@
                                                 </div>
                                                 <div class="division">
                                                     <label style="font-size: 9px;" class="hidden-txt wx-100" title="@_Division">@_Division</label>
+                                                  
                                                 </div>
                                                 <div class="section">
                                                     <label style="font-size: 9px;" class="hidden-txt wx-100" title="@_Section">@_Section</label>
@@ -139,15 +148,15 @@
                         </div>
                         <div class="menu-item" tabindex="0">
                             <button class="nav-link text-gray align-middle px-0 new">
-                                <span class="create"><span class="material-icon-symbols-outlined fs-30">add_circle</span>สร้าง</span>
+                                <span class="create"><span class="material-icon-symbols-outlined fs-30">add_circle</span>ข้อมูล</span>
                             </button>
                         </div>
-                        <div class="menu-item" tabindex="0">
+                        <div class="menu-item" tabindex="0" style="display:none">
                             <button class="nav-link text-gray align-middle px-0 my-request">
                                 <span class="my-request"><span class="material-icon-symbols-outlined fs-30">send</span>คำร้องของฉัน</span>
                             </button>
                         </div>
-                        <div class="menu-item" tabindex="0">
+                        <div class="menu-item" tabindex="0"  style="display:none">
                             <button class="nav-link text-gray align-middle px-0 approval">
                                 <span class="approval"><span class="material-icon-symbols-outlined fs-30">order_approve</span>การอนุมัติ</span>
                             </button>
@@ -219,11 +228,11 @@
                                                 <span style="font-size: 24px;" class="material-icon-symbols-outlined fs-30">add_circle</span>
                                             </div>
                                             <div class="program-name">
-                                                <span>สร้าง</span>
+                                                <span>ข้อมูล</span>
                                             </div>
                                         </a>
                                     </div>
-                                    <div class="app">
+                                    <div class="app" style="display:none">
                                         <a class="n-underline cs-pt my-request" style="color: dimgray;">
                                             <div class="program-logo">
                                                 <span style="font-size: 24px;" class="material-icon-symbols-outlined fs-30">send</span>
@@ -233,7 +242,7 @@
                                             </div>
                                         </a>
                                     </div>
-                                    <div class="app">
+                                    <div class="app" style="display:none">
                                         <a class="n-underline cs-pt approval" style="color: dimgray;">
                                             <div class="program-logo">
                                                 <span style="font-size: 24px;" class="material-icon-symbols-outlined fs-30">order_approve</span>
@@ -288,6 +297,7 @@
             </div>
         </div>
     </div>
+   
     <script src="~/js/Shared/_MenuBar.js"></script>
 </body>
 </html>

@@ -14,5 +14,13 @@ namespace ImportMasterWolf.Models.DBConnect
         { }
 
         public DbSet<ViewMSTATACCEmployee> _ViewMSTATACCEmployee { get; set; }
+        public DbSet<ViewMSTATEmployee> _ViewMSTATEmployee { get; set; }
+        public DbSet<ViewMSTEmployee> _ViewMSTEmployee { get; set; }
+        public DbSet<ViewMSTDepartment> _ViewMSTDepartment { get; set; }
+        public DbSet<ViewMSTDivision> _ViewMSTDivision { get; set; }
+        public DbSet<ViewMSTPosition> _ViewMSTPosition { get; set; }
+        
+
+
     }
 }

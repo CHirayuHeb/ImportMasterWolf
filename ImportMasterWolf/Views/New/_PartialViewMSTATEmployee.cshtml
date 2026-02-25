@@ -1,0 +1,77 @@
+﻿@model ImportMasterWolf.Models.Common.Class
+
+<link href="~/css/New/siteNew.css" rel="stylesheet" />
+<link href="~/css/cssTable.css" rel="stylesheet" />
+<div>
+    <span style="font-size:13px;font-weight:600">Data Table : MSTATEmployee  จำนวน :  @Model._ListViewMSTATEmployee.Count() แถว</span>
+    <div class="wrapperTB" style="margin-top:10px">
+        <table class="TbGreen">
+            <tr>
+                <th>No.​</th>
+                <th style="font-size:8px">EMPCODE​</th>
+                <th>NICKNAME​</th>
+                <th>INTERCOM</th>
+                <th>JOB CODE</th>
+                <th>SEC Name​</th>
+                <th>GRP Name​</th>
+                <th>UNT Name</th>
+
+            </tr>
+            <tbody id="tbodyMSTATEmployee">
+
+                @{
+                    var row = 0;
+                    @foreach (var item in @Model._ListViewMSTATEmployee)
+                    {
+
+                        <tr id='trMSTATEmployee' style="@(item.EMPID == 99999 ? "background-color: greenyellow;" : null)">
+                            <td>
+                                @item.EMPID
+                                <input class="txtEMPID" asp-for="_ListViewMSTATEmployee[row].EMPID" value="@item.EMPID" autocomplete="off" style="display:none" type="text" />
+                                @*<span style="font:10px"> @(row += 1)</span>*@
+                            </td>
+                            <td>
+                                <input class="txtEMPCODE" asp-for="_ListViewMSTATEmployee[row].EMPCODE" value="@item.EMPCODE" autocomplete="off" style="display:none" type="text" />
+
+                                @item.EMPCODE
+                            </td>
+                            <td>
+                                <input class="txtNICKNAME" asp-for="_ListViewMSTATEmployee[row].NICKNAME" value="@item.NICKNAME" autocomplete="off" style="display:none" type="text" />
+
+                                @item.NICKNAME
+                            </td>
+                            <td>
+                                <input class="txtINTERCOMNO" asp-for="_ListViewMSTATEmployee[row].INTERCOMNO" value="@item.INTERCOMNO" autocomplete="off" style="display:none" type="text" />
+
+                                @item.INTERCOMNO
+                            </td>
+                            <td>
+                                <input class="txtJOBCODE" asp-for="_ListViewMSTATEmployee[row].JOBCODE" value="@item.JOBCODE" autocomplete="off" style="display:none" type="text" />
+
+                                @item.JOBCODE
+                            </td>
+                            <td>
+                                <input class="txtSECNAME" asp-for="_ListViewMSTATEmployee[row].SECNAME" value="@item.SECNAME" autocomplete="off" style="display:none" type="text" />
+
+                                @item.SECNAME
+                            </td>
+                            <td>
+                                <input class="txtGRPNAME" asp-for="_ListViewMSTATEmployee[row].GRPNAME" value="@item.GRPNAME" autocomplete="off" style="display:none" type="text" />
+
+                                @item.GRPNAME
+                            </td>
+                            <td>
+                                <input class="txtUNTNAME" asp-for="_ListViewMSTATEmployee[row].UNTNAME" value="@item.UNTNAME" autocomplete="off" style="display:none" type="text" />
+
+                                @item.UNTNAME
+                            </td>
+
+                        </tr>
+
+                        <span style="font:10px;display:none"> @(row += 1)</span>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

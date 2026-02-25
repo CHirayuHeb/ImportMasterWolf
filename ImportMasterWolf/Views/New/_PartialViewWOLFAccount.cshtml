@@ -1,0 +1,101 @@
+﻿@model ImportMasterWolf.Models.Common.Class;
+
+<link href="~/css/New/siteNew.css" rel="stylesheet" />
+<link href="~/css/cssTable.css" rel="stylesheet" />
+<div>
+    <span style="font-size:13px;font-weight:600">Data Table : MSTEmployee  จำนวน :  @Model._ListViewWOLFAccount.Count() แถว</span>
+    <div class="wrapperTB" style="margin-top:10px">
+        <table class="TbGreen">
+            <tr>
+                <th>ID</th>
+                <th>ContactCode</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>IsVerify</th>
+                <th>GuidVerify</th>
+                <th>Note</th>
+                <th>Remark</th>
+                <th>Description</th>
+                <th>CreatedDate</th>
+                <th>CreatedBy</th>
+                <th>ModifiedDate</th>
+                <th>ModifiedBy</th>
+                <th>IsActive</th>
+
+            </tr>
+            <tbody id="tbodyWOLFAccount">
+                @{
+
+                    var rowE = 0;
+                    foreach (var item in Model._ListViewWOLFAccount)
+                    {
+                        <tr id='trWOLFAccount'>
+                            <td>
+                                @item.ID 
+                                <input class="txtID" value="@item.ID" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.ContactCode
+                                <input  class="txtContactCode" value="@item.ContactCode" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.Username
+                                <input  class="txtUsername" value="@item.Username" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.Password
+                                <input  class="txtPassword" value="@item.Password" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.IsVerify
+                                <input class="txtIsVerify"value="@item.IsVerify.ToString()" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.GuidVerify
+                                <input  class="txtGuidVerify" value="@item.GuidVerify" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.Note
+                                <input  class="txtNote" value="@item.Note" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.Remark
+                                <input  class="txtRemark" value="@item.Remark" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.Description
+                                <input  class="txtDescription" value="@item.Description" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.CreatedDate
+                                <input class="txtCreatedDate" value="@item.CreatedDate" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.CreatedBy
+                                <input class="txtCreatedBy" value="@item.CreatedBy" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.ModifiedDate
+                                <input  class="txtModifiedDate" value="@item.ModifiedDate" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.ModifiedBy
+                                <input class="txtModifiedBy" value="@item.ModifiedBy" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.IsActive
+                                <input  class="txtIsActive" value="@item.IsActive.ToString()" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                        </tr>
+                        <span style="font:10px;display:none"> @(rowE += 1)</span>
+                    }
+                }
+
+
+            </tbody>
+
+
+
+        </table>
+    </div>
+</div>

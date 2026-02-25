@@ -10,6 +10,8 @@ using ImportMasterWolf.Models.Canvas;
 using ImportMasterWolf.Models.Common;
 using ImportMasterWolf.Models.DBConnect;
 using ImportMasterWolf.Models.Table.LAMP;
+using ImportMasterWolf.Models.Table.HRMS;
+using ImportMasterWolf.Models.Table.WolfApproveCore_thaistanley;
 
 namespace ImportMasterWolf.Controllers.Home
 {
@@ -18,13 +20,15 @@ namespace ImportMasterWolf.Controllers.Home
         private LAMP _LAMP;
         private HRMS _HRMS;
         private IT _IT;
+        private WolfApproveCore_thaistanley _WolfApproveCore_thaistanley;
         private CacheSettingController _Cache;
         private FunctionsController _callFunc;
-        public HomeController(LAMP lamp, HRMS hrms, IT it, CacheSettingController cacheController, FunctionsController callfunction)
+        public HomeController(LAMP lamp, HRMS hrms, IT it, WolfApproveCore_thaistanley WolfApproveCore_thaistanley, CacheSettingController cacheController, FunctionsController callfunction)
         {
             _LAMP = lamp;
             _HRMS = hrms;
             _IT = it;
+            _WolfApproveCore_thaistanley = WolfApproveCore_thaistanley;
             _Cache = cacheController;
             _callFunc = callfunction;
         }
@@ -32,8 +36,28 @@ namespace ImportMasterWolf.Controllers.Home
         [Authorize(Policy = "Checked")]
         public IActionResult Index(Class @class)
         {
+         
+
+
             return View("Index", @class);
         }
+
+
+        [HttpPost]
+        public ActionResult UpdateTbACCEmployeeQ(Class @class)
+        {
+            return Json(new { c1 = "", c2 = "" });
+        }
+
+        [HttpPost]
+        public PartialViewResult UpdateTbACCEmployee(Class @class)
+        {
+
+            return PartialView("_PartialMastMProcessView", @class);
+
+        }
+
+
 
         [HttpPost]
         public async Task<PartialViewResult> DisplayHour()
@@ -140,7 +164,7 @@ namespace ImportMasterWolf.Controllers.Home
         [HttpPost]
         public async Task<PartialViewResult> DisplayGraph()
         {
-            
+
             return await Task.Run(() => PartialView("_DisplayGraph"));
         }
 
@@ -203,7 +227,7 @@ namespace ImportMasterWolf.Controllers.Home
 
                 dataPoints1.Add(new DataPoint(_callFunc.TransNumberToMonth(runningmonth), sumHourInt));
             }
-            return await Task.Run(() => Json(JsonConvert.SerializeObject(dataPoints1))); 
+            return await Task.Run(() => Json(JsonConvert.SerializeObject(dataPoints1)));
         }
 
         [HttpPost]
@@ -254,7 +278,7 @@ namespace ImportMasterWolf.Controllers.Home
             foreach (ViewMastRequestOT items in _Cache.cacheMastRequestOT()
                                                 .Where(w => w.mrDateReq != null && int.Parse(w.mrDateReq.Substring(w.mrDateReq.Length - 4)
                                                                                                   + w.mrDateReq.Substring(3, 2)
-                                                                                                  + w.mrDateReq.Substring(0, 2)) >= int.Parse(DateST) 
+                                                                                                  + w.mrDateReq.Substring(0, 2)) >= int.Parse(DateST)
                                                                                                   && int.Parse(w.mrDateReq.Substring(w.mrDateReq.Length - 4)
                                                                                                   + w.mrDateReq.Substring(3, 2)
                                                                                                   + w.mrDateReq.Substring(0, 2)) <= int.Parse(DateED)

@@ -10,7 +10,15 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: ghostwhite;
+    /*background-color: ghostwhite;*/
+    background-image: url(../images/site/bgWolf.jpg);
+    /*background-repeat: no-repeat, repeat;
+    background-size: 100% 100%;*/
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    opacity: 0.7;
 }
 
 /*#region Login */
@@ -23,7 +31,6 @@ body {
 .login-container .login-content {
     text-align: center;
     line-height: 2.5rem;
-    /*height: 100vh;*/
     min-width: 300px;
     max-width: 1600px;
     backdrop-filter: blur(1px);
@@ -111,7 +118,14 @@ body {
         .login-container .login-content .btn-container .btn.btn-login {
             width: 100%;
             border-radius: 10px;
-            background: -webkit-linear-gradient(right,#21d4fd,#b721ff,#21d4fd,#b721ff);
+            /*background: -webkit-linear-gradient(right,#21d4fd,#b721ff,#21d4fd,#b721ff);*/
+            /*background: linear-gradient(to right, #8fbfe8, #a3c4f3);*/
+            /*background: linear-gradient(to right, #7ab4eb, #9fbaf7);*/
+            background: linear-gradient(to right, #2f6fbf, #4a6fdc);
+            /*background: linear-gradient(to right, #1f4fa3, #3a4fbf);*/
+            /*background: linear-gradient(to right, #1f3c88, #2a5298);*/
+            /*background: linear-gradient(to right, #162b6f, #1f3c88);*/
+            /*background: linear-gradient(to right, #0f2027, #203a43);*/
             color: white;
             font-weight: bold;
         }
