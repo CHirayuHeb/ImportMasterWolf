@@ -1,0 +1,146 @@
+﻿@model ImportMasterWolf.Models.Common.Class;
+
+<link href="~/css/New/siteNew.css" rel="stylesheet" />
+<link href="~/css/cssTable.css" rel="stylesheet" />
+<div>
+    <div class="row g-3">
+        <div class="col-md-6">
+            <span style="font-size:13px;font-weight:600">Data Table : MSTMasterData  จำนวน : @Model._ListViewMSTMasterData.Count()  แถว</span>
+        </div>
+        <div class="col-md-6" style="text-align:right;padding-right:30px">
+            @*<input type="button" style="font-size:20px;" value="&#128462; NEW" onclick="_MenubarDetailMSTMaster(0,'@Url.Action("SearchMaster","New")')">*@
+
+            <input type="button" style="font-size:15px; background-color: #28a745; color: white; border: none; padding: 5px 15px; border-radius: 5px; cursor: pointer;"
+                   value="&#10010; NEW"
+                   onclick="_MenubarDetailMSTMaster(0,'@Url.Action("SearchMaster","New")')">
+        </div>
+    </div>
+
+
+    <div class="wrapperTB" style="margin-top:10px">
+        <span style="font-size:12px;font-weight:900">ค้นหา</span> <input type="text" id="searchInputTMasterData" placeholder="Search..." style="margin-bottom:10px; width:200px; font-size:10px" asp-for="_vSblock">
+
+        <table class="TbGreen tbMTData">
+            <thead>
+                <tr>
+                    <th>MasterId</th>
+                    <th>MasterType</th>
+                    <th>ICS No.</th>
+                    <th>ICS Name</th>
+                    <th>MAT Group</th>
+                    <th>Value4</th>
+                    <th>Value5</th>
+                    <th>IsActive</th>
+                    <th>CreatedDate</th>
+                    <th>CreatedBy</th>
+                    <th>ModifiedDate</th>
+                    <th>ModifiedBy</th>
+                    <th>Seq</th>
+                    <th>Edit</th>
+                    <th>Del</th>
+                </tr>
+            </thead>
+
+            <tbody id="tbodyMSTMasterData">
+                @{
+                    foreach (var item in Model._ListViewMSTMasterData)
+                    {
+                        <tr>
+                            <td>
+                                @item.MasterId
+                                <input class="txtMasterId" value="@item.MasterId" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td >
+                                @item.MasterType
+                                <input class="txtMasterType" value="@item.MasterType" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.Value1
+                                <input class="txtValue1" value="@item.Value1" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.Value2
+                                <input class="txtValue2" value="@item.Value2" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.Value3
+                                <input class="txtValue3" value="@item.Value3" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.Value4
+                                <input class="txtValue4" value="@item.Value4" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.Value5
+                                <input class="txtValue5" value="@item.Value5" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.IsActive
+                                <input class="txtIsActive" value="@item.IsActive.ToString()" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.CreatedDate
+                                <input class="txtCreatedDate" value="@item.CreatedDate" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.CreatedBy
+                                <input class="txtCreatedBy" value="@item.CreatedBy" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.ModifiedDate
+                                <input class="txtModifiedDate" value="@item.ModifiedDate" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.ModifiedBy
+                                <input class="txtModifiedBy" value="@item.ModifiedBy" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.Seq
+                                <input class="txtSeq" value="@item.Seq" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td style="text-align:center">
+                                <input type="button" style="font-size:13px;" value="&#128221;" onclick="_MenubarDetailMSTMaster(@item.MasterId,'@Url.Action("SearchMaster","New")')">
+                            </td>
+                            <td style="text-align:center">
+                                <input type="button" style="font-size:13px;" value="&#x274c;" onclick="_MenubarDeleteMSTMaster(@item.MasterId,'@Url.Action("DeleteMaster","New")')">
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+
+
+        </table>
+    </div>
+    <!-- Modal-->
+    <div class="modal modal-md fade" id="myModalDetailData"
+         style="background-color:#4f4b4b4d;"
+         data-bs-backdrop="static"
+         data-bs-keyboard="false"
+         tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- HEADER -->
+                <div class="modal-header card-header bg-lightseagreen text-white">
+                    <h5 class="mb-0">จัดการข้อมูล Master Data</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <!-- BODY -->
+                <div class="modal-body" id="myModalBodyDetailData">
+                   
+                </div>
+                <!-- FOOTER -->
+                @*<div class="modal-footer">
+
+                        <div class="card-footer text-end">
+                            <hr />
+
+                            <button type="button" class="btn btn-primary px-4" onclick="_MenubarSaveMSTMaster('@Url.Action("SaveMasterData","New")')">บันทึกข้อมูล</button>
+                            <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+</div>

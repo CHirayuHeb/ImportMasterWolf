@@ -17,6 +17,7 @@ namespace ImportMasterWolf.Models.Common
         public string param { get; set; }
 
         public string _vType { get; set; }
+        public string _vSblock { get; set; }
 
         //IT
         public ViewrpEmail _ViewrpEmail { get; set; }
@@ -80,11 +81,16 @@ namespace ImportMasterWolf.Models.Common
         public ViewCloneMSTEmployee _ViewCloneMSTEmployee { get; set; }
         public List<ViewCloneMSTEmployee> _ListViewCloneMSTEmployee { get; set; }
 
-       
+
 
         //wolf center
         public ViewWOLFAccount _ViewWOLFAccount { get; set; }
         public List<ViewWOLFAccount> _ListViewWOLFAccount { get; set; }
+
+
+        //open block slow
+        public ViewMSTMasterData _ViewMSTMasterData{get;set;}
+        public List<ViewMSTMasterData> _ListViewMSTMasterData { get; set; }
 
     }
 

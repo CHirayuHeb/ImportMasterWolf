@@ -1,0 +1,73 @@
+﻿@model ImportMasterWolf.Models.Common.Class;
+<div>
+    <form action="" id="formMTSMasterData" name="formMTSMasterData">
+        <div class="card-body">
+            <div class="row g-3">
+                @* ซ่อน ID ไว้ถ้าไม่จำเป็นต้องแก้ *@
+                <input type="hidden" asp-for="_ViewMSTMasterData.MasterId" />
+                <input type="hidden" asp-for="_ViewMSTMasterData.MasterType" />
+                <input type="hidden" asp-for="_ViewMSTMasterData.Value4" />
+                <input type="hidden" asp-for="_ViewMSTMasterData.Value5" />
+                <input type="hidden" asp-for="_ViewMSTMasterData.Seq" />
+                <div class="col-md-12">
+
+                    <div class="d-block text-black fw-semibold" style="font-size:14px; padding-left: 0px;">
+                        Master ID :  @Model._ViewMSTMasterData.MasterId
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <label class="form-label fw-bold" style="font-size:12px">ประเภท (Type)</label>
+                    <div class="d-block text-black fw-semibold" style="font-size:14px; padding-left: 10px;">
+                        @Model._ViewMSTMasterData.MasterType
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <label asp-for="_ViewMSTMasterData.Value1" class="form-label fw-bold" style="font-size:12px">ICS No.</label>
+                    <input asp-for="_ViewMSTMasterData.Value1" class="form-control" style="font-size:12px" id="MTDValue1" />
+                </div>
+                <div class="col-md-12">
+                    <label asp-for="_ViewMSTMasterData.Value2" class="form-label fw-bold" style="font-size:12px">ICS Name</label>
+                    <input asp-for="_ViewMSTMasterData.Value2" class="form-control" style="font-size:12px" id="MTDValue2" />
+                </div>
+                <div class="col-md-12">
+                    <label asp-for="_ViewMSTMasterData.Value3" class="form-label fw-bold" style="font-size:12px">MAT Group</label>
+                    <input asp-for="_ViewMSTMasterData.Value3" class="form-control" style="font-size:12px" id="MTDValue3" />
+                </div>
+                @*<div class="col-md-12">
+                        <label asp-for="_ViewMSTMasterData.Value4" class="form-label">ค่าที่ 4</label>
+                        <input asp-for="_ViewMSTMasterData.Value4" class="form-control" />
+                    </div>
+                    <div class="col-md-12">
+                        <label asp-for="_ViewMSTMasterData.Value5" class="form-label">ค่าที่ 5</label>
+                        <input asp-for="_ViewMSTMasterData.Value5" class="form-control" />
+                    </div>*@
+                <div class="col-md-12">
+                    <label>@Model._ViewMSTMasterData.IsActive.ToString()</label>
+                    @*<input type="checkbox" asp-for="_ViewMSTMasterData.IsActive" value="Model._ViewMSTMasterData.IsActive" />*@
+
+                    <label  class="form-check-label" style="font-size:12px">เปิดใช้งาน (Active)</label><br />
+                        <input asp-for="_ViewMSTMasterData.IsActive" class="form-check-input" type="checkbox" role="switch" style="font-size:23px">
+                    @*<input type="hidden"asp-for="_ViewMSTMasterData.IsActive" value="false" />
+                        <input type="checkbox" asp-for="_ViewMSTMasterData.IsActive" value="true" />*@
+
+                    @*@Html.RadioButtonFor(m => m._ViewMSTMasterData.IsActive.ToString(), "true", new { @class = "", id = "StatusApp", required = "required", @style = "height:20px;width:20px;" }) <label style="font-size: 12px;">Approve</label><br />*@
+              
+
+
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-end">
+            <hr />
+            <button type="button" class="btn btn-primary px-4" onclick="_MenubarSaveMSTMaster(this,'@Url.Action("SaveMasterData","New")')">บันทึก</button>
+            <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Close</button>
+        </div>
+    </form>
+
+    @*<div class="card-header bg-primary text-white">
+            <h5 class="mb-0">จัดการข้อมูล Master Data</h5>
+        </div>*@
+
+</div>

@@ -18,28 +18,40 @@
         <br />
         <div class="row" style="margin-bottom:10px">
             <div class="col-10">
-
             </div>
-            <div class="col-50" style="padding-left:10px">
+            <div class="col-30" style="padding-left:10px">
                 <span style="font-weight:800;font-size:16px">
                     Update Data :
                     <span id="lType" style="color:green">@Model._vType</span>
                 </span>
-
             </div>
-            <div class="col-20" style="text-align:right">
-                <button class="button btnGray" style="width:auto; " type="submit"
+            <div class="col-30" style="text-align:right">
+                <button class="button btnGray" style="width:auto;@(Model._vType != "OpenBlock" ? "":"display:none")  " type="submit"
                         onclick="Menubar_SaveData('@Url.Action("CheckData", "New")','Append')">
                     <img src="~/images/savey.png" style="width:30px;height:24px;padding-right:5px;margin-right:8px;margin-top: 2px;margin-bottom: 2px;" />
                     Added Data
                 </button>
             </div>
-            <div class="col-20" style="text-align:center">
-                <button class="button btnGray" style="width:auto; " type="submit"
+            <div class="col-30" style="text-align:center">
+                <button class="button btnGray" style="width:auto;@(Model._vType != "OpenBlock" ? "":"display:none") " type="submit"
                         onclick="Menubar_SaveData('@Url.Action("CheckData", "New")','Update')">
                     <img src="~/images/save.png" style="width:30px;height:24px;padding-right:5px;margin-right:8px;margin-top: 2px;margin-bottom: 2px;" />
                     Update ALL
                 </button>
+
+
+                <button style="margin-right:5px;font-size:10px;width:100px; @(Model._vType == "OpenBlock" ? "":"display:none")"
+                        class="button btnOrange" id="btnExport"
+                        onclick="location.href='@Url.Action("btnExportMSTMasterData","New")'">
+                    <img src="~/images/excel.png" style="width:35px;height:26px;padding-right:5px;margin-right:8px;margin-top: 2px;margin-bottom: 2px;" />Export
+                </button>
+                <button style="margin-right:5px;font-size:10px;width:100px; @(Model._vType == "OpenBlock" ? "":"display:none")"
+                        class="button btnBlue" id="btnUploadFileMSTDATA">
+                    <img src="~/images/excel.png" style="width:35px;height:26px;padding-right:5px;margin-right:8px;margin-top: 2px;margin-bottom: 2px;" />Import
+                </button>
+                @*<a href="@Url.Action("New", "btnExportMSTMasterData")" target="_blank" style="font-size:22px;text-decoration: none;">
+                    &#x1F50E;
+                </a>*@
             </div>
         </div>
         <form id="formNewimport" name="formNewimport">
@@ -132,6 +144,20 @@
                         </div>
                     </div>
                 }
+                else if (Model._vType == "OpenBlock")
+                {
+                    <div class="accordion-item">
+                        <div class="accordion-header " style="display:flex; justify-content:space-between; align-items:center;">
+                            <div>
+                                <span style="color:black;font-size:15px">Master Data</span>
+                            </div>
+                            <span class="toggle-icon" style="color:black;font-size:15px">+</span>
+                        </div>
+                        <div class="accordion-content">
+                            @await Html.PartialAsync("_PartialViewMSTMasterData.cshtml", Model)
+                        </div>
+                    </div>
+                }
 
 
             </div>
@@ -139,8 +165,45 @@
 
 
 
+        <div class="modal modal fade" id="myModalMSTDataUpload" style="background-color:#4f4b4b4d;" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content" style="min-height:auto">
+                    <div class="modal-body" id="myModalBodyMSTDataUpload">
+                        <form id="formModelMSTData" name="formModelMSTData" enctype="multipart/form-data">
+                            <div class="modal-header" style="margin-top:1px">
+                                <h5 class="modal-title">
+                                    <span style="font-weight: bold; font-size: 16px;"><img src="~/images/folders.png" height="35px" width="35px" style="vertical-align:middle" /> Upload Excel File <span style="color:red;font-size:13px">*รบกวนดาวน์โหลด Format excel ใหม่ทุกครั้ง</span></span>
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class=" panel-group ir fadeInUp animated wowload animated" style="visibility: visible; animation-name: fadeInUp; margin-bottom: 5px; ">
+                                <div class="panel panel-default property">
+                                    <div class="panel-collapse collapse show " style=" height: auto;padding-top: 5px;">
+                                        <span style="color:black;font-size:12px;font-weight:600">คลิกเพื่อเลือกไฟล์ Excel </span>
 
+                                        <div class="panel-body center">
 
+                                            <input name="files" type="file" id="filesImport" class="button btnGray " style="width:100%" accept=".xls,.xlsx" required>
+                                            <br />
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer " style="width: 30%;">
+                                <input type="button"
+                                       style="font-size:14px;height:30px;padding:2px"
+                                       value="&#x1F4E4; อัพโหลด"
+                                       class="button"
+                                       onclick="Menubar_uploadFileMSTMaster('@Url.Action("ImportDataFile","New")')" />
+                                @*<button class="button" style="width:80%;height:30px;width:100px" onclick="Menubar_uploadFileWK('@Url.Action("ImportDataFile","NewMoldOtherWK")')">Upload & Read</button>*@
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
     </div>

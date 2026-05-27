@@ -831,7 +831,7 @@ function Menubar_SaveData(action, tsave) {
                             NameEn: tr.querySelector(".txtNameEn").value,
                             CreatedDate: "",//tr.querySelector(".txtDivisionId").value,
                             CreatedBy: tr.querySelector(".txtCreatedBy").value,
-                            ModifiedDate: tr.querySelector(".txtModifiedDate").value,
+                            ModifiedDate: "",// tr.querySelector(".txtModifiedDate").value,
                             ModifiedBy: tr.querySelector(".txtModifiedBy").value,
                             IsActive: tr.querySelector(".txtIsActive").value,
                             AccountId: tr.querySelector(".txtAccountId").value,
@@ -1029,10 +1029,10 @@ function Menubar_SaveData(action, tsave) {
         });
     }
 
-  
 
-    
-  
+
+
+
 
 }
 
@@ -1158,3 +1158,231 @@ function sendTbodyInBatchesByRow(tbodyId, actionUrl, batchSize = 1000) {
         })(rows.slice(i, i + batchSize)); // ส่ง batch นี้
     }
 }
+
+
+function _MenubarDetailMSTMaster(Mid, actionUrl) {
+
+    $.ajax({
+        url: actionUrl,
+        type: 'POST',
+        data: {
+            MasterId: Mid
+        },
+        beforeSend: function () {
+            console.log("Showing loader..."); // ตรวจสอบว่าทำงานจริง
+
+        },
+        success: function (response) {
+            //$("#myModalDetailData").html(response); // แสดง Loader
+            $("#myModalBodyDetailData").html(response);
+            $("#myModalDetailData").modal("show");
+        }
+    });
+
+
+
+
+}
+
+function _MenubarDeleteMSTMaster(Mid, actionUrl) {
+    let vsearch = document.getElementById("searchInputTMasterData").value;
+    Swal.fire({
+        title: "Are you sure?",
+        text: "Are you sure Delete : Master ID : " + Mid + " ?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        cancelButtonText: "No"
+    }).then((result) => {
+        if (result['isConfirmed']) {
+            $.ajax({
+                type: 'post',
+                url: actionUrl,
+                data: { MasterId: Mid },
+                success: function (res) {
+                    swal.fire({
+                        title: 'แจ้งเตือน',
+                        icon: res.res,
+                        text: res.res,
+                    })
+                        .then((result) => {
+                            GoNewRequest('OpenBlock&_vSblock=' + vsearch + '');
+                        });
+
+
+
+                }
+            });
+        } else {
+
+            return false;
+        }
+
+    });
+}
+
+function _MenubarSaveMSTMaster(btn, actionUrl) {
+    let vsearch = document.getElementById("searchInputTMasterData").value;
+    var $form = $(btn).closest('form');
+    var formData = new FormData($form[0]);
+    if ($form.length > 0) {
+        console.log("เจอ Form แล้ว!", $form.serialize());
+        // สั่ง AJAX POST ข้อมูลใน $form ต่อได้เลย
+        var value1 = document.getElementById("MTDValue1").value;
+        var value2 = document.getElementById("MTDValue2").value;
+        var value3 = document.getElementById("MTDValue3").value;
+        if (value1 == "" || value2 == "" || value3 == "") {
+            //Swal.fire({
+            //    icon: 'แจ้งเตือน',
+            //    title: 'warning',
+            //    text: "กรุณากรอกข้อมูลให้ครบถ้วน !!!!",
+            //})
+            //    .then((result) => {
+            //        return false;
+            //    });
+
+            swal.fire({
+                title: 'Please Input Data',
+                icon: 'info',
+                text: "กรุณากรอกข้อมูลให้ครบถ้วน !!!!",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    return false;
+                }
+            });
+
+        } else {
+            $.ajax({
+                type: "POST",
+                url: actionUrl,
+                data: formData,
+                processData: false,
+                contentType: false,
+                beforeSend: function () {
+                    swal.fire({
+                        html: '<h5>Loading...</h5>',
+                        showConfirmButton: false,
+                        onRender: function () {
+                            // there will only ever be one sweet alert open.
+                            //$('.swal2-content').prepend(sweet_loader);
+                        }
+                    });
+                },
+                success: async function (config) {
+                    // alert(config.c1);
+                    if (config.c1 == "S") {
+                        // $("#loaderDiv").hide();
+                        await $("#myModalDetailData").modal("hide");
+                        swal.fire({
+                            title: 'SUCCESS',
+                            icon: 'success',
+                            text: config.c2,
+                        }).then((result) => {
+                            //GoSideMenu("AddProcess");
+                            //GoNewRequest('OpenBlock');
+                            GoNewRequest('OpenBlock&_vSblock=' + vsearch + '');
+                        });
+                    }
+                    else if (config.c1 == "E") {
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'ERROR',
+                            text: config.c2,
+                        })
+                            .then((result) => {
+                                $("#myModal5").modal("show");
+                            });
+
+                    }
+                    else if (config.c1 == "N") {
+
+                        Swal.fire({
+                            icon: 'แจ้งเตือน',
+                            title: 'warning',
+                            text: config.c2,
+                        })
+                            .then((result) => {
+                                $("#myModal5").modal("show");
+                            });
+
+                    }
+                }
+            });
+
+        }
+
+    } else {
+        alert("หา Form ไม่เจอ! เช็กว่ามี <form> คลุมปุ่มหรือยัง");
+    }
+
+
+
+
+}
+function Menubar_uploadFileMSTMaster(action) {
+    //var getID = document.getElementById("i_NewOtherWK_DocumentNo").value; //txtMIssueID
+    const form1 = document.forms.namedItem("formModelMSTData");
+    let viewModel1 = new FormData(form1);
+
+
+    $.ajax({
+        type: 'post',
+        url: action,
+        data: viewModel1,
+        processData: false,
+        contentType: false,
+        success: async function (config) {
+            await $("#myModalMSTDataUpload").modal("hide");
+            // alert(config.c1);
+            if (config.c1 == "S") {
+                swal.fire({
+                    title: 'SUCCESS',
+                    icon: 'success',
+                    text: config.c2,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        //console.log("getID==> " + getID);
+                        //GoNewMoldOtherWKRequest(getID, "");
+                        GoNewRequest('OpenBlock');
+
+                    }
+                });
+            }
+            else if (config.c1 == "E") {
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'ERROR',
+                    text: config.c2,
+                })
+                    .then((result) => {
+                        $('#filesImport').val('');
+                        $("#myModalMSTDataUpload").modal("show");
+                    });
+
+            }
+            else if (config.c1 == "P") {
+
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'warning',
+                    text: config.c2,
+                })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            $('#filesImport').val('');
+                            $("#myModalMSTDataUpload").modal("show");
+                        }
+
+                    });
+
+            }
+
+        }
+    });
+
+
+
+}
+

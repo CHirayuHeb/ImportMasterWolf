@@ -67,3 +67,5 @@ C:\Users\ths015142\OneDrive - STANLEY ELECTRIC CO., LTD\Desktop\Work\MVC Project
 C:\Users\ths015142\OneDrive - STANLEY ELECTRIC CO., LTD\Desktop\Work\MVC Project\ImportMasterWolf\ImportMasterWolf\obj\Release\netcoreapp2.1\Razor\Views\New\_PartialViewMSTDivision.g.cshtml.cs
 C:\Users\ths015142\OneDrive - STANLEY ELECTRIC CO., LTD\Desktop\Work\MVC Project\ImportMasterWolf\ImportMasterWolf\obj\Release\netcoreapp2.1\Razor\Views\New\_PartialViewMSTPosition.g.cshtml.cs
 C:\Users\ths015142\OneDrive - STANLEY ELECTRIC CO., LTD\Desktop\Work\MVC Project\ImportMasterWolf\ImportMasterWolf\obj\Release\netcoreapp2.1\Razor\Views\New\_PartialViewWOLFAccount.g.cshtml.cs
+C:\Users\ths015142\OneDrive - STANLEY ELECTRIC CO., LTD\Desktop\Work\MVC Project\ImportMasterWolf\ImportMasterWolf\obj\Release\netcoreapp2.1\Razor\Views\New\_PartialViewMSTMasterData.g.cshtml.cs
+C:\Users\ths015142\OneDrive - STANLEY ELECTRIC CO., LTD\Desktop\Work\MVC Project\ImportMasterWolf\ImportMasterWolf\obj\Release\netcoreapp2.1\Razor\Views\New\_PartialViewMSTMasterDataDetail.g.cshtml.cs

@@ -109,17 +109,34 @@ namespace ImportMasterWolf
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            // 1. จัดการไฟล์ Static ก่อน
             app.UseStaticFiles();
+
+            // 2. ตั้งค่า Cookie Policy
+            app.UseCookiePolicy();
+
+            // 3. แทรก Middleware ห้ามเก็บ Cache (จะส่งผลเฉพาะหน้าที่ไม่ใช่ Static Files)
+            //app.Use(async (context, next) =>
+            //{
+            //    context.Response.Headers["Cache-Control"] = "no-cache, no-store, must-revalidate";
+            //    context.Response.Headers["Pragma"] = "no-cache";
+            //    context.Response.Headers["Expires"] = "0";
+            //    await next();
+            //});
+
+            // 4. ระบบ Login และ Session
             app.UseAuthentication();
             app.UseSession();
 
+
+            // 5. ระบบ Routing
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Login}/{action=Index}");
             });
-            app.UseCookiePolicy();
+        
         }
     }
 }

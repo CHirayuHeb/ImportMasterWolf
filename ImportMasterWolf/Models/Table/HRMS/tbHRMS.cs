@@ -31,6 +31,9 @@ namespace ImportMasterWolf.Models.Table.HRMS
         public string QUIT_CODE { get; set; }
         public string INTERCOMNO { get; set; }
 
+        //public string EMP_HEADCODE { get; set; }
+        public string EMP_HEADCODE { get; set; }//report to employee
+
 
     }
     [Table("AccDEPTMAST")]

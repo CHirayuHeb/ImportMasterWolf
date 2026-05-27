@@ -5,77 +5,75 @@
 <div>
     <span style="font-size:13px;font-weight:600">Data Table : MSTPosition  จำนวน : @Model._ListViewMSTPosition.Count()   แถว</span>
     <div class="wrapperTB" style="margin-top:10px">
-        <div class="wrapperTB" style="margin-top:10px">
-            <table class="TbGreen">
-                <tr>
-                    <th>PositionId</th>
-                    <th>NameTh</th>
-                    <th>NameEn</th>
-                    <th>PositionLevelId</th>
-                    <th>IsActive</th>
-                    <th>CreatedDate</th>
-                    <th>CreatedBy</th>
-                    <th>ModifiedDate</th>
-                    <th>ModifiedBy</th>
-                    <th>AccountId</th>
-                    <th>CompanyCode</th>
-                </tr>
-                <tbody id="tbodyMSTPosition">
-                    @{
-                        foreach (var item in Model._ListViewMSTPosition)
-                        {
-                            <tr id='trMSTPosition'>
-                                <td>
-                                    @item.PositionId
-                                    <input class="txtPositionId" value="@item.PositionId" autocomplete="off" style="display:none" type="text" />
-                                </td>
-                                <td>
-                                    @item.NameTh
-                                    <input class="txtNameTh" value="@item.NameTh" autocomplete="off" style="display:none" type="text" />
-                                </td>
-                                <td>
-                                    @item.NameEn
-                                    <input class="txtNameEn" value="@item.NameEn" autocomplete="off" style="display:none" type="text" />
-                                </td>
-                                <td>
-                                    @item.PositionLevelId
-                                    <input class="txtPositionLevelId" value="@item.PositionLevelId" autocomplete="off" style="display:none" type="text" />
-                                </td>
-                                <td>
-                                    @item.IsActive
-                                    <input class="txtIsActive" value="@item.IsActive.ToString()" autocomplete="off" style="display:none" type="text" />
-                                </td>
-                                <td>
-                                    @item.CreatedDate
-                                    <input class="txtCreatedDate" value="@item.CreatedDate" autocomplete="off" style="display:none" type="text" />
-                                </td>
-                                <td>
-                                    @item.CreatedBy
-                                    <input class="txtCreatedBy" value="@item.CreatedBy" autocomplete="off" style="display:none" type="text" />
-                                </td>
-                                <td>
-                                    @item.ModifiedDate
-                                    <input class="txtModifiedDate" value="@item.ModifiedDate" autocomplete="off" style="display:none" type="text" />
-                                </td>
-                                <td>
-                                    @item.ModifiedBy
-                                    <input class="txtModifiedBy" value="@item.ModifiedBy" autocomplete="off" style="display:none" type="text" />
+        <table class="TbGreen">
+            <tr>
+                <th>PositionId</th>
+                <th>NameTh</th>
+                <th>NameEn</th>
+                <th>PositionLevelId</th>
+                <th>IsActive</th>
+                <th>CreatedDate</th>
+                <th>CreatedBy</th>
+                <th>ModifiedDate</th>
+                <th>ModifiedBy</th>
+                <th>AccountId</th>
+                <th>CompanyCode</th>
+            </tr>
+            <tbody id="tbodyMSTPosition">
+                @{
+                    foreach (var item in Model._ListViewMSTPosition)
+                    {
+                        <tr id='trMSTPosition'>
+                            <td>
+                                @item.PositionId
+                                <input class="txtPositionId" value="@item.PositionId" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.NameTh
+                                <input class="txtNameTh" value="@item.NameTh" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.NameEn
+                                <input class="txtNameEn" value="@item.NameEn" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.PositionLevelId
+                                <input class="txtPositionLevelId" value="@item.PositionLevelId" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.IsActive
+                                <input class="txtIsActive" value="@item.IsActive.ToString()" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.CreatedDate
+                                <input class="txtCreatedDate" value="@item.CreatedDate" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.CreatedBy
+                                <input class="txtCreatedBy" value="@item.CreatedBy" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.ModifiedDate
+                                <input class="txtModifiedDate" value="@item.ModifiedDate" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.ModifiedBy
+                                <input class="txtModifiedBy" value="@item.ModifiedBy" autocomplete="off" style="display:none" type="text" />
 
-                                </td>
-                                <td>
-                                    @item.AccountId
-                                    <input class="txtAccountId" value="@item.AccountId" autocomplete="off" style="display:none" type="text" />
-                                </td>
-                                <td>
-                                    @item.CompanyCode
-                                    <input class="txtCompanyCode" value="@item.CompanyCode" autocomplete="off" style="display:none" type="text" />
-                                </td>
-                            </tr>
-                        }
+                            </td>
+                            <td>
+                                @item.AccountId
+                                <input class="txtAccountId" value="@item.AccountId" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                            <td>
+                                @item.CompanyCode
+                                <input class="txtCompanyCode" value="@item.CompanyCode" autocomplete="off" style="display:none" type="text" />
+                            </td>
+                        </tr>
                     }
-                </tbody>
-            </table>
+                }
+            </tbody>
+        </table>
 
-        </div>
     </div>
 </div>

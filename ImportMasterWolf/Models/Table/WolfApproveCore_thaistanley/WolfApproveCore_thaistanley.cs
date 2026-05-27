@@ -27,6 +27,7 @@ namespace ImportMasterWolf.Models.Table.WolfApproveCore_thaistanley
         public string DIRECT_INDIRECT_CODE { get; set; }
         public string INTERCOMNO { get; set; }
         public string NICKNAME { get; set; }
+        //public string EMP_HEADCODE { get; set; }//report to employee
 
     }
     public class ViewCloneMSTATACCEmployee
@@ -107,7 +108,7 @@ namespace ImportMasterWolf.Models.Table.WolfApproveCore_thaistanley
         public int? EmployeeLevel { get; set; }
         public DateTime? EffectiveDate { get; set; }
         public string Userid_Line { get; set; }
-     
+
     }
 
     public class ViewCloneMSTEmployee
@@ -226,5 +227,29 @@ namespace ImportMasterWolf.Models.Table.WolfApproveCore_thaistanley
         public string CompanyCode { get; set; }
 
     }
+
+
+    [Table("MSTMasterData")]
+    public class ViewMSTMasterData
+    {
+
+        [Key]
+        public int MasterId { get; set; }
+        public string MasterType { get; set; }
+        public string Value1 { get; set; }
+        public string Value2 { get; set; }
+        public string Value3 { get; set; }
+        public string Value4 { get; set; }
+        public string Value5 { get; set; }
+        public bool IsActive { get; set; } = true;
+        public DateTime? CreatedDate { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime? ModifiedDate { get; set; }
+        public string ModifiedBy { get; set; }
+        public int? Seq { get; set; }
+
+
+    }
+
 
 }
