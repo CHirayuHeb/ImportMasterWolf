@@ -401,6 +401,7 @@ namespace ImportMasterWolf.Controllers.New
 
             try
             {
+                @class._ListViewMSTEmployee = new List<ViewMSTEmployee>();
                 // 1. ดึงข้อมูลพื้นฐานมาทำ Dictionary ไว้ก่อน (Lookup Tables)
                 var divDict = _WolfApproveCore_thaistanley._ViewMSTDivision.ToDictionary(x => x.DivisionCode, x => x.DivisionId);
                 //var deptDict = _WolfApproveCore_thaistanley._ViewMSTDepartment.ToDictionary(x => x.DepartmentCode, x => x.DepartmentId);
@@ -424,10 +425,22 @@ namespace ImportMasterWolf.Controllers.New
                 var dmHcm = int.Parse(posListAll.First(x => x.POS_CODE == "DM").POS_HCM_CODE);
 
                 // กรองหัวหน้างานไว้รอ (Superior Candidates)
+                //var superiorPosList = posListAll
+                //    .Where(x => int.Parse(x.POS_HCM_CODE) >= dmHcm &&
+                //                !new[] { "DDM", "AV", "SAV", "PJ", "UL" }.Contains(x.POS_CODE))
+                //    .ToList();
+
                 var superiorPosList = posListAll
-                    .Where(x => int.Parse(x.POS_HCM_CODE) >= dmHcm &&
-                                !new[] { "DDM", "AV", "SAV", "PJ", "UL" }.Contains(x.POS_CODE))
-                    .ToList();
+                                     .Where(x =>
+                                     {
+                                         int posHcmCode;
+
+                                         return int.TryParse(x.POS_HCM_CODE, out posHcmCode)
+                                             && posHcmCode >= dmHcm
+                                             && !new[] { "DDM", "AV", "SAV", "PJ", "UL" }.Contains(x.POS_CODE);
+                                     })
+                                     .ToList();
+
 
                 var empList = _HRMS.AccEMPLOYEE
                     .Where(x => x.QUIT_CODE == null)
@@ -1036,12 +1049,12 @@ namespace ImportMasterWolf.Controllers.New
 
 
                 //list dep ปัจจุบันใน WOLF
-             
+
                 _ListMSTDepartment = _WolfApproveCore_thaistanley._ViewMSTDepartment.ToList();
                 var _DepartmentDict = _ListMSTDepartment.ToDictionary(x => x.DepartmentCode);
                 var _DEPTMASTList = _HRMS.AccDEPTMAST.OrderBy(x => x.DeptNo).ToList();
 
-               
+
                 foreach (var dept in _DEPTMASTList)
                 {
                     // ถ้าใน Dictionary 'ไม่มี' รหัสแผนกนี้อยู่ (ใช้ .ContainsKey)
@@ -1055,9 +1068,9 @@ namespace ImportMasterWolf.Controllers.New
                                              return new { item, key };
                                          })
                                          .Where(x => divisionDict.TryGetValue(x.key, out _))
-                                         .Select(x=> divisionDict[x.key]).FirstOrDefault();
-                                       
-                        
+                                         .Select(x => divisionDict[x.key]).FirstOrDefault();
+
+
                         _ListMSTDepartment.Add(new ViewMSTDepartment
                         {
                             DepartmentId = _ListMSTDepartment.Max(x => x.DepartmentId) + 1,
@@ -1075,7 +1088,7 @@ namespace ImportMasterWolf.Controllers.New
                             CompanyCode = "01111"
 
                         });
-                        
+
                     }
                 }
 

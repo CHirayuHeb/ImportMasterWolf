@@ -61,10 +61,10 @@ namespace ImportMasterWolf.Controllers.Account
             //    if (key == "UpdateDataWolf") { RunImport(key); }
             //}
             //dep divi 
-            if (key == "UpdateDepWolf") { RunDep(key); }
-            //employee
-            if (key == "AddDataWolf") { RunImport(key); }
-            if (key == "UpdateDataWolf") { RunImport(key); }
+            //if (key == "UpdateDepWolf") { RunDep(key); }
+            ////employee
+            //if (key == "AddDataWolf") { RunImport(key); }
+            //if (key == "UpdateDataWolf") { RunImport(key); }
 
 
             if (remember != null)
