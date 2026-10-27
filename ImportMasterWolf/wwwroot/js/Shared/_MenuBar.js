@@ -1321,11 +1321,11 @@ function _MenubarSaveMSTMaster(btn, actionUrl) {
 
 }
 function Menubar_uploadFileMSTMaster(action) {
-    //var getID = document.getElementById("i_NewOtherWK_DocumentNo").value; //txtMIssueID
+    var chkDelete = document.getElementById("chDelete").checked;
     const form1 = document.forms.namedItem("formModelMSTData");
     let viewModel1 = new FormData(form1);
-
-
+    viewModel1.append("vcheckDelete", chkDelete);
+    viewModel1
     $.ajax({
         type: 'post',
         url: action,
@@ -1378,7 +1378,22 @@ function Menubar_uploadFileMSTMaster(action) {
                     });
 
             }
+            else if (config.c1 == "W") {
 
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'warning',
+                    text: config.c2,
+                })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            $('#filesImport').val('');
+                            $("#myModalMSTDataUpload").modal("show");
+                        }
+
+                    });
+
+            }
         }
     });
 

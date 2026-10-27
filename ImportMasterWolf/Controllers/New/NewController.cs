@@ -422,7 +422,8 @@ namespace ImportMasterWolf.Controllers.New
 
                 // 2. เตรียมข้อมูลพนักงานและตำแหน่ง
                 var posListAll = _HRMS.AccPOSMAST.ToList();
-                var dmHcm = int.Parse(posListAll.First(x => x.POS_CODE == "DM").POS_HCM_CODE);
+                //var dmHcm = int.Parse(posListAll.First(x => x.POS_CODE == "DM").POS_HCM_CODE);
+                var dmHcm = int.Parse(posListAll.First(x => x.POS_CODE == "GM").POS_HCM_CODE);
 
                 // กรองหัวหน้างานไว้รอ (Superior Candidates)
                 //var superiorPosList = posListAll
@@ -437,7 +438,8 @@ namespace ImportMasterWolf.Controllers.New
 
                                          return int.TryParse(x.POS_HCM_CODE, out posHcmCode)
                                              && posHcmCode >= dmHcm
-                                             && !new[] { "DDM", "AV", "SAV", "PJ", "UL" }.Contains(x.POS_CODE);
+                                             //&& !new[] { "DDM", "AV", "SAV", "PJ", "UL" }.Contains(x.POS_CODE);
+                                             && !new[] { "SPM", "AV", "SAV", "PJ", "UL" }.Contains(x.POS_CODE);
                                      })
                                      .ToList();
 
@@ -556,7 +558,7 @@ namespace ImportMasterWolf.Controllers.New
                         oldItem.PositionId = newItem.PositionId;
                         oldItem.DepartmentId = newItem.DepartmentId;
                         oldItem.DivisionId = newItem.DivisionId;
-                        // oldItem.ReportToEmpCode = newItem.ReportToEmpCode;
+                        oldItem.ReportToEmpCode = newItem.ReportToEmpCode;
                         oldItem.Lang = oldItem.Lang is null || oldItem.Lang == "" ? "EN" : oldItem.Lang;
                         oldItem.Userid_Line = "";
                     }
@@ -746,12 +748,12 @@ namespace ImportMasterWolf.Controllers.New
 
                 // 2. เตรียมข้อมูลพนักงานและตำแหน่ง
                 var posListAll = _HRMS.AccPOSMAST.ToList();
-                var dmHcm = int.Parse(posListAll.First(x => x.POS_CODE == "DM").POS_HCM_CODE);
+                var dmHcm = int.Parse(posListAll.First(x => x.POS_CODE == "GM").POS_HCM_CODE);
 
                 // กรองหัวหน้างานไว้รอ (Superior Candidates)
                 var superiorPosList = posListAll
                     .Where(x => int.Parse(x.POS_HCM_CODE) >= dmHcm &&
-                                !new[] { "DDM", "AV", "SAV", "PJ" }.Contains(x.POS_CODE))
+                                !new[] { "SPM", "AV", "SAV", "PJ" }.Contains(x.POS_CODE))
                     .ToList();
 
                 var empList = _HRMS.AccEMPLOYEE
@@ -883,13 +885,16 @@ namespace ImportMasterWolf.Controllers.New
 
             return @class._ListViewCloneMSTEmployee;
         }
-        public List<ViewWOLFAccount> UpdateWOLFAccount()
+        public List<ViewWOLFAccount> UpdateWOLFAccount1()
         {
             string IssueBy = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value;
             List<ViewWOLFAccount> _ListViewWOLFAccount = new List<ViewWOLFAccount>();
             var emailDict = _IT.rpEmails
-                  .Where(x => !string.IsNullOrEmpty(x.emEmpcode))
+                  .Where(x => !string.IsNullOrEmpty(x.emEmpcode) && x.emEmpcode == "015461")
                   .ToDictionary(x => x.emEmpcode.Trim(), x => x.emEmail_M365);
+
+
+
             var empList1 = _HRMS.AccEMPLOYEE
                  .Where(x => x.QUIT_CODE == null)
                  .ToList(); // ดึงมาจัดการใน Memory ต่อ
@@ -944,6 +949,76 @@ namespace ImportMasterWolf.Controllers.New
             return _ListViewWOLFAccount;
         }
 
+
+        public List<ViewWOLFAccount> UpdateWOLFAccount()
+        {
+            string IssueBy = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value;
+            List<ViewWOLFAccount> _ListViewWOLFAccount = new List<ViewWOLFAccount>();
+
+            // ดึงอีเมลทั้งหมด (เอาเงื่อนไข emEmpcode == "015461" ที่ hardcode ไว้ทดสอบออก)
+            var emailDict = _IT.rpEmails
+                  .Where(x => !string.IsNullOrEmpty(x.emEmpcode))
+                  .ToDictionary(x => x.emEmpcode.Trim(), x => x.emEmail_M365);
+
+            // พนักงานที่ยังทำงานอยู่
+            var empList = _HRMS.AccEMPLOYEE
+                   .Where(x => x.QUIT_CODE == null)
+                   .ToList() // ดึงมาจัดการใน Memory ต่อ
+                   .Where(emp => emailDict.ContainsKey(emp.EMP_CODE?.Trim()))
+                   .OrderBy(x => int.Parse(x.EMP_CODE))
+                   .ToList();
+
+            // บัญชี WOLF ที่มีอยู่แล้วของ thaistanley
+            var empWolfAcc = _WolfApproveCore_Center._ViewWOLFAccount
+              .Where(x => x.ContactCode == "thaistanley")
+              .ToList();
+
+            var wolfUsernameSet = empWolfAcc
+                  .Select(x => x.Username?.Trim())
+                  .Where(x => !string.IsNullOrEmpty(x))
+                  .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+            // หาพนักงานที่มีอีเมล แต่ยังไม่มีบัญชี WOLF (ใช้ .Trim() ให้สอดคล้องกับ empList)
+            var notInWolfAccount = empList
+                                   .Select(emp => new
+                                   {
+                                       EMP_CODE = emp.EMP_CODE?.Trim(),
+                                       Email = emailDict[emp.EMP_CODE.Trim()]
+                                   })
+                                   .Where(x => !wolfUsernameSet.Contains(x.Email))
+                                   .ToList();
+
+            // หา ID สูงสุดที่มีอยู่จริงในฐานข้อมูล เพื่อไม่ให้ ID ชนกัน
+            int nextId = empWolfAcc.Any() ? empWolfAcc.Max(x => x.ID) + 1 : 1;
+
+            foreach (var item in notInWolfAccount)
+            {
+                // กันซ้ำอีกชั้น เผื่อมี email ซ้ำกันเองใน notInWolfAccount
+                if (wolfUsernameSet.Contains(item.Email))
+                    continue;
+
+                _ListViewWOLFAccount.Add(new ViewWOLFAccount
+                {
+                    ID = nextId++,
+                    ContactCode = "thaistanley",
+                    Username = item.Email,
+                    Password = "Wolf@tse1",
+                    IsVerify = true,
+                    GuidVerify = Guid.NewGuid().ToString(),
+                    Note = "",
+                    Remark = "",
+                    Description = "",
+                    CreatedDate = DateTime.Now,
+                    CreatedBy = IssueBy,
+                    ModifiedDate = DateTime.Now,
+                    IsActive = true,
+                });
+
+                wolfUsernameSet.Add(item.Email);
+            }
+
+            return _ListViewWOLFAccount;
+        }
 
         public List<ViewMSTDivision> UpdateTBMSTDivision()
         {
@@ -2076,13 +2151,16 @@ namespace ImportMasterWolf.Controllers.New
                 worksheet.Cells[1, 5].Value = "MAT Group";
                 worksheet.Cells[1, 5].Style.Border.BorderAround(ExcelBorderStyle.Thin);
 
+                worksheet.Cells[1, 6].Value = "Seq";
+                worksheet.Cells[1, 6].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+
 
                 worksheet.Cells[2, 1].Value = "1";
                 worksheet.Cells[2, 2].Value = "OPBICS";
                 worksheet.Cells[2, 3].Value = "00000";
                 worksheet.Cells[2, 4].Value = "00000";
                 worksheet.Cells[2, 5].Value = "00000";
-
+                worksheet.Cells[2, 5].Value = "1";
 
                 // Export เป็น stream
                 var stream = new MemoryStream();
@@ -2095,7 +2173,7 @@ namespace ImportMasterWolf.Controllers.New
 
 
         [HttpPost]
-        public ActionResult ImportDataFile(List<IFormFile> files, Class @class)
+        public ActionResult ImportDataFile(List<IFormFile> files, Class @class, bool vcheckDelete)
         {
             string config = "S";
             string msg = "Success!!!";
@@ -2111,10 +2189,13 @@ namespace ImportMasterWolf.Controllers.New
 
             try
             {
+
+              
+
                 string vIcsNo = "";
                 string vIcsName = "";
                 string vMATGroup = "";
-
+                string vsq = "";
 
                 @class._ListViewMSTMasterData = new List<ViewMSTMasterData>();
                 foreach (var file in files)
@@ -2148,6 +2229,7 @@ namespace ImportMasterWolf.Controllers.New
                                     vIcsNo = worksheet.Cells[row, 3].Text; // 
                                     vIcsName = worksheet.Cells[row, 4].Text; // 
                                     vMATGroup = worksheet.Cells[row, 5].Text; // 
+                                    vsq = worksheet.Cells[row, 6].Text == "" ? "1" : worksheet.Cells[row, 6].Text; // 
                                     @class._ListViewMSTMasterData.Add(new ViewMSTMasterData
                                     {
                                         //MasterId
@@ -2161,8 +2243,8 @@ namespace ImportMasterWolf.Controllers.New
                                         CreatedDate = DateTime.Now,
                                         CreatedBy = IssueBy,
                                         ModifiedDate = DateTime.Now,
-                                        ModifiedBy = IssueBy
-                                        //Seq
+                                        ModifiedBy = IssueBy,
+                                        Seq = vsq == null ? 0 : int.Parse(vsq)
 
                                     });
 
@@ -2183,6 +2265,17 @@ namespace ImportMasterWolf.Controllers.New
                     {
                         try
                         {
+                            if (vcheckDelete)
+                            {
+                                var vOPBICS = _WolfApproveCore_thaistanley
+                                    ._ViewMSTMasterData
+                                    .Where(x => x.MasterType == "OPBICS")
+                                    .ToList();
+
+                                _WolfApproveCore_thaistanley.RemoveRange(vOPBICS);
+                                _WolfApproveCore_thaistanley.SaveChanges();
+                            }
+
 
                             _WolfApproveCore_thaistanley._ViewMSTMasterData.AddRange(@class._ListViewMSTMasterData);
 
@@ -2201,6 +2294,12 @@ namespace ImportMasterWolf.Controllers.New
                     }
 
 
+                }
+                else
+                {
+                    config = "W";
+                    msg = "Please check your file format and try again.";
+                    return Json(new { c1 = config, c2 = msg });
                 }
             }
             catch (Exception ex)
