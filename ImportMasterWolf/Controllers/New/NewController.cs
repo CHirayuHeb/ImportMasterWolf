@@ -113,127 +113,7 @@ namespace ImportMasterWolf.Controllers.New
             return View("Index", @class);
         }
 
-        public List<ViewMSTATACCEmployee> UpdateTBMSTATACCEmployee1()
-        {
-            Class @class = new Class();
-            @class._ViewMSTATACCEmployee = new ViewMSTATACCEmployee();
-            @class._ListViewMSTATACCEmployee = new List<ViewMSTATACCEmployee>();
 
-
-
-            @class._ViewAccEMPLOYEE = new ViewAccEMPLOYEE();
-            @class._ListViewAccEMPLOYEE = new List<ViewAccEMPLOYEE>();
-            @class._ListViewAccEMPLOYEE = _HRMS.AccEMPLOYEE.Where(x => x.QUIT_CODE == null).OrderBy(x => int.Parse(x.EMP_CODE)).ToList();
-
-            @class._ListViewAccPOSMAST = new List<ViewAccPOSMAST>();
-            @class._ListViewAccPOSMAST = _HRMS.AccPOSMAST.ToList();
-
-            @class._ListViewAccDIVIMAST = new List<ViewAccDIVIMAST>();
-            @class._ListViewAccDIVIMAST = _HRMS.AccDIVIMAST.ToList();
-
-            @class._ListViewAccDeptMast = new List<ViewAccDeptMast>();
-            @class._ListViewAccDeptMast = _HRMS.AccDEPTMAST.ToList();
-
-            @class._ListViewAccSECMAST = new List<ViewAccSECMAST>();
-            @class._ListViewAccSECMAST = _HRMS.AccSECMAST.ToList();
-
-            @class._ListViewAccGRPMAST = new List<ViewAccGRPMAST>();
-            @class._ListViewAccGRPMAST = _HRMS.AccGROMAST.ToList();
-
-            @class._ListViewAccUNITMAST = new List<ViewAccUNITMAST>();
-            @class._ListViewAccUNITMAST = _HRMS.AccUNITMAST.ToList();
-
-            @class._ListViewAccDirIndirMast = new List<ViewAccDirIndirMast>();
-            @class._ListViewAccDirIndirMast = _HRMS.AccDirIndirMast.ToList();
-
-
-            @class._ListViewMSTATACCEmployee = new List<ViewMSTATACCEmployee>();
-            for (int i = 0; i < @class._ListViewAccEMPLOYEE.Count(); i++)
-            {
-                //string dir_code = @class._ListViewAccDirIndirMast.Where(x => x.diDiviCode == @class._ListViewAccEMPLOYEE[i].DIVI_CODE.ToString() && x.diDeptCode == @class._ListViewAccEMPLOYEE[i].DEPT_CODE.ToString() && x.diSectCode == @class._ListViewAccEMPLOYEE[i].SEC_CODE.ToString() && x.diDirIndir == @class._ListViewAccEMPLOYEE[i].DirOrIndir.ToString()).Select(x => x.diDirIndirCode).FirstOrDefault();
-                @class._ListViewMSTATACCEmployee.Add(new ViewMSTATACCEmployee
-                {
-                    EMPID = i + 1,
-                    EMPCODE = @class._ListViewAccEMPLOYEE[i].EMP_CODE.ToString(),
-                    Name = @class._ListViewAccEMPLOYEE[i].PRI_ENG.ToString() + @class._ListViewAccEMPLOYEE[i].EMP_ENAME.ToString() + "  " + @class._ListViewAccEMPLOYEE[i].LAST_ENAME.ToString(),
-                    NameTH = @class._ListViewAccEMPLOYEE[i].PRI_THAI.ToString() + @class._ListViewAccEMPLOYEE[i].EMP_TNAME.ToString() + "  " + @class._ListViewAccEMPLOYEE[i].LAST_TNAME.ToString(),
-                    JOB_NAME = @class._ListViewAccEMPLOYEE[i].JOB_CODE.ToString(),
-                    PositionName = @class._ListViewAccPOSMAST.Where(x => x.POS_CODE == @class._ListViewAccEMPLOYEE[i].POS_CODE.ToString()).Select(x => x.POS_NAME).FirstOrDefault(),
-                    DivisionName = @class._ListViewAccDIVIMAST.Where(x => x.DIVI_CODE == @class._ListViewAccEMPLOYEE[i].DIVI_CODE.ToString()).Select(x => x.DIVI_NAME).FirstOrDefault(),
-                    DepartmentName = @class._ListViewAccDeptMast.Where(x => x.DEPT_CODE == @class._ListViewAccEMPLOYEE[i].DEPT_CODE.ToString()).Select(x => x.DEPT_NAME).FirstOrDefault(),
-                    SECName = @class._ListViewAccSECMAST.Where(x => x.SEC_CODE == @class._ListViewAccEMPLOYEE[i].SEC_CODE.ToString()).Select(x => x.SEC_NAME).FirstOrDefault(),
-                    GRPName = @class._ListViewAccGRPMAST.Where(x => x.GRP_CODE == @class._ListViewAccEMPLOYEE[i].GRP_CODE.ToString()).Select(x => x.GRP_NAME).FirstOrDefault(),
-                    UNTName = @class._ListViewAccUNITMAST.Where(x => x.UNT_CODE == @class._ListViewAccEMPLOYEE[i].UNT_CODE.ToString()).Select(x => x.UNT_NAME).FirstOrDefault(),
-                    DIRECT_INDIRECT_CODE = @class._ListViewAccDirIndirMast.Where(x => x.diDiviCode == @class._ListViewAccEMPLOYEE[i].DIVI_CODE.ToString() && x.diDeptCode == @class._ListViewAccEMPLOYEE[i].DEPT_CODE.ToString() && x.diSectCode == @class._ListViewAccEMPLOYEE[i].SEC_CODE.ToString() && x.diDirIndir == @class._ListViewAccEMPLOYEE[i].DirOrIndir.ToString()).Select(x => x.diDirIndirCode).FirstOrDefault(),
-                    INTERCOMNO = @class._ListViewAccEMPLOYEE[i].INTERCOMNO.ToString() is null || @class._ListViewAccEMPLOYEE[i].INTERCOMNO.ToString() == "" ? "-" : @class._ListViewAccEMPLOYEE[i].INTERCOMNO.ToString(),
-                    NICKNAME = @class._ListViewAccEMPLOYEE[i].NICKNAME.ToString()
-
-                });
-            }
-
-
-
-            //@class._ViewMSTATACCEmployee = _WolfApproveCore_thaistanley._ViewMSTATACCEmployee.Where(x => x.EMPCODE == "015142").FirstOrDefault();
-
-            return @class._ListViewMSTATACCEmployee;
-
-        }
-        public List<ViewMSTATACCEmployee> UpdateTBMSTATACCEmployee2()
-        {
-            var resultList = new List<ViewMSTATACCEmployee>();
-
-            // 1. ดึงข้อมูลพนักงานหลัก (คัดกรองตั้งแต่ระดับ Database จะเร็วกว่า)
-            var empList = _HRMS.AccEMPLOYEE
-                .Where(x => x.QUIT_CODE == null)
-                .ToList();
-
-            // 2. แปลง Master Data เป็น Dictionary เพื่อการค้นหาที่รวดเร็ว (Key คือ Code)
-            var posDict = _HRMS.AccPOSMAST.ToDictionary(x => x.POS_CODE.ToString(), x => x.POS_NAME);
-            var divDict = _HRMS.AccDIVIMAST.ToDictionary(x => x.DIVI_CODE.ToString(), x => x.DIVI_NAME);
-            var deptDict = _HRMS.AccDEPTMAST.ToDictionary(x => x.DEPT_CODE.ToString(), x => x.DEPT_NAME);
-            var secDict = _HRMS.AccSECMAST.ToDictionary(x => x.SEC_CODE.ToString(), x => x.SEC_NAME);
-            var grpDict = _HRMS.AccGROMAST.ToDictionary(x => x.GRP_CODE.ToString(), x => x.GRP_NAME);
-            var unitDict = _HRMS.AccUNITMAST.ToDictionary(x => x.UNT_CODE.ToString(), x => x.UNT_NAME);
-
-            // กรณีตารางที่มีหลายเงื่อนไข (Composite Key) ให้รวม Key เป็น String
-            var dirIndirLookup = _HRMS.AccDirIndirMast.ToDictionary(
-                x => $"{x.diDiviCode}|{x.diDeptCode}|{x.diSectCode}|{x.diDirIndir}",
-                x => x.diDirIndirCode
-            );
-
-            // 3. วนลูปสร้างข้อมูลพนักงานรอบเดียว
-            for (int i = 0; i < empList.Count; i++)
-            {
-                var emp = empList[i];
-
-                // เตรียม Key สำหรับค้นหา DirIndir
-                string dirKey = $"{emp.DIVI_CODE}|{emp.DEPT_CODE}|{emp.SEC_CODE}|{emp.DirOrIndir}";
-
-                resultList.Add(new ViewMSTATACCEmployee
-                {
-                    EMPID = i + 1,
-                    EMPCODE = emp.EMP_CODE?.ToString(),
-                    Name = $"{emp.PRI_ENG}{emp.EMP_ENAME}  {emp.LAST_ENAME}",
-                    NameTH = $"{emp.PRI_THAI}{emp.EMP_TNAME}  {emp.LAST_TNAME}",
-                    JOB_NAME = emp.JOB_CODE?.ToString(),
-
-                    // ใช้ TryGetValue หรือ Indexer ในการดึงค่าจาก Dictionary (เร็วกว่า .Where มาก)
-                    PositionName = posDict.ContainsKey(emp.POS_CODE?.ToString() ?? "") ? posDict[emp.POS_CODE.ToString()] : null,
-                    DivisionName = divDict.ContainsKey(emp.DIVI_CODE?.ToString() ?? "") ? divDict[emp.DIVI_CODE.ToString()] : null,
-                    DepartmentName = deptDict.ContainsKey(emp.DEPT_CODE?.ToString() ?? "") ? deptDict[emp.DEPT_CODE.ToString()] : null,
-                    SECName = secDict.ContainsKey(emp.SEC_CODE?.ToString() ?? "") ? secDict[emp.SEC_CODE.ToString()] : null,
-                    GRPName = grpDict.ContainsKey(emp.GRP_CODE?.ToString() ?? "") ? grpDict[emp.GRP_CODE.ToString()] : null,
-                    UNTName = unitDict.ContainsKey(emp.UNT_CODE?.ToString() ?? "") ? unitDict[emp.UNT_CODE.ToString()] : null,
-
-                    DIRECT_INDIRECT_CODE = dirIndirLookup.ContainsKey(dirKey) ? dirIndirLookup[dirKey] : null,
-
-                    INTERCOMNO = string.IsNullOrWhiteSpace(emp.INTERCOMNO?.ToString()) ? "-" : emp.INTERCOMNO.ToString(),
-                    NICKNAME = emp.NICKNAME?.ToString()
-                });
-            }
-
-            return resultList;
-        }
         public List<ViewMSTATACCEmployee> UpdateTBMSTATACCEmployee()
         {
             List<ViewMSTATACCEmployee> _listViewMSTATACCEmployee = new List<ViewMSTATACCEmployee>();
@@ -422,14 +302,7 @@ namespace ImportMasterWolf.Controllers.New
 
                 // 2. เตรียมข้อมูลพนักงานและตำแหน่ง
                 var posListAll = _HRMS.AccPOSMAST.ToList();
-                //var dmHcm = int.Parse(posListAll.First(x => x.POS_CODE == "DM").POS_HCM_CODE);
                 var dmHcm = int.Parse(posListAll.First(x => x.POS_CODE == "GM").POS_HCM_CODE);
-
-                // กรองหัวหน้างานไว้รอ (Superior Candidates)
-                //var superiorPosList = posListAll
-                //    .Where(x => int.Parse(x.POS_HCM_CODE) >= dmHcm &&
-                //                !new[] { "DDM", "AV", "SAV", "PJ", "UL" }.Contains(x.POS_CODE))
-                //    .ToList();
 
                 var superiorPosList = posListAll
                                      .Where(x =>
@@ -474,49 +347,7 @@ namespace ImportMasterWolf.Controllers.New
                     // หา Superior (ยังคงต้องวนลูปชุดเล็ก แต่จำกัดวงด้วย Division)
                     var currentPos = posListAll.FirstOrDefault(p => p.POS_CODE == e.POS_CODE);
                     int currentHcm = int.Parse(currentPos?.POS_HCM_CODE ?? "999");
-                    //var superiorCode = new[] { "DDM", "AV", "SAV", "PJ" }.Contains(e.POS_CODE) ? "" :
-                    //                    (from s_e in empListAll
-                    //                     join s_p in superiorPosList on s_e.POS_CODE equals s_p.POS_CODE
-                    //                     where s_e.DIVI_CODE == e.DIVI_CODE &&
-                    //                           int.Parse(s_p.POS_HCM_CODE) < currentHcm
-                    //                     let priority = (s_e.UNT_CODE == e.UNT_CODE && e.UNT_CODE != "N") ? 1 :
-                    //                                    (s_e.GRP_CODE == e.GRP_CODE && e.GRP_CODE != "N") ? 2 :
-                    //                                    (s_e.SEC_CODE == e.SEC_CODE && e.SEC_CODE != "N") ? 3 :
-                    //                                    (s_e.DEPT_CODE == e.DEPT_CODE && e.DEPT_CODE != "N") ? 4 :
-                    //                                    (s_e.DIVI_CODE == e.DIVI_CODE && e.DIVI_CODE != "N") ? 5 : 6
-                    //                     //where //s_e.DIVI_CODE == e.DIVI_CODE &&
-                    //                     //    int.Parse(s_p.POS_HCM_CODE) < currentHcm
-                    //                     //let priority = (s_e.UNT_CODE == e.UNT_CODE && e.UNT_CODE != "N") ? 1 :
-                    //                     //               (s_e.GRP_CODE == e.GRP_CODE && e.GRP_CODE != "N") ? 2 :
-                    //                     //               (s_e.SEC_CODE == e.SEC_CODE && e.SEC_CODE != "N") ? 3 :
-                    //                     //               (s_e.DEPT_CODE == e.DEPT_CODE && e.DEPT_CODE != "N") ? 4 :
-                    //                     //               (s_e.DIVI_CODE == e.DIVI_CODE && e.DIVI_CODE != "N") ? 5 : 6
-                    //                     //orderby priority, (e.DEPT_CODE == "CAE" ? int.Parse(s_p.POS_HCM_CODE) : -int.Parse(s_p.POS_HCM_CODE))
-                    //                     orderby priority
-                    //                     select s_e.EMP_CODE).FirstOrDefault();
-
-
-
-                    //             var superiorCode = new[] { "DDM", "AV", "SAV", "PJ" }.Contains(e.POS_CODE)
-                    //? null
-                    //: (from s_e in empListAll
-                    //   join s_p in superiorPosList on s_e.POS_CODE equals s_p.POS_CODE
-                    //   where s_e.DIVI_CODE == e.DIVI_CODE
-                    //         && int.Parse(s_p.POS_HCM_CODE) < currentHcm
-                    //   let priority =
-                    //        (s_e.UNT_CODE == e.UNT_CODE && e.UNT_CODE != "N") ? 1 :
-                    //        (s_e.GRP_CODE == e.GRP_CODE && e.GRP_CODE != "N") ? 2 :
-                    //        (s_e.SEC_CODE == e.SEC_CODE && e.SEC_CODE != "N") ? 3 :
-                    //        (s_e.DEPT_CODE == e.DEPT_CODE && e.DEPT_CODE != "N") ? 4 :
-                    //        (s_e.DIVI_CODE == e.DIVI_CODE && e.DIVI_CODE != "N") ? 5 : 99 // ❗ กันหลุด
-                    //   where priority <= 5   // เอาเฉพาะ 1-5 เท่านั้น
-                    //   orderby priority,     // 🔥 เริ่มจาก 1 แน่นอน
-                    //              (e.DEPT_CODE == "CAE"
-                    //                  ? int.Parse(s_p.POS_HCM_CODE)
-                    //                  : -int.Parse(s_p.POS_HCM_CODE))
-                    //   select s_e.EMP_CODE
-                    //  ).FirstOrDefault();
-
+                   
                     return new ViewMSTEmployee
                     {
                         EmployeeCode = e.EMP_CODE,
@@ -528,7 +359,7 @@ namespace ImportMasterWolf.Controllers.New
                         DepartmentId = deptDict.ContainsKey(e.DEPT_CODE) ? deptDict[e.DEPT_CODE] : 0,
                         DivisionId = divDict.ContainsKey(e.DIVI_CODE) ? divDict[e.DIVI_CODE] : 0,
                         ReportToEmpCode = e.EMP_HEADCODE != null ? e.EMP_HEADCODE : "",  // superiorCode,//  v_EMP_HEADCODE != null ? v_EMP_HEADCODE:  superiorCode,   e.EMP_HEADCODE,//
-                        IsActive = true,
+                        IsActive = true,//_HRMS.AccEMPLOYEE.Where(x=>x.EMP_CODE== e.EMP_CODE).Select(x=>x.QUIT_CODE).FirstOrDefault()  is null? true : false,  //check accemployee quit_code is null == True
                         Lang = "EN",
                         AccountId = 1,
                         CreatedDate = DateTime.Now,
@@ -545,9 +376,15 @@ namespace ImportMasterWolf.Controllers.New
 
 
                 var ordered = result1.OrderBy(x => x.EmployeeCode).ToList();
+                //foreach(var item in existingEmpDict)
+                //{
+                //    item.Value.IsActive = _HRMS.AccEMPLOYEE.Any(x => x.EMP_CODE == item.Key && (x.QUIT_CODE == null || x.QUIT_CODE == ""));
 
+                //}
+              
                 foreach (var newItem in ordered)
                 {
+
                     if (existingEmpDict.TryGetValue(newItem.EmployeeCode, out var oldItem))
                     {
                         // Update
@@ -561,6 +398,9 @@ namespace ImportMasterWolf.Controllers.New
                         oldItem.ReportToEmpCode = newItem.ReportToEmpCode;
                         oldItem.Lang = oldItem.Lang is null || oldItem.Lang == "" ? "EN" : oldItem.Lang;
                         oldItem.Userid_Line = "";
+                        oldItem.IsActive = _HRMS.AccEMPLOYEE.Any(x => x.EMP_CODE == oldItem.EmployeeCode && (x.QUIT_CODE == null || x.QUIT_CODE == ""));
+
+
                     }
                     else
                     {
@@ -573,13 +413,29 @@ namespace ImportMasterWolf.Controllers.New
 
                 // 5. เปลี่ยน ReportTo จาก Code เป็น ID (ใช้ Dictionary เพื่อความเร็ว)
                 var finalIdDict = existingEmpList.ToDictionary(x => x.EmployeeCode, x => x.EmployeeId);
+                // ดึงรหัสคนที่ยังทำงานจาก HRMS ครั้งเดียว
+                var activeCodes = _HRMS.AccEMPLOYEE
+                    .Where(x => x.QUIT_CODE == null || x.QUIT_CODE == "")
+                    .Select(x => x.EMP_CODE)
+                    .ToList()
+                    .ToHashSet();
+
                 foreach (var e in existingEmpList)
                 {
+                    //var alwaysActivePrefixes = new[] { "wolf" };
                     if (!string.IsNullOrEmpty(e.ReportToEmpCode) && finalIdDict.TryGetValue(e.ReportToEmpCode, out var bossId))
                     {
                         e.ReportToEmpCode = bossId.ToString();
                     }
+                    // e.IsActive = _HRMS.AccEMPLOYEE.Any(x => x.EMP_CODE == e.EmployeeCode && (x.QUIT_CODE == null || x.QUIT_CODE == ""));
+                    //wolf01@
+                   // e.IsActive = e.EmployeeCode.Contains("wolf") ? true : activeCodes.Contains(e.EmployeeCode);
+                    e.IsActive = e.Username.ToLower().Contains("wolf", StringComparison.OrdinalIgnoreCase)|| activeCodes.Contains(e.EmployeeCode);
+                    // e.IsActive = alwaysActivePrefixes.Any(p => e.EmployeeCode.StartsWith(p, StringComparison.OrdinalIgnoreCase))|| activeCodes.Contains(e.EmployeeCode);
                 }
+
+
+                
 
                 @class._ListViewMSTEmployee = existingEmpList;
             }
@@ -1723,6 +1579,8 @@ namespace ImportMasterWolf.Controllers.New
             return returnResult;
         }
 
+
+
         public string[] saveDataDivi(Class @class, string tsave)
         {
             string config = "S";
@@ -2190,7 +2048,7 @@ namespace ImportMasterWolf.Controllers.New
             try
             {
 
-              
+
 
                 string vIcsNo = "";
                 string vIcsName = "";
